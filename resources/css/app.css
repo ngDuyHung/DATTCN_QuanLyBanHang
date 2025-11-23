@@ -1,0 +1,29 @@
+/* Import Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Import AdminLTE styles */
+@import 'admin-lte/dist/css/adminlte.min.css';
+
+/* Import Bootstrap Icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
+.custom-switch .form-check-input {
+        width: 40px;
+        height: 20px;
+        background-color: #ccc;
+        border-radius: 20px;
+        position: relative;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-switch .form-check-input:checked {
+        background-color: #4caf50;
+    }
+
+    
+    
