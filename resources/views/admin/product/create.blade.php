@@ -25,6 +25,7 @@
                         <input type="text" name="name" class="form-control"
                             value="{{ old('name', $product->name ?? '') }}" required>
                     </div>
+                    
                 </div>
 
                 <div class="mb-3">

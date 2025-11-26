@@ -26,8 +26,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 // Client Product Detail
 Route::get('/product/{id}', [App\Http\Controllers\client\ProductController::class, 'show'])->name('client.product.show');
 
+
 //Cart routes
-Route::resource('cart', \App\Http\Controllers\client\CartController::class);
+
+Route::post('/cart/store', [App\Http\Controllers\client\CartController::class, 'store'])->name('cart.store');
+
+Route::get('/cart', [App\Http\Controllers\client\CartController::class, 'index'])->name('cart');
 
     
 Route::post('/cart/store-ajax', [App\Http\Controllers\client\CartController::class, 'storeAjax'])->name('cart.storeAjax');
+Route::post('/cart/update', [App\Http\Controllers\client\CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete/{id}', [App\Http\Controllers\client\CartController::class, 'destroy'])->name('cart.destroy');

@@ -160,12 +160,12 @@
 
               <li class="cartgroup ml-3">
                 <div class="mini-cart text-xs-center">
-                  <a class="img_hover_cart" href="/cart" title="Giỏ hàng">
+                  <a class="img_hover_cart" href="{{route('cart')}}" title="Giỏ hàng">
                     <img loading="lazy"
                       src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/cart-icon.png?1762606819649" width="24"
                       height="24" alt="cart_icon" />
                     <span class='ml-2 d-xl-block d-none'>Giỏ hàng</span>
-                    <span class="count_item count_item_pr"> {{ is_array($cart) ? array_sum(array_column($cart, 'quantity')) : $cart->cartItems->sum('quantity') }}</span>
+                    <span class="count_item count_item_pr"> {{ $cart ? (is_array($cart) ? array_sum(array_column($cart, 'quantity')) : $cart->cartItems->sum('quantity')) : 0 }}</span>
                   </a>
                   <div class="top-cart-content card ">
                     <ul id="cart-sidebar" class="mini-products-list count_li list-unstyled">

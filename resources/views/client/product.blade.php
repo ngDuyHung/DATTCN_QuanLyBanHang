@@ -1948,7 +1948,7 @@
 
               <div class="modal-footer bg-light d-block">
                   <div class="d-flex justify-content-between align-items-center mb-3">
-                      <span class="text-muted">Giỏ hàng hiện có: <strong class="cart-popup-count text-dark">{{ is_array($cart) ? array_sum(array_column($cart, 'quantity')) : $cart->cartItems->sum('quantity') }}</strong> sản phẩm</span>
+                      <span class="text-muted">Giỏ hàng hiện có: <strong class="cart-popup-count text-dark">{{ $cart ? (is_array($cart) ? array_sum(array_column($cart, 'quantity')) : $cart->cartItems->sum('quantity')) : 0 }}</strong> sản phẩm</span>
                       <span class="h5 mb-0 text-danger font-weight-bold">{{$Product->price_format}} ₫</span>
                   </div>
 

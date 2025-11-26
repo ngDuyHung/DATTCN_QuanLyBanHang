@@ -16,7 +16,27 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+            $cartItems = $cart->cartItems()->with('product')->get();
+        } else {
+            $sessionCart = session()->get('cart', []);
+            $cartItems = collect($sessionCart)->map(function ($item) {
+                $product = Product::find($item['product_id']);
+                return (object)[
+                    'product' => $product,
+                    'quantity' => $item['quantity'],
+                ];
+            });
+        }
+        $totalPrice = $this->getTotalAmount($cartItems);
+        return view('client.cart', compact('cartItems', 'totalPrice'));
+    }
+
+    // Tính tổng tiền
+    private function getTotalAmount($cartItems)
+    {
+        return $cartItems->sum(fn($i) => $i->product->price * $i->quantity);
     }
 
     /**
@@ -27,57 +47,60 @@ class CartController extends Controller
         //
     }
 
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'product_id' => 'required|exists:products,product_id',
             'quantity' => 'required|integer|min:1',
         ]);
 
-        try {
-            if (Auth::check()) {
-                //$product = Product::where('sku', $validatedData['sku'])->first();
-                $cart = Cart::firstOrCreate(['user_id' => Auth::id()]); //lấy giỏ hàng của user hiện tại hoặc tạo mới nếu chưa có
-                dump($cart);
-                //thêm sản phẩm vào giỏ hàng
-                $cart->cartItems()->updateOrCreate([
-                    'product_id' => $validatedData['product_id'],
-                    'quantity' => $validatedData['quantity'],
-                ]);
-                var_dump($cart);
-                dd('dung dc');
-            } else {
-                $cart = session()->get('cart', []);
-                $found = false;
-                //kiểm tra sản phẩm đã có trong giỏ hàng chưa
-                foreach ($cart as &$item) {
-                    if ($item['product_id'] == $validatedData['product_id']) {
-                        //nếu có thì cập nhật số lượng
-                        $item['quantity'] += $validatedData['quantity'];
-                        $found = true;
-                        break;
-                    }
-                }
-                if (!$found) {
-                    //nếu chưa có thì thêm sản phẩm mới
-                    $cart[] = [
-                        'product_id' => $validatedData['product_id'],
-                        'quantity' => $validatedData['quantity'],
-                    ];
-                }
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
 
-                session()->put('cart', $cart);
+            // Tìm item hiện có
+            $existingItem = $cart->cartItems()->where('product_id', $validated['product_id'])->first();
+
+            if ($existingItem) {
+                // Nếu đã có thì cộng dồn quantity
+                $existingItem->update([
+                    'quantity' => $existingItem->quantity + $validated['quantity']
+                ]);
+                $item = $existingItem;
+            } else {
+                // Nếu chưa có thì tạo mới
+                $item = $cart->cartItems()->create([
+                    'product_id' => $validated['product_id'],
+                    'quantity' => $validated['quantity']
+                ]);
             }
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect()->back()->with('error', $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Item added to cart successfully!');
+        // Người chưa login → session
+        $cart = session()->get('cart', []);
+        $found = false;
+
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['product_id'] == $validated['product_id']) {
+                $cartItem['quantity'] += $validated['quantity'];
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            $cart[] = [
+                'product_id' => $validated['product_id'],
+                'quantity' => $validated['quantity'],
+            ];
+        }
+
+        session()->put('cart', $cart);
+       
+        return $this->index();
     }
 
     public function storeAjax(Request $request)
@@ -166,19 +189,100 @@ class CartController extends Controller
         //
     }
 
+    
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request)
     {
-        //
+        $totalPrice = 0;
+        if(Auth::check()){
+            $validated = $request->validate([
+                'product_id' => 'required|exists:products,product_id',
+                'quantity' => 'required|integer|min:1',
+            ]);
+            $cart = Cart::where(['user_id' => Auth::id()])->first();
+            $cartItem = $cart->cartItems()->where('product_id', $validated['product_id'])->first();
+
+            if ($cartItem) {
+                $cartItem->update([
+                    'quantity' => $validated['quantity']
+                ]);
+                $totalPrice = $this->getTotalAmount($cart->cartItems);
+            }
+        } else {
+            $validated = $request->validate([
+                'product_id' => 'required|exists:products,product_id',
+                'quantity' => 'required|integer|min:1',
+            ]);
+
+            $cart = session()->get('cart', []);
+
+            foreach ($cart as &$cartItem) {
+                if ($cartItem['product_id'] == $validated['product_id']) {
+                    $cartItem['quantity'] = $validated['quantity'];
+                    break;
+                }
+            }
+
+            session()->put('cart', $cart);
+            // Tính tổng tiền sau khi cập nhật
+            $cartItems = collect($cart)->map(function ($item) {
+                $product = Product::find($item['product_id']);
+                return (object)[
+                    'product' => $product,
+                    'quantity' => $item['quantity'],
+                ];
+            });
+            $totalPrice = $this->getTotalAmount($cartItems);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Cập nhật giỏ hàng thành công',
+            'totalPrice' => $totalPrice
+        ]);
+  
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy($product_id)
     {
-        //
+        $totalPrice = 0;
+        if(Auth::check()){
+            $cart = Cart::where(['user_id' => Auth::id()])->first();
+
+            $cartItem = $cart->cartItems()->where('product_id', $product_id)->first();
+
+            if ($cartItem) {
+                $cartItem->delete();
+            }
+            $totalPrice = $this->getTotalAmount($cart->cartItems);
+        } else {
+            $cart = session()->get('cart', []);
+
+            //lọc bỏ item có product_id trùng với product_id cần xóa
+            $cart = array_filter($cart, function ($cartItem) use ($product_id) {
+                return $cartItem['product_id'] != $product_id;
+            });
+
+            session()->put('cart', $cart);
+            // Tính tổng tiền sau khi xóa
+            $cartItems = collect($cart)->map(function ($item) {
+                $product = Product::find($item['product_id']);
+                return (object)[
+                    'product' => $product,
+                    'quantity' => $item['quantity'],
+                ];
+            });
+            $totalPrice = $this->getTotalAmount($cartItems);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Đã xóa khỏi giỏ hàng',
+            'totalPrice' => $totalPrice
+        ]);
+
     }
 }
