@@ -25,7 +25,8 @@
     <div class="wrap_background_aside padding-top-15 margin-bottom-40 padding-left-0 padding-right-0 cartmbstyle">
         @if(!$cartItems->isEmpty())
         <div id="data-cart" class="cart-mobile container card border-0 py-2">
-            <form action="/cart" method="post" novalidate="" class="margin-bottom-0">
+            <form action="{{route('cart.checkout')}}" method="post" novalidate="" class="margin-bottom-0">
+                @csrf
                 <div class="header-cart">
                     <div class=" title_cart_mobile heading-bar">
                         <h1 class="heading-bar__title">Giỏ hàng</h1>
@@ -35,6 +36,9 @@
                 <div class="header-cart-content">
                     <div class="cart_page_mobile content-product-list">
                         @foreach($cartItems as $item)
+                        <input type="hidden" name="products[{{ $item->product->product_id }}][id]" value="{{ $item->product->product_id }}">
+                        <input type="hidden" name="products[{{ $item->product->product_id }}][qty]" value="{{ $item->quantity }}" class="hidden-qty">
+
                         <div class="item-product item productid-149063056 ">
                             <div class="text-center">
                                 <a class="remove-itemx remove-item-cart " title="Xóa" href="javascript:;" data-id="{{ $item->product->product_id }}">
@@ -129,7 +133,7 @@
 
 
                         <div class="checkout d-block">
-                            <button class="btn btn-block btn-proceed-checkout-mobile" title="Tiến hành thanh toán" type="button" onclick="goToCheckout(event)">
+                            <button type="submit" class="btn btn-block btn-proceed-checkout-mobile" title="Tiến hành thanh toán">
                                 <span>Thanh Toán</span>
                             </button>
                         </div>
@@ -216,6 +220,11 @@
     });
 
     function updateQuantity(input) {
+        let productID = input.data('id');
+
+        //Cập nhật hidden input trong form
+        $('input[name="products[' + productID + '][qty]"]').val(input.val());
+
         $.ajax({
             url: '/cart/update',
             type: 'post',

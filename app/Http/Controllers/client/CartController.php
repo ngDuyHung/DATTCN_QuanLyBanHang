@@ -47,7 +47,7 @@ class CartController extends Controller
         //
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -99,8 +99,28 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-       
+
         return $this->index();
+    }
+
+    public function showCheckout()
+    {
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+            $cartItems = $cart->cartItems()->with('product')->get();
+        } else {
+            $sessionCart = session()->get('cart', []);
+            $cartItems = collect($sessionCart)->map(function ($item) {
+                $product = Product::find($item['product_id']);
+                return (object)[
+                    'product' => $product,
+                    'quantity' => $item['quantity'],
+                ];
+            });
+        }
+        $totalPrice = $this->getTotalAmount($cartItems);
+
+        return view('client.checkout', compact('cartItems', 'totalPrice'));
     }
 
     public function storeAjax(Request $request)
@@ -189,14 +209,14 @@ class CartController extends Controller
         //
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
     {
         $totalPrice = 0;
-        if(Auth::check()){
+        if (Auth::check()) {
             $validated = $request->validate([
                 'product_id' => 'required|exists:products,product_id',
                 'quantity' => 'required|integer|min:1',
@@ -241,7 +261,6 @@ class CartController extends Controller
             'message' => 'Cập nhật giỏ hàng thành công',
             'totalPrice' => $totalPrice
         ]);
-  
     }
 
     /**
@@ -250,7 +269,7 @@ class CartController extends Controller
     public function destroy($product_id)
     {
         $totalPrice = 0;
-        if(Auth::check()){
+        if (Auth::check()) {
             $cart = Cart::where(['user_id' => Auth::id()])->first();
 
             $cartItem = $cart->cartItems()->where('product_id', $product_id)->first();
@@ -283,6 +302,5 @@ class CartController extends Controller
             'message' => 'Đã xóa khỏi giỏ hàng',
             'totalPrice' => $totalPrice
         ]);
-
     }
 }

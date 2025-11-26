@@ -37,6 +37,8 @@
 <link rel="stylesheet" href="{{ asset('bootstrap-5.3.7-dist/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/cartpage.css') }}">
 
+
+
 <link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/index.css?1763544043956">
 <link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/responsive.css?1763544043956">
 <link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/product-infor-style.css?1763544043956">

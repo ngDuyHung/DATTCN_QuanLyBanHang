@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers\client;
+
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Promotion;
+use Illuminate\Container\Attributes\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+class OrderController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    // Tạo số đơn hàng ngẫu nhiên và đảm bảo không trùng lặp
+    public function generateUniqueNumber($table, $column, $length = 8)
+    {
+       do{
+            $number = '';
+            for ($i = 0; $i < $length; $i++) {
+                $number .= rand(0, 9);
+            }
+            $exists = \Illuminate\Support\Facades\DB::table($table)->where($column, $number)->exists();
+        } while ($exists);  
+       
+        return $number;
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $products = $request->input('products', []);
+        $fullName = $request->input('billingName', '');
+        $email = $request->input('email', '');
+        $phone = $request->input('billingPhone', '');
+        $tinh_thanh = $request->input('billingProvince', '');
+        $quan_huyen = $request->input('billingDistrict', '');
+        $phuong_xa = $request->input('billingWard', '');
+        $address = $request->input('billingAddress', '');
+        $note = $request->input('note', '');
+        $paymentMethod = $request->input('paymentMethod', 'cod');
+        $promotionCode = $request->input('reductionCode', null);
+        if (empty($products)) {
+            return redirect()->back()->with('error', 'Giỏ hàng trống!');
+        }
+        if(empty($fullName) || empty($email) || empty($phone) || empty($address) || empty($tinh_thanh) || empty($quan_huyen) || empty($phuong_xa)) {
+            return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin thanh toán.');
+        }
+
+        $promotion = Promotion::where('code', $promotionCode)->first();
+        $totalAmount = 0;
+        foreach ($products as $pd) {
+            $product = \App\Models\Product::find($pd['id']);
+            if ($product) {
+                $totalAmount += $product->price * $pd['qty'];
+            }
+        }
+
+        if(Auth::check()){
+            $userId = Auth::id();
+        } else {
+            $userId = null; // or handle guest users differently
+        }
+
+        $order = Order::create([
+            'order_number' => $this->generateUniqueNumber('orders', 'order_number', 10),
+            'user_id' => $userId,
+            'full_name' => $fullName,
+            'email' => $email,
+            'phone' => $phone,
+            'address_snapshot' => "$address, $phuong_xa, $quan_huyen, $tinh_thanh",
+            'promo_id' => $promotion ? $promotion->promo_id : null,
+            'payment_method' => $paymentMethod,
+            'shipping_fee' => 0,
+            'subtotal' => $totalAmount,
+            'discount_amount' => 0,
+            'total_amount' => $totalAmount,
+            'status' => 'pending',
+            'note' => $note,
+        ]);
+
+        // Lưu các mục đơn hàng
+        foreach ($products as $pd) {
+            $product = \App\Models\Product::find($pd['id']);
+            if ($product) {
+                $order->orderItems()->create([
+                    'product_id' => $product->product_id,
+                    'sku' => $product->sku,
+                    'product_name' => $product->name,
+                    'quantity' => $pd['qty'],
+                    'unit_price' => $product->price,
+                    'line_total' => $product->price * $pd['qty'],
+                    'created_at'=> now(),
+                ]);
+            }
+        }
+        //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
+        return view('home')->with('success', 'Đặt hàng thành công.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Order $order)
+    {
+        //
+        return view('client.checkout', compact('order'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Order $order)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Order $order)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Order $order)
+    {
+        //
+    }
+}
