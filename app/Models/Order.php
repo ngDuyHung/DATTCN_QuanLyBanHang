@@ -34,4 +34,31 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'handled_by', 'id');
     }
+
+    public function getTotalAmountFormatAttribute()
+    {
+        return number_format($this->total_amount, 0, ',', '.') . ' đ';
+    }
+
+    public function getShippingFeeFormatAttribute()
+    {
+        return number_format($this->shipping_fee, 0, ',', '.') . ' đ';
+    }
+
+    public function getDiscountAmountFormatAttribute()
+    {
+        return number_format($this->discount_amount, 0, ',', '.') . ' đ';
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        return match ($this->status) {
+            'pending' => 'Chờ xử lý',
+            'processing' => 'Đang xử lý',
+            'completed' => 'Hoàn thành',
+            'cancelled' => 'Đã hủy',
+            'refunded' => 'Đã hoàn tiền',
+            default => 'Không xác định',
+        };
+    }
 }

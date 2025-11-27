@@ -12,13 +12,12 @@
         <div class="col-md-12">
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive text-nowrap">
                     <table class="table table-bordered table-striped table-hover table-module mb-0">
                         <thead>
                             <tr>
                                 <th>Mã SKU</th>
                                 <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
                                 <th>Giá bán</th>
                                 <th>Loại</th>
                                 <th>Thương hiệu</th>
@@ -33,7 +32,6 @@
                             <tr>
                                 <td>{{ $product->sku }}</td>
                                 <td><img src="{{ asset('storage/'.$product->main_img_url) }}" alt=""style="height: 40px; max-width: 100%;" ></td>
-                                <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->category->name ?? 'N/A' }}</td>
                                 <td>{{ $product->brand->name ?? 'N/A' }}</td>

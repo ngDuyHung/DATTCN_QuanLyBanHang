@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'bank' => [
+        'bank_id' => env('BANK_ID', 'MB'),
+        'bank_name' => env('BANK_NAME', 'MB Bank'),
+        'account_no' => env('BANK_ACCOUNT_NO', '0124676767777'),
+        'account_name' => env('BANK_ACCOUNT_NAME', 'NGUYEN DUY HUNG'),
+    ],
+
 ];

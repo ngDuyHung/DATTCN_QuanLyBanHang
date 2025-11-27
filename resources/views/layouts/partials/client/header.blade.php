@@ -37,12 +37,11 @@
 <link rel="stylesheet" href="{{ asset('bootstrap-5.3.7-dist/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/cartpage.css') }}">
 
+<link rel="stylesheet" href="{{ asset('assets/client/index.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/client/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/client/product-infor-style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/client/quickviews-popup-cart.css') }}">
 
-
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/index.css?1763544043956">
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/responsive.css?1763544043956">
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/product-infor-style.css?1763544043956">
-<link rel="preload" as='style'  type="text/css" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/quickviews-popup-cart.css?1763544043956">
 
 
 <link rel="preload" as="image" href="//bizweb.dktcdn.net/thumb/large/100/329/122/themes/1038963/assets/slider_1.jpg?1763544043956"  media="screen and (max-width: 480px)">
@@ -103,7 +102,9 @@
 				src: url(//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/lato-bold.woff2?1763544043956) format('woff2');
 			}
 		</style>
-		<link href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/main.css?1763544043956" rel="stylesheet"/>
+
+		<link rel="stylesheet" href="{{ asset('assets/client/main.css') }}" >
+
 
 		<link href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/product-infor-style.css?1763544043956" rel="stylesheet" type="text/css" media="all" />
 		<style>
@@ -341,8 +342,9 @@
 		
 		    <link href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/quickviews-popup-cart.css?1762621286385"
         rel="stylesheet" type="text/css" media="all" />
-    <link href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/blog-article-style.css?1762621286385"
-        rel="stylesheet" type="text/css" media="all" />
+
+				<link rel="stylesheet" href="{{ asset('assets/client/blog-article-style.css') }}" type="text/css" media="all" >
+
     <link href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/edit-blog-article.scss.css?1762621286385"
         rel="stylesheet" type="text/css" media="all" />
 

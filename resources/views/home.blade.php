@@ -52,6 +52,112 @@
                 alt="logo DuyhungZone by Nguyễn Duy Hùng" width="248" height="56">
             </a>
 
+            <div class="toogle-nav-wrapper w-100 ">
+              <div class=" d-flex align-items-center" style="height: 52px; font-size: 1rem; font-weight: 500">
+                <div class="icon-bar btn menu-bar mr-3 ml-0 p-0 d-inline-flex">
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </div>
+                Danh mục sản phẩm
+              </div>
+
+              <div class="navigation-wrapper">
+
+                <nav class="h-100">
+                  <ul class="navigation list-group list-group-flush scroll">
+
+
+
+                    <li class="menu-item list-group-item">
+                      <a href="/working-gaming-gear" class="menu-item__link" title="Chuột-Bàn phím-Tai nghe">
+                        <img width="24" height="24" src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/menu_icon_1.png?1764228474488" alt="Chuột-Bàn phím-Tai nghe">
+                        <span>Chuột-Bàn phím-Tai nghe</span>
+
+                        <i class="float-right" data-toggle-submenu="">
+
+
+                          <svg class="icon">
+                            <use xlink:href="#icon-arrow"></use>
+                          </svg>
+                        </i>
+                      </a>
+
+                      <div class="submenu scroll">
+                        <div class="toggle-submenu d-lg-none d-xl-none">
+                          <i class="mr-3">
+
+
+                            <svg class="icon" style="transform: rotate(180deg)">
+                              <use xlink:href="#icon-arrow"></use>
+                            </svg>
+                          </i>
+                          <span>Chuột-Bàn phím-Tai nghe </span>
+                        </div>
+                        <ul class="submenu__list">
+
+                          <li class="submenu__col">
+                            <span class="submenu__item submenu__item--main">
+                              <a class="link" href="/chuot-gaming-van-phong" title="Chuột">Chuột</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-razer" title="Razer">Razer</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-logitech" title="Logitech">Logitech</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-asus" title="Asus ROG">Asus ROG</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-rapoo" title="Rapoo">Rapoo</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-lenovo" title="Lenovo">Lenovo</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-atk-vxe" title="ATK - VXE">ATK - VXE</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-hyperx" title="HyperX">HyperX</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-lemokey" title="Keychron - Lemokey">Keychron - Lemokey</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="https://memoryzone.com.vn/chuot-gaming-khong-day-angry-miao-am-infinity-mouse-8k-infinite-battery-life" title="Angry Miao">Angry Miao</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/chuot-dell" title="Dell - AlienWare">Dell - AlienWare</a>
+                            </span>
+
+                            <span class="submenu__item submenu__item">
+                              <a class="link" href="/hop-qua-tang" title="Hộp quà tặng">Hộp quà tặng</a>
+                            </span>
+
+                          </li>
+
+                        </ul>
+                      </div>
+                    </li>
+
+
+                  </ul>
+                </nav>
+
+              </div>
+
+            </div>
 
           </div>
           <div class="col-lg-6 col-12 header-center pl-lg-0" id="search-header">

@@ -2473,3 +2473,56 @@ body.menu-is-hover .subheader {
 #google_translate_element select {
     width: auto;
 }
+
+
+.btn-primaryv2 {
+	background-color: var(--primary-color);
+	color: #fff;
+	border: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.btn-dangerv2 {
+	background-color: var(--danger-color);
+	color: #fff;
+	border: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+
+.btn-successv2 {
+	background-color: var(--success-color);
+	color: #fff;
+	border: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+
+.btn-infov2 {
+	background-color: var(--info-color);
+	color: #fff;
+	border: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.btn-warningv2 {
+	background-color:#d3d137;
+	color: #fff;
+	border: none;
+	padding: 7px 20px;
+	font-size: 14px;
+	border-radius: 4px;
+	cursor: pointer;
+}

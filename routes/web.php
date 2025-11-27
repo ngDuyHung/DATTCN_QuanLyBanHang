@@ -21,6 +21,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     $router->resource('category', \App\Http\Controllers\admin\CategoryController::class);
     $router->resource('brand', \App\Http\Controllers\admin\BrandController::class);
     $router->resource('product', \App\Http\Controllers\admin\ProductController::class);
+    $router->resource('order', \App\Http\Controllers\admin\OrderController::class);
 });
 
 // Client Product Detail
@@ -41,3 +42,4 @@ Route::get('/cart/checkout', [App\Http\Controllers\client\CartController::class,
 
 //Checkout routes
 Route::post('/checkout', [App\Http\Controllers\client\OrderController::class, 'store'])->name('checkout');
+Route::get('/checkout/success/{order_number}', [App\Http\Controllers\client\OrderController::class, 'topup'])->name('checkout.success');

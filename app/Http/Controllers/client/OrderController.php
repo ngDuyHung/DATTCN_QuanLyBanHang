@@ -77,9 +77,9 @@ class OrderController extends Controller
         } else {
             $userId = null; // or handle guest users differently
         }
-
+        $randomNumber = $this->generateUniqueNumber('orders', 'order_number', 10);
         $order = Order::create([
-            'order_number' => $this->generateUniqueNumber('orders', 'order_number', 10),
+            'order_number' => $randomNumber,
             'user_id' => $userId,
             'full_name' => $fullName,
             'email' => $email,
@@ -111,9 +111,33 @@ class OrderController extends Controller
             }
         }
         //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
-        return view('home')->with('success', 'Đặt hàng thành công.');
+        
+        // Chuyển hướng đến trang thanh toán với mã đơn hàng
+        return redirect()->route('checkout.success', ['order_number' => $randomNumber]);
     }
-
+    
+    /**
+     * Hiển thị trang thanh toán với mã đơn hàng
+     */
+    public function topup($order_number)
+    {
+        // Tìm đơn hàng theo order_number
+        $order = Order::where('order_number', $order_number)
+            ->with(['orderItems.product'])
+            ->first();
+        
+        // Kiểm tra đơn hàng có tồn tại không
+        if (!$order) {
+            return redirect()->route('home')->with('error', 'Không tìm thấy đơn hàng.');
+        }
+        
+        // Kiểm tra nếu đơn hàng đã thanh toán thì không cho xem lại
+        if ($order->status === 'completed') {
+            return redirect()->route('home')->with('error', 'Đơn hàng đã hoàn thành.');
+        }
+        
+        return view('client.topup', compact('order'));
+    }
     /**
      * Display the specified resource.
      */

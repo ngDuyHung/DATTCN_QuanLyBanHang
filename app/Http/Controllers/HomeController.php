@@ -29,7 +29,8 @@ class HomeController extends Controller
     {
         $brands=Brand::orderBy('brand_id','desc')->take(5)->get();
         $products=Product::orderBy('created_at','desc')->take(8)->get();
-        return view('client.home', compact('brands', 'products'));
+        $home=true;
+        return view('client.home', compact('brands', 'products', 'home'));
     }
 
     public function dashboard()
