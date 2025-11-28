@@ -17,7 +17,6 @@
                         <thead>
                             <tr>
                                 <th>mã đơn hàng </th>
-                                <th>người dùng </th>
                                 <th>họ và tên</th>
                                 <th>email/phone</th>
                                 <th>hình thức</th>
@@ -31,8 +30,9 @@
                             @foreach ($orders as $order)
                             <tr>
                                 <td>{{ $order->order_number }}</td>
-                                <td>@if(!empty($order->user_id)){{ 'Mã user:' . $order->user_id }}@else Khách vãng lai @endif</td>
-                                <td>{{ $order->full_name }}</td>
+                                <td>{{ $order->full_name }}<br>
+                                    @if(!empty($order->user_id)){{ 'Mã user:' }}<span class="h6 text-danger">{{ $order->user_id }}</span>@else <span class="h6 text-danger">Khách vãng lai</span> @endif
+                                </td>
                                 <td>
                                     {{ $order->email }}<br>{{ $order->phone }}
                                 </td>
@@ -44,7 +44,7 @@
                                 </td>
                                 <td>{{ $order->total_amount_format }}</td>
                                 <td>@if($order->status == 'pending')
-                                    <p class="badge text-bg-warning">Chờ thanh toán</p> 
+                                    <p class="badge text-bg-warning">Chờ thanh toán</p>
                                     @elseif($order->status == 'processing')
                                     <p class="badge text-bg-info">Đang xử lý</p>
                                     @elseif($order->status == 'shipped')
@@ -60,7 +60,11 @@
                                     @endif
                                 <td>{{ $order->placed_at }}</td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-outline-primary shadow bi bi-eye" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
+                                    <a href="javascript:void(0)"
+                                        class="btn btn-sm btn-outline-primary shadow bi bi-eye btn-show-order" 
+                                        data-url="{{ route('admin.order.show_api', ['id' => $order->order_id]) }}">
+                                    </a>
+                                    <a href="{{ route('admin.order.edit', $order) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
                                     <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -110,123 +114,98 @@
 <!--end::Row-->
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered"> <div class="modal-content border-0 shadow-lg">
-            
-            <div class="modal-header bg-light">
-                <h5 class="modal-title text-uppercase fw-bold text-primary" id="exampleModalLabel">
-                    <i class="bi bi-box-seam-fill me-2"></i>Chi tiết đơn hàng #{{ $order->order_number }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{{-- Đoạn Modal Vỏ Rỗng --}}
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        {{-- QUAN TRỌNG: id="modalContentArea" nằm ở class modal-content --}}
+        <div class="modal-content border-0 shadow-lg" id="modalContentArea">
+
+            {{-- Loading State mặc định --}}
+            <div class="modal-body p-5 text-center">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-3 text-muted">Đang tải dữ liệu...</p>
             </div>
 
-            <div class="modal-body p-4">
-                <form action="" method="post">
-                    @csrf
-                    
-                    <div class="row g-4">
-                        
-                        <div class="col-lg-4 col-md-6 border-end">
-                            <h6 class="text-secondary mb-3"><i class="bi bi-person-lines-fill me-2"></i>Thông tin khách hàng</h6>
-                            
-                            <div class="mb-3">
-                                <label class="small text-muted">Họ và tên</label>
-                                <div class="fw-bold">{{ $order->full_name }}</div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="small text-muted">User ID / Email</label>
-                                <div>
-                                    <span class="badge bg-secondary me-1">ID: {{ $order->user_id }}</span>
-                                    <span>{{ $order->email }}</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="small text-muted">Số điện thoại</label>
-                                <div class="fw-bold"><i class="bi bi-telephone me-1"></i> {{ $order->phone }}</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="small text-muted">Địa chỉ giao hàng</label>
-                                <div class="p-2 bg-light rounded border text-break">
-                                    <i class="bi bi-geo-alt text-danger me-1"></i> {{ $order->address_snapshot }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 border-end">
-                            <h6 class="text-secondary mb-3"><i class="bi bi-info-circle-fill me-2"></i>Chi tiết vận hành</h6>
-
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label class="small text-muted">Mã đơn (Order ID)</label>
-                                    <div class="fw-bold">{{ $order->order_id }}</div>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label class="small text-muted">Ngày đặt</label>
-                                    <div>{{ $order->placed_at }}</div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="small text-muted">Phương thức thanh toán</label>
-                                <div class="fw-bold text-success">
-                                    <i class="bi bi-credit-card-2-front me-1"></i> {{ $order->payment_method }}
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="small text-muted">Trạng thái đơn hàng</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-white"><i class="bi bi-activity"></i></span>
-                                    <input type="text" class="form-control fw-bold text-primary" value="{{ $order->status_label }}" name="status" readonly> 
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="small text-muted">Ghi chú</label>
-                                <textarea class="form-control bg-light" rows="2" readonly>{{ $order->note }}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-12">
-                            <h6 class="text-secondary mb-3"><i class="bi bi-currency-dollar me-2"></i>Tổng kết tài chính</h6>
-                            
-                            <ul class="list-group list-group-flush mb-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    <span class="text-muted">Tạm tính (Subtotal)</span>
-                                    <span class="fw-bold">{{ number_format($order->subtotal) }} đ</span> </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    <span class="text-muted">Phí vận chuyển</span>
-                                    <span>{{ $order->shipping_fee_format }} </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 text-success">
-                                    <span><i class="bi bi-ticket-perforated me-1"></i>Giảm giá ({{ $order->promo_id }})</span>
-                                    <span>- {{ $order->discount_amount_format }}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 bg-light border rounded mt-2 p-2">
-                                    <span class="fw-bold text-uppercase">Tổng cộng</span>
-                                    <span class="fs-5 fw-bold text-danger">{{ $order->total_amount_format }}</span>
-                                </li>
-                            </ul>
-
-                            <div class="alert alert-info py-2 small">
-                                <i class="bi bi-clock-history me-1"></i> Cập nhật lần cuối: {{ $order->updated_at }} <br>
-                                <i class="bi bi-person-gear me-1"></i> Xử lý bởi: {{ $order->handled_by }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer border-0 pt-4">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-warning px-4 fw-bold">
-                            <i class="bi bi-save me-1"></i> Cập nhật
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Script loaded successfully');
+        
+        // Sử dụng Event Delegation (bắt sự kiện từ body) để không bị lỗi với các element sinh ra sau
+        document.body.addEventListener('click', function(event) {
+
+            // Tìm xem người dùng có click vào nút (hoặc icon bên trong nút) có class .btn-show-order không
+            const button = event.target.closest('.btn-show-order');
+
+            if (button) {
+                event.preventDefault(); // Ngăn chặn load lại trang
+                console.log('Button clicked!');
+
+                const url = button.getAttribute('data-url');
+                console.log('URL:', url);
+                
+                const modalElement = document.getElementById('orderDetailModal');
+                const modalContent = document.getElementById('modalContentArea');
+
+                // 1. Mở Modal (Hỗ trợ Bootstrap 5)
+                if (typeof bootstrap !== 'undefined') {
+                    const myModal = new bootstrap.Modal(modalElement);
+                    myModal.show();
+                    console.log('Modal opened with Bootstrap 5');
+                } else if (typeof $ !== 'undefined' && $.fn.modal) {
+                    // Fallback cho Bootstrap 4 với jQuery
+                    $(modalElement).modal('show');
+                    console.log('Modal opened with Bootstrap 4');
+                } else {
+                    console.error('Bootstrap not found!');
+                    return;
+                }
+
+                // 2. Hiển thị Loading
+                modalContent.innerHTML = `
+                    <div class="modal-body p-5 text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Đang tải dữ liệu...</p>
+                    </div>
+                `;
+
+                // 3. Gọi AJAX bằng Fetch API
+                console.log('Fetching data from:', url);
+                fetch(url)
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        if (!response.ok) {
+                            throw new Error('HTTP error! status: ' + response.status);
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        console.log('HTML received, length:', html.length);
+                        console.log('First 200 chars:', html.substring(0, 200));
+                        
+                        // 4. Gán HTML vào modal
+                        modalContent.innerHTML = html;
+                        console.log('HTML injected successfully');
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        modalContent.innerHTML = `
+                            <div class="modal-body text-center text-danger p-5">
+                                <i class="bi bi-exclamation-triangle fs-1"></i>
+                                <p class="mt-3">Lỗi: Không thể tải dữ liệu đơn hàng.</p>
+                                <p class="text-muted small">${error.message}</p>
+                                <button type="button" class="btn btn-light mt-2" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        `;
+                    });
+            }
+        });
+    });
+</script>
 @endsection

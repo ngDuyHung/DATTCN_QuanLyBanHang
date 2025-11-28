@@ -30,7 +30,7 @@ class Order extends Model
         return $this->belongsTo(Promotion::class, 'promo_id', 'promo_id');
     }
 
-    public function handler()
+    public function handler()               
     {
         return $this->belongsTo(User::class, 'handled_by', 'id');
     }

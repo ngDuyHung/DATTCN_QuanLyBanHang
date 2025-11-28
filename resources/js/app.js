@@ -7,7 +7,10 @@ import 'overlayscrollbars/overlayscrollbars.css';
 import '@popperjs/core';
 
 // Import Bootstrap JS (cần cho AdminLTE)
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
+
+// Expose Bootstrap to global window object
+window.bootstrap = bootstrap;
 
 // Import OverlayScrollbars
 import { OverlayScrollbars } from 'overlayscrollbars';

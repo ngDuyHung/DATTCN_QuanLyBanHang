@@ -32,17 +32,21 @@
                     </div>
                     <!--end::Row-->
                     <!-- begin::Alerts -->
-                     <div class="row">
+                    <div class="row">
                         <div class="col">
                             @include('layouts.partials.admin.alerts')
                         </div>
-                     </div>
+                    </div>
                     <!-- end::Alerts -->
 
                 </div>
                 <!--end::Container-->
             </div>
-                <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+            <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+            <link rel="preload" as="script" href="//bizweb.dktcdn.net/assets/themes_support/api.jquery.js">
+
+            <script src="//bizweb.dktcdn.net/assets/themes_support/api.jquery.js" type="text/javascript"></script>
+
             <div class="app-content">
                 <!--begin::Container-->
                 @yield('content')
@@ -70,7 +74,6 @@
         integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
         crossorigin="anonymous"></script>
     <script>
-
         // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
         // IT'S ALL JUST JUNK FOR DEMO
         // ++++++++++++++++++++++++++++++++++++++++++

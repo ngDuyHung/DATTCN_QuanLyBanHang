@@ -1,91 +1,156 @@
-{{-- Kế thừa từ file layout admin --}}
 @extends('layouts.admin')
 
-{{-- Đặt tiêu đề cho trang --}}
-@section('title', 'Sửa thương hiệu')
+@section('title', 'Cập nhật đơn hàng #' . $order->order_number)
 
-{{-- Đặt nội dung cho trang --}}
 @section('content')
-<div class="container">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <form action="{{ isset($brand) ? route('admin.brand.update', $brand->brand_id) : route('admin.brand.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @if(isset($brand))
-                @method('PUT')
-                @endif
-
-
-                @if(isset($brand))
-                <div class="mb-3">
-                    <label for="id" class="form-label">ID</label>
-                    <input type="text" name="id" id="id"
-                        class="form-control"
-                        value="{{ old('id', $brand->brand_id ?? '') }}"
-                        placeholder="Tự động hoặc nhập ID"
-                        {{ isset($brand) ? 'readonly' : '' }}>
-                </div>
-                @endif
-                <div class="mb-3">
-                    <label for="name" class="form-label">Tên thương hiệu</label>
-                    <input type="text" name="name" id="name"
-                        class="form-control"
-                        value="{{ old('name', $brand->name ?? '') }}"
-                        placeholder="Nhập tên thương hiệu" required>
-                </div>
-                <div class="mb-3">
-                    <label for="logo_url" class="form-label">Logo thương hiệu</label>
-                    <input type="file" name="logo_url" id="logo_url" class="form-control">
-
-                    {{-- Hiển thị ảnh cũ nếu đang ở chế độ edit --}}
-                    @if(isset($brand) && $brand->logo_url)
-                    <div class="mt-2">
-                        <img src="{{ asset('storage/' . $brand->logo_url) }}" alt="Logo" width="100" class="rounded border">
-                    </div>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Mô tả</label>
-                    <textarea name="description" id="description"
-                        rows="3" class="form-control"
-                        placeholder="Nhập mô tả danh mục">{{ old('description', $category->description ?? '') }}</textarea>
-                </div>
-                @if(isset($category))
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="created_at" class="form-label">Ngày tạo</label>
-                        <input type="datetime-local" name="created_at" id="created_at"
-                            class="form-control"
-                            value="{{ old('created_at', isset($brand) ? $brand->created_at->format('Y-m-d\TH:i') : '') }}"
-                            {{ isset($brand) ? 'readonly' : '' }}>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="updated_at" class="form-label">Ngày cập nhật</label>
-                        <input type="datetime-local" name="updated_at" id="updated_at"
-                            class="form-control"
-                            value="{{ old('updated_at', isset($brand) ? $brand->updated_at->format('Y-m-d\TH:i') : '') }}"
-                            readonly>
-                    </div>
-                </div>
-                @endif
-
-                <div class="mb-3">
-                    <label for="is_staff" class="form-label">Trạng thái</label>
-                    <select name="is_staff" id="is_staff" class="form-select">
-                        <option value="1" {{ old('is_staff', $brand->is_staff ?? '') == 1 ? 'selected' : '' }}>Hoạt động</option>
-                        <option value="0" {{ old('is_staff', $brand->is_staff ?? '') == 0 ? 'selected' : '' }}>Tạm tắt</option>
-                    </select>
-                </div>
-
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('admin.brand.index') }}" class="btn btn-secondary me-2">Quay lại</a>
-                    <button type="submit" class="btn btn-success">
-                        {{ isset($brand) ? 'Cập nhật' : 'Thêm mới' }}
-                    </button>
-                </div>
-            </form>
-        </div>
+<div class="container-fluid">
+    {{-- Header & Breadcrumb --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{{ route('admin.order.index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+        </a>
     </div>
-</div>
 
+    <form action="{{ route('admin.order.update', $order->order_id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <div class="row">
+            {{-- CỘT TRÁI: THÔNG TIN KHÁCH HÀNG & GIAO HÀNG --}}
+            <div class="col-lg-8">
+                {{-- Card 1: Thông tin khách hàng --}}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 fw-bold text-secondary"><i class="bi bi-person-lines-fill me-2"></i>Thông tin giao hàng</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="full_name" class="form-label fw-bold">Họ và tên <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('full_name') is-invalid @enderror" id="full_name" name="full_name" value="{{ old('full_name', $order->full_name) }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label fw-bold">Số điện thoại <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $order->phone) }}" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $order->email) }}" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="address_snapshot" class="form-label fw-bold">Địa chỉ giao hàng <span class="text-danger">*</span></label>
+                                <textarea class="form-control @error('address_snapshot') is-invalid @enderror" id="address_snapshot" name="address_snapshot" rows="3" required>{{ old('address_snapshot', $order->address_snapshot) }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 2: Ghi chú đơn hàng --}}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 fw-bold text-secondary"><i class="bi bi-journal-text me-2"></i>Ghi chú & Xử lý</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Ghi chú của khách hàng / Admin</label>
+                            <textarea class="form-control" id="note" name="note" rows="3" placeholder="Nhập ghi chú...">{{ old('note', $order->note) }}</textarea>
+                        </div>
+                        <div class="alert alert-light border">
+                            <small class="text-muted">
+                                <strong>Người xử lý gần nhất:</strong> {{ $order->handled_by ?? 'Chưa có' }} <br>
+                                <strong>Cập nhật lần cuối:</strong> {{ $order->updated_at->format('d/m/Y H:i') }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- CỘT PHẢI: TRẠNG THÁI & TÀI CHÍNH --}}
+            <div class="col-lg-4">
+                {{-- Card 3: Hành động & Trạng thái (Quan trọng nhất để lên đầu) --}}
+                <div class="card shadow-sm mb-4 border-top-primary">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="status" class="form-label fw-bold">Trạng thái đơn hàng</label>
+                            <select class="form-select form-select-lg @error('status') is-invalid @enderror" id="status" name="status" required>
+                                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>🕒 Đang chờ xử lý</option>
+                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>⚙️ Đang xử lý</option>
+                                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>🚚 Đang giao hàng</option>
+                                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>📦 Đã giao hàng</option>
+                                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>✅ Hoàn thành</option>
+                                <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>❌ Đã hủy</option>
+                                <option value="refunded" {{ $order->status == 'refunded' ? 'selected' : '' }}>💸 Đã hoàn tiền</option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save me-1"></i> Cập nhật đơn hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 4: Chi tiết tài chính --}}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i>Chi tiết thanh toán</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted ps-4">Tổng tiền hàng</td>
+                                    <td class="text-end pe-4 fw-bold">{{ number_format($order->subtotal) }} đ</td>
+                                    {{-- Input ẩn để gửi dữ liệu nếu cần, nhưng controller không update subtotal nên chỉ hiển thị --}}
+                                </tr>
+                                <tr>
+                                    <td class="text-muted ps-4">Giảm giá (Coupon)</td>
+                                    <td class="text-end pe-4 text-success">- {{ number_format($order->discount_amount) }} đ</td>
+                                </tr>
+                                <tr class="bg-light">
+                                    <td class="ps-4 align-middle">Phí vận chuyển</td>
+                                    <td class="pe-4">
+                                        {{-- Phí ship thường có thể sửa được --}}
+                                        <input type="number" class="form-control form-control-sm text-end" name="shipping_fee" value="{{ $order->shipping_fee }}">
+                                    </td>
+                                </tr>
+                                <tr class="border-top">
+                                    <td class="ps-4 py-3 fw-bold h5">Tổng cộng</td>
+                                    <td class="text-end pe-4 py-3 fw-bold h5 text-primary">{{ number_format($order->total_amount) }} đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="px-4 pb-3">
+                            <label class="form-label text-muted small">Phương thức thanh toán</label>
+                            <input type="text" class="form-control bg-light" value="{{ $order->payment_method == 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán trực tuyến' }}" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 5: Thông tin hệ thống (Read-only) --}}
+                <div class="card shadow-sm">
+                    <div class="card-body bg-light text-muted small">
+                        <div class="mb-2">
+                            <strong>Mã đơn hàng (ID):</strong> #{{ $order->order_id }}
+                        </div>
+                        @if(!empty($order->user_id))
+                        <div class="mb-2">
+                            <strong>User ID:</strong> {{ $order->user_id }}
+                        </div>
+                        @endif
+                        <div class="mb-2">
+                            <strong>Ngày đặt hàng:</strong> {{ $order->placed_at->format('d/m/Y H:i') }}
+                        </div>
+                        @if($order->promo_id)
+                        <div>
+                            <strong>Mã KM sử dụng:</strong> {{ $order->promo_id }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
 @endsection

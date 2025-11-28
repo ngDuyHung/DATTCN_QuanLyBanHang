@@ -112,6 +112,16 @@ class OrderController extends Controller
         }
         //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
         
+        //Xóa giỏ hàng
+        if(Auth::check()){
+            $cart = \App\Models\Cart::where('user_id', $userId)->first();
+            if($cart){
+                $cart->cartItems()->delete();
+            }
+        } else {
+            session()->forget('cart');
+        }
+
         // Chuyển hướng đến trang thanh toán với mã đơn hàng
         return redirect()->route('checkout.success', ['order_number' => $randomNumber]);
     }

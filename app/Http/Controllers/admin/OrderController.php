@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::orderBy('placed_at', 'desc')->paginate(20);
+        $orders = Order::orderBy('placed_at', 'desc')->paginate(20);
         return view('admin.order.index', compact('orders'));
     }
 
@@ -38,8 +39,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order->load(['orderItems.product', 'user']);
-        return response()->json($order);
+       //
     }
 
     /**
@@ -57,14 +57,25 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $validated = $request->validate([
-            'status' => 'required|in:pending,processing,completed,cancelled,refunded',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'address_snapshot' => 'required|string|max:500',
+            'shipping_fee' => 'required|numeric|min:0',
+            'status' => 'required|in:pending,processing,completed,cancelled,refunded,shipped,delivered',
             'note' => 'nullable|string',
         ]);
 
         $order->update([
+            'full_name' => $validated['full_name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'address_snapshot' => $validated['address_snapshot'],
+            'shipping_fee' => $validated['shipping_fee'],
             'status' => $validated['status'],
             'note' => $validated['note'] ?? $order->note,
-            'handled_by' => auth()->check() ? auth()->user()->id : null,
+            'handled_by' => Auth::check() ? Auth::user()->id : null,
+            'updated_at' => now(),
         ]);
 
         return redirect()->route('admin.order.index')
@@ -87,5 +98,11 @@ class OrderController extends Controller
 
         return redirect()->route('admin.order.index')
             ->with('success', 'Xóa đơn hàng thành công!');
+    }
+
+    public function getOrderDetailHtml($id)
+    {
+        $order = Order::with(['orderItems.product', 'user'])->findOrFail($id);
+        return view('admin.order.detail_partial', compact('order'))->render();
     }
 }
