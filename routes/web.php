@@ -43,7 +43,7 @@ Route::post('/cart/store-ajax', [App\Http\Controllers\client\CartController::cla
 Route::post('/cart/update', [App\Http\Controllers\client\CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete/{id}', [App\Http\Controllers\client\CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/cart/checkout', [App\Http\Controllers\client\CartController::class, 'showCheckout'])->name('cart.checkout');
-Route::get('/cart/checkout', [App\Http\Controllers\client\CartController::class, 'showCheckout'])->name('cart.checkout');
+Route::get('/cart/checkout', [App\Http\Controllers\client\CartController::class, 'showCheckout'])->name('cart.checkout.process');
 
 //Checkout routes
 Route::post('/checkout', [App\Http\Controllers\client\OrderController::class, 'store'])->name('checkout');
