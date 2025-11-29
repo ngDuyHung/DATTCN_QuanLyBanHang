@@ -21,7 +21,7 @@
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
     {{-- Dòng này sẽ gọi các file app.css và app.js đã được Vite biên dịch --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link
