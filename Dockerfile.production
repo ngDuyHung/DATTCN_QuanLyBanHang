@@ -36,19 +36,10 @@ RUN apk add --no-cache \
     libzip-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip opcache
 
-# Copy PHP production config
-COPY docker/php/production.ini /usr/local/etc/php/conf.d/production.ini
-
-# Copy Nginx config
-COPY docker/nginx/production.conf /etc/nginx/http.d/default.conf
-
-# Copy supervisor config
-COPY docker/supervisor/supervisord.conf /etc/supervisord.conf
-
 # Set working directory
 WORKDIR /var/www
 
-# Copy application code
+# Copy application code FIRST
 COPY . /var/www
 
 # Copy built assets from node-builder
@@ -56,6 +47,16 @@ COPY --from=node-builder /app/public/build /var/www/public/build
 
 # Copy vendor from composer-builder
 COPY --from=composer-builder /app/vendor /var/www/vendor
+
+# Now copy configs (AFTER application, so they don't get overwritten)
+COPY docker/php/production.ini /usr/local/etc/php/conf.d/production.ini
+COPY docker/nginx/production.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisord.conf
+
+# Now copy configs (AFTER application, so they don't get overwritten)
+COPY docker/php/production.ini /usr/local/etc/php/conf.d/production.ini
+COPY docker/nginx/production.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisord.conf
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -91,5 +92,6 @@ EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
     CMD curl -f http://localhost/ || exit 1
 
-# No entrypoint, direct command
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# Override default CMD from php:fpm image, run supervisord as init process
+STOPSIGNAL SIGQUIT
+CMD ["supervisord", "-n", "-c", "/etc/supervisord.conf"]
