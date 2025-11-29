@@ -13,7 +13,8 @@ RUN apk add --no-cache \
     npm \
     oniguruma-dev \
     mysql-client \
-    libzip-dev
+    libzip-dev \
+    nginx
 
 # Cài đặt PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
@@ -21,10 +22,8 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 # Cài đặt Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www
 
-# Copy source code
 COPY . /var/www
 
 # Copy .env.example nếu .env chưa tồn tại
@@ -33,9 +32,17 @@ RUN if [ ! -f .env ]; then cp .env.docker .env; fi
 # Set permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+    && chmod -R 755 /var/www/bootstrap/cache \
+    && mkdir -p /run/nginx
 
-# Expose port 9000 cho PHP-FPM
-EXPOSE 9000
+# Nginx config
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-CMD ["php-fpm"]
+# Start script
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Expose port 80 for HTTP
+EXPOSE 80
+
+ENTRYPOINT ["/start.sh"]
