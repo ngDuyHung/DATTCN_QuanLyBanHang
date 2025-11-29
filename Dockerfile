@@ -37,6 +37,7 @@ RUN chown -R www-data:www-data /var/www \
 
 # Nginx config
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Start script
 COPY docker/start.sh /start.sh
