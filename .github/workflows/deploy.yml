@@ -1,4 +1,4 @@
-name: Deploy Laravel to Shared Hosting (public_html)
+name: Deploy Laravel via SSH
 
 on:
   push:
@@ -9,23 +9,57 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, xml, ctype, json, bcmath, pdo, mysql, zip, gd
 
-    - name: Install Composer Dependencies
-      run: |
-        composer install --no-dev --optimize-autoloader
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
 
-    - name: Deploy to FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: "./"
-        server-dir: "/public_html/"
+      - name: Copy .env
+        run: cp .env.example .env || true
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      # ---- RSYNC DEPLOY VIA SSH ----
+      - name: Deploy source to hosting via SSH
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avz --delete --exclude='.git' --exclude='node_modules' --exclude='tests' --exclude='.github' --exclude='storage/logs/*' --exclude='storage/framework/cache/*' --exclude='storage/framework/sessions/*' --exclude='storage/framework/views/*' --exclude='.env'
+          path: ./ # local
+          remote_path: /home/aduyhungiovn/public_html/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # ---- RUN POST-DEPLOY COMMANDS ----
+      - name: Run artisan commands
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd public_html
+            php artisan storage:link || true
+            php artisan config:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            chmod -R 775 storage bootstrap/cache
+            chown -R $USER:$USER storage bootstrap/cache
