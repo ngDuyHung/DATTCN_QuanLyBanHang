@@ -26,6 +26,10 @@ WORKDIR /var/www
 
 COPY . /var/www
 
+# Install PHP dependencies (Composer)
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+
 # Copy .env.example nếu .env chưa tồn tại
 RUN if [ ! -f .env ]; then cp .env.docker .env; fi
 
