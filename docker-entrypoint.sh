@@ -3,9 +3,22 @@ set -e
 
 echo "🚀 Starting Laravel application..."
 
+# Start services immediately in background
+echo "🔄 Starting Nginx and PHP-FPM..."
+
+# Execute the main command in background
+"$@" &
+MAIN_PID=$!
+
+# Wait a bit for services to start
+sleep 5
+
+# Now do setup tasks
+echo "⏳ Running setup tasks..."
+
 # Wait for database to be ready (with timeout)
 echo "⏳ Waiting for database..."
-MAX_TRIES=30
+MAX_TRIES=15
 COUNTER=0
 until php artisan db:show 2>/dev/null || [ $COUNTER -eq $MAX_TRIES ]; do
     echo "Database is unavailable - sleeping ($COUNTER/$MAX_TRIES)"
@@ -14,27 +27,27 @@ until php artisan db:show 2>/dev/null || [ $COUNTER -eq $MAX_TRIES ]; do
 done
 
 if [ $COUNTER -eq $MAX_TRIES ]; then
-    echo "⚠️ Database not ready after 60s, continuing anyway..."
+    echo "⚠️ Database not ready, skipping migrations..."
 else
     echo "✅ Database is ready!"
     # Run migrations
     echo "🔄 Running migrations..."
-    php artisan migrate --force --no-interaction || echo "⚠️ Migration failed, continuing..."
+    php artisan migrate --force --no-interaction || echo "⚠️ Migration failed"
 fi
 
-# Clear and cache config
+# Optimize application
 echo "⚙️ Optimizing application..."
-php artisan config:cache || true
-php artisan route:cache || true
-php artisan view:cache || true
+php artisan config:cache 2>/dev/null || true
+php artisan route:cache 2>/dev/null || true
+php artisan view:cache 2>/dev/null || true
 
 # Create storage link if not exists
 if [ ! -L /var/www/public/storage ]; then
     echo "🔗 Creating storage link..."
-    php artisan storage:link || true
+    php artisan storage:link 2>/dev/null || true
 fi
 
 echo "✅ Application ready!"
 
-# Execute the main command
-exec "$@"
+# Wait for the main process
+wait $MAIN_PID

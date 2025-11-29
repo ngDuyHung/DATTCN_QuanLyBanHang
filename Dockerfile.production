@@ -61,6 +61,16 @@ COPY --from=composer-builder /app/vendor /var/www/vendor
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+# Create startup script for Laravel setup
+RUN echo '#!/bin/sh' > /usr/local/bin/laravel-setup.sh \
+    && echo 'sleep 10' >> /usr/local/bin/laravel-setup.sh \
+    && echo 'php /var/www/artisan migrate --force 2>/dev/null || true' >> /usr/local/bin/laravel-setup.sh \
+    && echo 'php /var/www/artisan config:cache 2>/dev/null || true' >> /usr/local/bin/laravel-setup.sh \
+    && echo 'php /var/www/artisan route:cache 2>/dev/null || true' >> /usr/local/bin/laravel-setup.sh \
+    && echo 'php /var/www/artisan view:cache 2>/dev/null || true' >> /usr/local/bin/laravel-setup.sh \
+    && echo 'php /var/www/artisan storage:link 2>/dev/null || true' >> /usr/local/bin/laravel-setup.sh \
+    && chmod +x /usr/local/bin/laravel-setup.sh
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage \
@@ -81,6 +91,5 @@ EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s \
     CMD curl -f http://localhost/ || exit 1
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-
+# No entrypoint, direct command
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
