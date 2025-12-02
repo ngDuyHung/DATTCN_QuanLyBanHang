@@ -34,6 +34,13 @@
                         placeholder="Nhập tên thương hiệu" required>
                 </div>
                 <div class="mb-3">
+                    <label for="slug" class="form-label">Slug</label>
+                    <input type="text" name="slug" id="slug"
+                        class="form-control bg-light"
+                        value="{{ old('slug', $brand->slug ?? '') }}"
+                        placeholder="slug-tieng-viet-khong-dau" readonly>
+                </div>
+                <div class="mb-3">
                     <label for="logo_url" class="form-label">Logo thương hiệu</label>
                     <input type="file" name="logo_url" id="logo_url" class="form-control">
 
@@ -44,6 +51,16 @@
                     </div>
                     @endif
                 </div>
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Danh mục</label>
+                    <select name="category_id" id="category_id" class="form-select" required>
+                        <option value="">-- Chọn danh mục --</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->category_id }}" {{ old('category_id', $brand->category_id ?? '') == $category->category_id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 <div class="mb-3">
                     <label for="description" class="form-label">Mô tả</label>
                     <textarea name="description" id="description"
@@ -88,8 +105,24 @@
     </div>
 </div>
 
+
 <script>
-  CKEDITOR.replace('description');
+document.addEventListener("DOMContentLoaded", function () {
+    const nameInput = document.getElementById('name');
+    const slugInput = document.getElementById('slug');
+
+    nameInput.addEventListener('input', function () {
+        let slug = nameInput.value
+            .toLowerCase()
+            .replace(/đ/g, 'd') // xử lý chữ đ
+            .normalize('NFD') // bỏ dấu tiếng Việt
+            .replace(/[\u0300-\u036f]/g, '') 
+            .replace(/[^a-z0-9\s-]/g, '') // bỏ ký tự đặc biệt
+            .trim()
+            .replace(/\s+/g, ''); // thay khoảng trắng bằng dấu gạch
+        slugInput.value = slug;
+    });
+});
 </script>
 
 @endsection

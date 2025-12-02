@@ -94,11 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
     nameInput.addEventListener('input', function () {
         let slug = nameInput.value
             .toLowerCase()
+            .replace(/đ/g, 'd') // xử lý chữ đ
             .normalize('NFD') // bỏ dấu tiếng Việt
             .replace(/[\u0300-\u036f]/g, '') 
             .replace(/[^a-z0-9\s-]/g, '') // bỏ ký tự đặc biệt
             .trim()
-            .replace(/\s+/g, '-'); // thay khoảng trắng bằng dấu gạch
+            .replace(/\s+/g, ''); // thay khoảng trắng bằng dấu gạch
         slugInput.value = slug;
     });
 });

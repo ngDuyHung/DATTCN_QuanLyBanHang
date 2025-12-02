@@ -8,7 +8,7 @@ class Brand extends Model
 {
     protected $table = 'brands';
     protected $primaryKey = 'brand_id';
-    protected $fillable = ['name', 'logo_url', 'description'];
+    protected $fillable = ['name','slug', 'logo_url', 'description', 'is_staff', 'category_id'];
     public $timestamps = true;
 
  
@@ -19,5 +19,8 @@ class Brand extends Model
     {
         return $this->hasMany(Product::class, 'brand_id', 'brand_id');
     }
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class BrandController extends Controller
 {
@@ -22,7 +23,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brand.create');
+        $categories = Category::all();
+        return view('admin.brand.create', compact('categories'));
     }
 
     /**
@@ -32,20 +34,24 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:brands,slug',
             'logo_url' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,category_id',
             'is_staff' => 'required|boolean',
         ]);
 
         $path = null;
-        if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('logos', 'public');
+        if ($request->hasFile('logo_url')) {
+            $path = $request->file('logo_url')->store('logos', 'public');
         }
 
         Brand::create([
             'name' => $request->name,
+            'slug' => $request->slug,
             'logo_url' => $path,
             'description' => $request->description,
+            'category_id' => $request->category_id,
             'is_staff' => $request->is_staff,
         ]);
 
@@ -65,7 +71,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('admin.brand.edit', compact('brand'));
+        $categories = Category::all();
+        return view('admin.brand.edit', compact('brand', 'categories'));
     }
 
     /**
@@ -75,8 +82,10 @@ class BrandController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:brands,slug,' . $brand->brand_id . ',brand_id',
             'logo_url' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,category_id',
             'is_staff' => 'required|boolean',
         ]);
 
@@ -87,8 +96,10 @@ class BrandController extends Controller
 
         $brand->update([
             'name' => $request->name,
+            'slug' => $request->slug,
             'logo_url' => $path,
             'description' => $request->description,
+            'category_id' => $request->category_id,
             'is_staff' => $request->is_staff,
         ]);
 

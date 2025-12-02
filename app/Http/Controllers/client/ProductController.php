@@ -57,11 +57,14 @@ class ProductController extends Controller
         }
         $categrorySlug = $part[0] ?? null;
         $brandSlug = $part[1] ?? null;
-        $productId = $part[2] ?? null;
+        $productSlug = $part[2] ?? null;
 
-        if ($productId) {
-            $Product = Product::with('category', 'brand')->findOrFail($productId);
-            //dd($Product->description); nay để debug thôi
+        if ($productSlug) {
+            $Product = Product::with('category', 'brand')->where('slug', $slug)->first();
+            if (!$Product) {
+                return redirect()->route('home');
+            }
+            //dd($Product); //nay để debug thôi
             //lấy những sản phẩm có cùng thương hiệu cùng loại
             $relatedProducts = Product::where('brand_id', $Product->brand_id)
                 ->where('category_id', $Product->category_id)
@@ -74,16 +77,18 @@ class ProductController extends Controller
             if (!$brand) {
                 return redirect()->route('home');
             }
-            $products = Product::where('brand_id', $brand->id)->get();
-            return view('client.showBySlug', compact('brand', 'products'));
+            $name=$brand->category->name.' '.$brand->name;
+            $products = Product::where('brand_id', $brand->brand_id)->get();
+            return view('client.showBySlug', compact('brand', 'products', 'name'));
         } else if ($categrorySlug) {
             //tìm theo category slug
             $category = Category::where('slug', $categrorySlug)->first();
             if (!$category) {
                 return redirect()->route('home');
             }
-            $products = Product::where('category_id', $category->id)->get();
-            return view('client.showBySlug', compact('category', 'products'));
+            $name=$category->name;
+            $products = Product::where('category_id', $category->category_id)->get();
+            return view('client.showBySlug', compact('category', 'products', 'name'));
         } else {
             return redirect()->route('home');
         }

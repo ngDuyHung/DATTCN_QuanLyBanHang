@@ -265,7 +265,7 @@
                @endforeach
                <!--End brand -->
                <li class="menu-item ega-small tab-link link d-none d-sm-block">
-                 <a href="laptop" title="Xem tất cả" class="menu-item__link text-primary">
+                 <a href="{{route('client.showBySlug', 'laptop')}}" title="Xem tất cả" class="menu-item__link text-primary">
                    Xem tất cả
 
                    <svg class="icon">
@@ -373,7 +373,7 @@
 
 
                        <a class="image_thumb pos-relative embed-responsive embed-responsive-1by1"
-                         href="{{route('client.product.show', $product->product_id)}}"
+                         href="{{route('client.showBySlug', $product->slug)}}"
                          title="{{ $product->name }}">
 
                          <img class='lazyload product-thumbnail__img product-thumbnail__img--primary' width="480"
@@ -408,13 +408,12 @@
 
                      </div>
                      <div class="product-info">
-                       <h3 class="product-name"><a href="{{route('client.product.show', $product->product_id)}}"
+                       <h3 class="product-name"><a href="{{route('client.showBySlug', $product->slug)}}"
                            title="{{$product->name}}">{{$product->name}} </a></h3>
                        <div class="product-item-cta position-relative">
                          <div class="price-box">
-                           <span class="price">{{$product->price}}</span>
-                           <span class="compare-price"></span>
-
+                           <span class="price">{{$product->price_format}} đ</span>
+                           <span class="compare-price">{{$product->cost_price_format}} đ</span>
                          </div>
                        </div>
 

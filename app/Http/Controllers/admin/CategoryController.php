@@ -61,7 +61,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id . ',category_id',
+            'description' => 'nullable|string', 
+            'is_active' => 'required|boolean',
+        ]);
+        $category->update($request->all());
+        return redirect()->route('admin.category.edit', $category->category_id)->with('success', 'Cập nhật danh mục thành công.');
     }
 
     /**

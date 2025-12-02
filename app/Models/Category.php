@@ -34,4 +34,17 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id', 'category_id');
     }
+    public function brands()
+    {
+        // return $this->hasManyThrough(
+        //     Brand::class,
+        //     Product::class,
+        //     'category_id', // Khóa ngoại trên bảng products
+        //     'brand_id',    // Khóa ngoại trên bảng brands
+        //     'category_id', // Khóa chính trên bảng categories
+        //     'brand_id'     // Khóa chính trên bảng products
+        // )->distinct();
+        return $this->hasMany(Brand::class, 'category_id', 'category_id');
+
+    }
 }

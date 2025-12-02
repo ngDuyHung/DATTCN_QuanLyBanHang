@@ -62,6 +62,11 @@ class ProductController extends Controller
             'total_attributes' => 'nullable|string|max:255',
         ]);
 
+        //tạo slug
+        $categorySlug = Category::find($request->category_id)?->slug;
+        $brandSlug = Brand::find($request->brand_id)?->slug;
+        $slug = $categorySlug . '-' . $brandSlug . '-' . strtolower($request->sku);
+
         // 2. Dùng Transaction để đảm bảo an toàn
         DB::beginTransaction();
         try {
@@ -80,6 +85,8 @@ class ProductController extends Controller
                 'total_attributes',
                 'brand_id'
             ]));
+             $product->slug = $slug;
+            $product->save();
             // Lưu ảnh đại diện chính nếu có
             if ($request->hasFile('main_img_url')) {
                 $path = $request->file('main_img_url')->store('products', 'public');
@@ -161,6 +168,10 @@ class ProductController extends Controller
             'delete_images.*' => 'integer|exists:product_images,image_id'
         ]);
 
+        //tạo slug
+        $categorySlug = Category::find($request->category_id)?->slug;
+        $brandSlug = Brand::find($request->brand_id)?->slug;
+        $slug = $categorySlug . '-' . $brandSlug . '-' . strtolower($request->sku);
         DB::beginTransaction();
         try {
             // Cập nhật thông tin chính (An toàn, không dùng $request->all())
@@ -179,6 +190,8 @@ class ProductController extends Controller
                 'brand_id'
             ]));
 
+            $product->slug = $slug;
+            $product->save();
             // Xử lý xóa ảnh cũ 
             if ($request->has('delete_images')) {
                 foreach ($request->input('delete_images') as $imageId) {
