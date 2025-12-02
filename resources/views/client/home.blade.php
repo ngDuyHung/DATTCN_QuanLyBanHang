@@ -401,7 +401,7 @@
 
                        <div class="tagdacbiet_sale sale-flash">
                          <div class="font16">
-                           -8%
+                           {{ $product->discount_percent.'%'}}
                          </div>
                        </div>
 
