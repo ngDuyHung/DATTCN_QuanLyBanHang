@@ -8,8 +8,8 @@
            <i class="bi bi-list"></i>
          </a>
        </li>
-       <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Trang quản trị</a></li>
-       <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Trang người dùng</a></li>
+       <li class="nav-item d-none d-md-block"><a href="{{ route('admin.dashboard') }}" class="nav-link">Trang quản trị</a></li>
+       <li class="nav-item d-none d-md-block"><a href="{{ route('home') }}" class="nav-link">Trang người dùng</a></li>
        <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">IP:</a></li>
      </ul>
      <!--end::Start Navbar Links-->

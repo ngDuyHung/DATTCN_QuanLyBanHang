@@ -4,12 +4,13 @@
              <div class="col-lg-3 d-xl-block d-none navigation-wrapper">
                  <nav class="h-100">
                      <ul class="navigation list-group list-group-flush scroll">
+                         @foreach($categories_sidebar as $category)
                          <li class="menu-item list-group-item">
-                             <a href="/working-gaming-gear" class="menu-item__link" title="Chuột-Bàn phím-Tai nghe">
+                             <a href="/{{ $category->slug }}" class="menu-item__link" title="{{ $category->name }}">
                                  <img loading="lazy" width='24' height='24'
                                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
-                                     alt="Chuột-Bàn phím-Tai nghe" />
-                                 <span>Chuột-Bàn phím-Tai nghe</span>
+                                     alt="{{ $category->name }}" />
+                                 <span>{{ $category->name }}</span>
                                  <i class='float-right' data-toggle-submenu>
 
 
@@ -25,99 +26,16 @@
 
 
                                      <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/chuot-gaming-van-phong" title="Chuột">Chuột</a>
-                                         </span>
-
+                                         @foreach($category->brands as $brand)
                                          <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-razer" title="Razer">Razer</a>
+                                             <a class="link" href="/{{ $brand->slug }}" title="{{ $brand->name }}">{{ $brand->name }}</a>
                                          </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-logitech" title="Logitech">Logitech</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-asus" title="Asus ROG">Asus ROG</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-rapoo" title="Rapoo">Rapoo</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-lenovo" title="Lenovo">Lenovo</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-dell" title="Dell - AlienWare">Dell - AlienWare</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-hyperx" title="HyperX">HyperX</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/chuot-lemokey" title="Keychron - Lemokey">Keychron - Lemokey</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link"
-                                                 href="https://memoryzone.com.vn/chuot-gaming-khong-day-angry-miao-am-infinity-mouse-8k-infinite-battery-life"
-                                                 title="Angry Miao">Angry Miao</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/hop-qua-tang" title="Hộp quà tặng">Hộp quà tặng</a>
-                                         </span>
+                                         @endforeach
 
                                      </li>
 
 
 
-
-                                     <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/ban-phim-gaming-van-phong" title="Bàn phím">Bàn phím</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-razer" title="Razer">Razer</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-logitech" title="Logitech">Logitech</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-asus" title="Asus ROG">Asus ROG</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-rapoo" title="Rapoo">Rapoo</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-dell" title="Dell - AlienWare">Dell - AlienWare</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-hyperx" title="HyperX">HyperX</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-corsair" title="Corsair">Corsair</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/ban-phim-hyperwork" title="HyperWork">HyperWork</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/hop-qua-tang" title="Hộp quà tặng">Hộp quà tặng</a>
-                                         </span>
-
-                                     </li>
 
 
 
@@ -126,178 +44,10 @@
                                  </ul>
                              </div>
                          </li>
-                         <li class="menu-item list-group-item">
-                             <a href="/laptop" class="menu-item__link" title="Laptop">
-                                 <img loading="lazy" width='24' height='24'
-                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
-                                     alt="Laptop" />
-                                 <span>Laptop</span>
-                                 <i class='float-right' data-toggle-submenu>
-
-
-                                     <svg class="icon">
-                                         <use xlink:href="#icon-arrow" />
-                                     </svg>
-                                 </i>
-                             </a>
-
-                             <div class="submenu scroll">
-                                 <ul class="submenu__list">
-
-
-
-                                     <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/laptop" title="Thương hiệu">Thương hiệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-lenovo" title="Lenovo">Lenovo</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-lenovo-thinkpad" title="ThinkPad">ThinkPad</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-asus" title="Asus">Asus</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-msi" title="MSI">MSI</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-acer" title="Acer">Acer</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-dell" title="Dell">Dell</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-hp" title="HP">HP</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-lg" title="LG">LG</a>
-                                         </span>
-
-                                     </li>
-
-
-
-
-                                     <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/laptop" title="Mức giá">Mức giá</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-10-15-trieu" title="10-15 Triệu">10-15 Triệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-15-20-trieu" title="15-20 triệu">15-20 triệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-20-25-trieu" title="20-25 triệu">20-25 triệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-25-30-trieu" title="25-30 triệu">25-30 triệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-tren-30-trieu" title="Trên 30 triệu">Trên 30 triệu</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/laptop-best-combo" title="Best Combo🔥">Best Combo🔥</a>
-                                         </span>
-
-                                     </li>
-
-                                 </ul>
-                             </div>
-                         </li>
-                         <li class="menu-item list-group-item">
-                             <a href="/pc-may-bo" class="menu-item__link" title="PC / Máy Bộ">
-                                 <img loading="lazy" width='24' height='24'
-                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
-                                     alt="PC / Máy Bộ" />
-                                 <span>PC / Máy Bộ</span>
-                                 <i class='float-right' data-toggle-submenu>
-
-
-                                     <svg class="icon">
-                                         <use xlink:href="#icon-arrow" />
-                                     </svg>
-                                 </i>
-                             </a>
-
-                             <div class="submenu scroll">
-                                 <ul class="submenu__list">
-
-
-
-                                     <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/mini-pc" title="Mini PC">Mini PC</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/mini-pc-asus" title="Mini PC Asus">Mini PC Asus</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/mini-pc-intel-nuc" title="Mini PC Intel">Mini PC Intel</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/mini-pc-asrock" title="ASRock">ASRock</a>
-                                         </span>
-
-                                     </li>
-
-
-                                     <li class="submenu__col">
-                                         <span class="submenu__item submenu__item--main">
-                                             <a class="link" href="/pc-sieu-toc" title="PC Siêu Tốc">PC Siêu Tốc</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/pc-mercury-series" title="PC Văn Phòng ST">PC Văn Phòng ST</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/pc-gaming-esports" title="PC Gaming ST">PC Gaming ST</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/pc-do-hoa-render" title="PC Đồ Họa Render">PC Đồ Họa Render</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/pc-itx-matx" title="PC ITX / Nhỏ Gọn">PC ITX / Nhỏ Gọn</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="/pc-ai-tri-tue-nhan-tao" title="PC AI">PC AI</a>
-                                         </span>
-
-                                         <span class="submenu__item submenu__item">
-                                             <a class="link" href="https://go.mmz.vn/build-pc" title="PC Tự Build">PC Tự Build</a>
-                                         </span>
-
-                                     </li>
-
-                                 </ul>
-                             </div>
-
+                         @endforeach
 
                      </ul>
+
                  </nav>
              </div>
              <div class="col-xl-9 col-12 home-banner-group pl-xl-0">
