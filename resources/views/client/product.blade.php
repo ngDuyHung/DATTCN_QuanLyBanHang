@@ -81,7 +81,7 @@
 
 
 
-                                      <!-- ko rõ code ai viết tính năng này -->
+                                      <!--  -->
 
                                       @foreach($Product->images as $image)
 
@@ -298,7 +298,7 @@
                                               <span class="first_status mr-2">
                                                   Thương hiệu:
                                                   <span class="status_name">
-                                                      <a href='/collections/all?q=vendor.filter_key:(%22{{$Product->brand->name}}%22)&page=1&view=grid'
+                                                      <a href='/{{$Product->category->slug}}-{{$Product->brand->slug}}'
                                                           target="_blank" class="text-primary" title="{{$Product->brand->name}}">
                                                           {{$Product->brand->name}}
                                                       </a>
@@ -408,7 +408,7 @@
                                                               @foreach($relatedProducts as $relatedProduct)
                                                               <div class="element_item @if($relatedProduct->product_id == $Product->product_id) active @endif">
                                                                   <a
-                                                                      href="{{route('client.product.show',$relatedProduct->product_id)}}">
+                                                                      href="/{{$relatedProduct->slug}}">
                                                                       <div class="name">
 
                                                                           {{$relatedProduct->total_attributes}}

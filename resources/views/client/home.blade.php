@@ -1358,7 +1358,7 @@
    })
  </script>
 
- <section class="section container" id="recent-view-coll">
+ <!-- <section class="section container" id="recent-view-coll">
    <div class='row ml-sm-0 mr-sm-0'>
      <div class='col-12 pl-0 pr-0'>
        <div class='card border-0 p-3'>
@@ -1443,7 +1443,7 @@
        </div>
      </div>
    </div>
- </section>
+ </section> -->
 
 
  <section class="section_service_end">
