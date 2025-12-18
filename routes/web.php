@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     $router->resource('brand', \App\Http\Controllers\admin\BrandController::class);
     $router->resource('product', \App\Http\Controllers\admin\ProductController::class);
     $router->resource('order', \App\Http\Controllers\admin\OrderController::class);
+    $router->resource('promotion', \App\Http\Controllers\admin\PromotionController::class);
 
     // API Modal
     Route::get('/orders/api/{id}', [\App\Http\Controllers\admin\OrderController::class, 'getOrderDetailHtml'])

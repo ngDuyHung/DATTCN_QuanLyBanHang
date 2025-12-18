@@ -124,6 +124,30 @@
                        
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <p>
+                            Khuyên mãi
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.promotion.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Danh sách khuyến mãi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.promotion.create') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Thêm khuyến mãi</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
                 <li class="nav-header">Cài đặt hệ thống</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
