@@ -173,7 +173,7 @@
           </div>
           <div class="col-4 col-sm-3 col-lg-6 col-xl-3 pl-0">
             <ul class="header-right mb-0 list-unstyled d-flex align-items-center">
-              @if(Auth::check() && Auth::user()->role_id === 2)
+              @if(Auth::check() && Auth::user()->role_id == 2)
               <a href="{{ route('admin.dashboard') }}">Quản trị</a>
               @endif
               <li class='ml-4 mr-4 mr-md-0 ml-md-3 media d-lg-flex d-none'>
