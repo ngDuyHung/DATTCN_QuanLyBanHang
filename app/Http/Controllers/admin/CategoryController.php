@@ -45,7 +45,17 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $category->loadCount('products');
+        
+        // Nếu là AJAX request, trả về JSON
+        if (request()->ajax()) {
+            return response()->json([
+                'category' => $category,
+                'products_count' => $category->products_count ?? 0
+            ]);
+        }
+        
+        return view('admin.category.show', compact('category'));
     }
 
     /**

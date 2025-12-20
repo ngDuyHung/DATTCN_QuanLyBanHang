@@ -129,6 +129,27 @@ class ProductController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Product $product)
+    {
+        $product->load('images', 'attributes', 'category', 'brand');
+        
+        // Nếu là AJAX request, trả về JSON
+        if (request()->ajax()) {
+            return response()->json([
+                'product' => $product,
+                'images' => $product->images,
+                'attributes' => $product->attributes,
+                'category_name' => $product->category->name ?? 'N/A',
+                'brand_name' => $product->brand->name ?? 'N/A'
+            ]);
+        }
+        
+        return view('admin.product.show', compact('product'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Product $product)
@@ -285,5 +306,27 @@ class ProductController extends Controller
             DB::rollBack();
             return redirect()->route('admin.product.index')->with('error', 'Lỗi khi xóa sản phẩm.');
         }
+    }
+
+    /**
+     * Change the status of the product.
+     */
+    public function changeStatus(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        if ($product) {
+            $product->is_active = $request->is_active;
+            $product->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Đã cập nhật trạng thái sản phẩm.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Không tìm thấy sản phẩm.'
+        ], 404);
     }
 }

@@ -31,6 +31,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         ->name('order.show_api');
 
     Route::post('categories/change-status', [\App\Http\Controllers\admin\CategoryController::class, 'changeStatus'])->name('category.changeStatus');
+    Route::post('products/change-status', [\App\Http\Controllers\admin\ProductController::class, 'changeStatus'])->name('product.changeStatus');
 
 });
 

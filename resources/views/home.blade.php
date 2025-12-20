@@ -231,7 +231,7 @@
                     <span class='ml-2 d-xl-block d-none'>Giỏ hàng</span>
                     <span class="count_item count_item_pr"> {{ $cart ? (is_array($cart) ? array_sum(array_column($cart, 'quantity')) : $cart->cartItems->sum('quantity')) : 0 }}</span>
                   </a>
-                  <div class="top-cart-content card ">
+                  <!-- <div class="top-cart-content card ">
                     <ul id="cart-sidebar" class="mini-products-list count_li list-unstyled">
                       <li class="list-item">
                         <ul></ul>
@@ -240,7 +240,7 @@
 
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </li>
             </ul>
