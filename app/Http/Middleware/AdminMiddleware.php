@@ -22,7 +22,7 @@ class AdminMiddleware
         }
 
         // Kiểm tra có role là admin
-        if(Auth::user()->role_id !== 2) {
+        if(Auth::user()->role_id != 2) {
             return redirect()->route('home')->with('error', 'Bạn không có quyền truy cập trang này.');
         }
 
