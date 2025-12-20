@@ -48,7 +48,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: "deploy.zip"
-          target: "/home/aduyhungiovn/"
+          target: "/home/tduyhungio/"
 
       # ---- RUN POST-DEPLOY COMMANDS ----
       - name: Deploy and run artisan commands
@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/aduyhungiovn/public_html
+            cd /home/tduyhungio/public_html
             unzip -o ../deploy.zip
             rm ../deploy.zip
             php artisan storage:link || true
