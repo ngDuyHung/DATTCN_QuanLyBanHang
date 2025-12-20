@@ -44,9 +44,9 @@
                                 </td>
                                 <td>
                                     @if($promotion->discount_type == 'percent')
-                                        {{ $promotion->discount_value }}%
+                                        {{ $promotion->discount_value_format }}
                                     @elseif($promotion->discount_type == 'fixed')
-                                        {{ $promotion->discount_value }} VNĐ
+                                        {{ $promotion->discount_value_format }}
                                     @endif
                                 <td>{{ $promotion->starts_at }}</td>
                                 <td>{{ $promotion->ends_at }}</td>

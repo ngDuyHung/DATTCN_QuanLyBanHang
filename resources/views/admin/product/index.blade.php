@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $product->sku }}</td>
                                 <td><img src="{{ asset('storage/'.$product->main_img_url) }}" alt="" style="height: 40px; max-width: 100%;"></td>
-                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->price_format }} đ</td>
                                 <td>{{ $product->category->name ?? 'N/A' }}</td>
                                 <td>{{ $product->brand->name ?? 'N/A' }}</td>
                                 <td>{{ $product->created_at }}</td>

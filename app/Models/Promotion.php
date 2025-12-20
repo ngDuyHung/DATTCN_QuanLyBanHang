@@ -16,4 +16,14 @@ class Promotion extends Model
     {
         return $this->hasMany(Order::class, 'promo_id', 'promo_id');
     }
+
+    public function getDiscountValueFormatAttribute()
+    {
+        if ($this->discount_type === 'percen') {
+            return $this->discount_value . '%';
+        } elseif ($this->discount_type === 'fixed') {
+            return number_format($this->discount_value, 0, ',', '.') . ' ₫';
+        }
+        return $this->discount_value;
+    }
 }
