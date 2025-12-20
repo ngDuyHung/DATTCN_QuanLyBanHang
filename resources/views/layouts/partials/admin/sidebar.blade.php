@@ -128,6 +128,30 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>
+                            Quản lý kho
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.inventory.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Danh sách kho</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.inventory.create') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Thêm kho</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <p>
                             Khuyên mãi
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
@@ -143,6 +167,30 @@
                             <a href="{{ route('admin.promotion.create') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Thêm khuyến mãi</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <p>
+                            Tài khoản
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.account.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Danh sách tài khoản</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.account.create') }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Thêm tài khoản</p>
                             </a>
                         </li>
                        

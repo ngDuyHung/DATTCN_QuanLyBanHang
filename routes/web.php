@@ -22,7 +22,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     $router->resource('brand', \App\Http\Controllers\admin\BrandController::class);
     $router->resource('product', \App\Http\Controllers\admin\ProductController::class);
     $router->resource('order', \App\Http\Controllers\admin\OrderController::class);
+    $router->resource('inventory', \App\Http\Controllers\admin\InventoryController::class);
     $router->resource('promotion', \App\Http\Controllers\admin\PromotionController::class);
+    $router->resource('account', \App\Http\Controllers\admin\AccountController::class);
 
     // API Modal
     Route::get('/orders/api/{id}', [\App\Http\Controllers\admin\OrderController::class, 'getOrderDetailHtml'])

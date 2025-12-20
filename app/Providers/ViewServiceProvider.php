@@ -23,7 +23,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Truyền $categories_sidebar chỉ áp dụng cho tất cả view trong thư mục client/*
-        View::composer('client.*', function ($view) {
+        View::composer('*', function ($view) {
             $categories = cache()->remember('categories_sidebar', 3600, function () {
                 return Category::with('brands')->get();
             });

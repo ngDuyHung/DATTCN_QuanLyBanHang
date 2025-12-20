@@ -67,12 +67,12 @@
                 <nav class="h-100">
                   <ul class="navigation list-group list-group-flush scroll">
 
-
-
+                
+                    @foreach($categories_sidebar as $category)
                     <li class="menu-item list-group-item">
-                      <a href="/working-gaming-gear" class="menu-item__link" title="Chuột-Bàn phím-Tai nghe">
-                        <img width="24" height="24" src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/menu_icon_1.png?1764228474488" alt="Chuột-Bàn phím-Tai nghe">
-                        <span>Chuột-Bàn phím-Tai nghe</span>
+                      <a href="/{{ $category->slug }}" class="menu-item__link" title="{{ $category->name }}">
+                        <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII=" alt="{{ $category->name }}">
+                        <span>{{ $category->name }}</span>
 
                         <i class="float-right" data-toggle-submenu="">
 
@@ -83,7 +83,7 @@
                         </i>
                       </a>
 
-                      <div class="submenu scroll">
+                      <!-- <div class="submenu scroll">
                         <div class="toggle-submenu d-lg-none d-xl-none">
                           <i class="mr-3">
 
@@ -101,57 +101,15 @@
                               <a class="link" href="/chuot-gaming-van-phong" title="Chuột">Chuột</a>
                             </span>
 
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-razer" title="Razer">Razer</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-logitech" title="Logitech">Logitech</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-asus" title="Asus ROG">Asus ROG</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-rapoo" title="Rapoo">Rapoo</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-lenovo" title="Lenovo">Lenovo</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-atk-vxe" title="ATK - VXE">ATK - VXE</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-hyperx" title="HyperX">HyperX</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-lemokey" title="Keychron - Lemokey">Keychron - Lemokey</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="https://memoryzone.com.vn/chuot-gaming-khong-day-angry-miao-am-infinity-mouse-8k-infinite-battery-life" title="Angry Miao">Angry Miao</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/chuot-dell" title="Dell - AlienWare">Dell - AlienWare</a>
-                            </span>
-
-                            <span class="submenu__item submenu__item">
-                              <a class="link" href="/hop-qua-tang" title="Hộp quà tặng">Hộp quà tặng</a>
-                            </span>
+                          
 
                           </li>
 
                         </ul>
-                      </div>
+                      </div> -->
                     </li>
-
-
+                    @endforeach
+                 
                   </ul>
                 </nav>
 

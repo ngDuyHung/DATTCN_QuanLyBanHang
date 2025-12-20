@@ -33,6 +33,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id', 'brand_id');
     }
 
+    public function inventory()
+    {
+        return $this->hasOne(Inventory::class, 'product_id', 'product_id');
+    }
+
     public function getPriceFormatAttribute()
     {
         return number_format($this->price, 0, ',', '.') ;
