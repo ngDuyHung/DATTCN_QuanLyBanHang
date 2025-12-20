@@ -20,6 +20,8 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     {{-- Dòng này sẽ gọi các file app.css và app.js đã được Vite biên dịch --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!--end::Accessibility Features-->
@@ -37,10 +39,14 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="./css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
+
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/simple-notify.css') }}" />
+    <script src="{{ asset('assets/admin/js/simple-notify.min.js') }}"></script>
     <!-- apexcharts -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
         integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
         crossorigin="anonymous" />
+    @stack('styles')
 </head>

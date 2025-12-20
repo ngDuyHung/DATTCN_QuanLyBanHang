@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug',
-            'description' => 'nullable|string', 
+            'description' => 'nullable|string',
             'is_active' => 'required|boolean',
         ]);
         Category::create($request->all());
@@ -64,7 +64,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id . ',category_id',
-            'description' => 'nullable|string', 
+            'description' => 'nullable|string',
             'is_active' => 'required|boolean',
         ]);
         $category->update($request->all());
@@ -78,5 +78,24 @@ class CategoryController extends Controller
     {
         $category->delete();
         return redirect()->route('admin.category.index')->with('success', 'Xóa danh mục thành công.');
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $category = Category::find($request->category_id);
+        if ($category) {
+            $category->is_active = $request->is_active;
+            $category->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Đã cập nhật trạng thái danh mục.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Không tìm thấy danh mục.'
+        ], 404);
     }
 }

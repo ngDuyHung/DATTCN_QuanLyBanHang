@@ -37,7 +37,8 @@
                                 <td>{{ $category->updated_at }}</td>
                                 <td>
                                     <div class="form-check form-switch custom-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
+                                        <input class="form-check-input change-status" type="checkbox" role="switch"
+                                            data-id="{{ $category->category_id }}"
                                             {{ $category->is_active ? 'checked' : '' }}>
                                     </div>
                                 </td>
@@ -91,4 +92,54 @@
 
 <!--end::Row-->
 </div>
+
+
+{{-- script xử lý trang thái kèm thông báo toast  --}}
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.change-status').on('change', function() {
+            let is_active = $(this).prop('checked') ? 1 : 0;
+            let category_id = $(this).data('id');
+            let _token = $('meta[name="csrf-token"]').attr('content'); // Đảm bảo layout admin có thẻ meta csrf-token
+
+            $.ajax({
+                url: "{{ route('admin.category.changeStatus') }}",
+                type: "POST",
+                data: {
+                    category_id: category_id,
+                    is_active: is_active,
+                    _token: _token
+                },
+                success: function(response) {
+                    if (response.success) {
+                        new Notify({
+                            status: 'success',
+                            title: 'Thành công',
+                            text: response.message,
+                            effect: 'fade',
+                            speed: 300,
+                            autoclose: true,
+                            autotimeout: 1000,
+                            position: 'right top'
+                        });
+                    }
+                },
+                error: function() {
+                    new Notify({
+                        status: 'error',
+                        title: 'Lỗi',
+                        text: 'Không thể cập nhật trạng thái!',
+                        effect: 'fade',
+                        speed: 300,
+                        autoclose: true,
+                        autotimeout: 1000,
+                        position: 'right top'
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endpush
 @endsection

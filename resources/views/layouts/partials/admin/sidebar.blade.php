@@ -2,7 +2,7 @@
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="{{ route('home') }}" class="brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="brand-link">
             <!--begin::Brand Image-->
             <img
                 src="{{asset('/assets/admin/img/iconduyhung.png')}}"
@@ -29,7 +29,7 @@
                 id="navigation">
                 <li class="nav-item menu-open">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link active">
-                        <i class="nav-icon bi bi-house-door"></i>
+                        <i class="nav-icon bi bi-speedometer2"></i>
                         <p>
                             Bảng quản trị
                         </p>
@@ -38,7 +38,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi bi-tags"></i>
+                        <i class="nav-icon bi bi-grid-fill"></i>
                         <p>
                             Danh mục
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-collection"></i>
+                        <i class="nav-icon bi bi-shop"></i>
                         <p>
                             Thương hiệu
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -108,7 +108,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <i class="nav-icon bi bi-cart-check-fill"></i>
                         <p>
                             Đơn hàng
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -126,7 +126,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <i class="nav-icon bi bi-boxes"></i>
                         <p>
                             Quản lý kho
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -150,9 +150,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <i class="nav-icon bi bi-ticket-perforated-fill"></i>
                         <p>
-                            Khuyên mãi
+                            Khuyến mãi
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -174,7 +174,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-seam-fill"></i>
+                        <i class="nav-icon bi bi-people-fill"></i>
                         <p>
                             Tài khoản
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -199,7 +199,7 @@
                 <li class="nav-header">Cài đặt hệ thống</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-menu-button-wide-fill"></i>
+                        <i class="nav-icon bi bi-list"></i>
                         <p>
                             Menu
                             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -207,13 +207,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./widgets/small-box.html" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Danh sách menu</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./widgets/info-box.html" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Thêm menu</p>
                             </a>
@@ -222,17 +222,20 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi bi-gear"></i>
+                        <i class="nav-icon bi bi-gear-fill"></i>
                         <p>
                             Cấu hình
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        <i class="nav-icon bi bi-box-arrow-right"></i>
+                        <p>
+                            {{ __('Đăng xuất') }}
+                        </p>
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

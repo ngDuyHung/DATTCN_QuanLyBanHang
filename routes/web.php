@@ -29,7 +29,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // API Modal
     Route::get('/orders/api/{id}', [\App\Http\Controllers\admin\OrderController::class, 'getOrderDetailHtml'])
         ->name('order.show_api');
+
+    Route::post('categories/change-status', [\App\Http\Controllers\admin\CategoryController::class, 'changeStatus'])->name('category.changeStatus');
+
 });
+
+
 
 
 // Client Product Detail

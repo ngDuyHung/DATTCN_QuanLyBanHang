@@ -67,12 +67,21 @@
     <!--end::Required Plugin(AdminLTE)-->
     <!--All JavaScript configuration is now handled in app.js-->
     <!-- OPTIONAL SCRIPTS -->
+
+    <!-- simple-notify -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- end:simple-notify  -->
+
     <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
         integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
         crossorigin="anonymous"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
         // IT'S ALL JUST JUNK FOR DEMO
@@ -308,6 +317,7 @@
         })();
     </script>
 
+    @stack('scripts')
     <!--end::Script-->
 </body>
 <!--end::Body-->

@@ -1704,7 +1704,7 @@
 
 
 
-  <section class='section container' id='equalprice-products'>
+  <!-- <section class='section container' id='equalprice-products'>
       <div class='row ml-sm-0 mr-sm-0'>
           <div class='col-12 pl-0 pr-0'>
 
@@ -1776,7 +1776,7 @@
               </script>
           </div>
       </div>
-  </section>
+  </section> -->
 
   <!-- <section class="section container" id="recent-view-coll">
       <div class='row ml-sm-0 mr-sm-0'>
