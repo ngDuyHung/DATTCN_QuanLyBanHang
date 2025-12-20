@@ -88,7 +88,7 @@ class ProductController extends Controller
             }
             $name=$category->name;
             $products = Product::where('category_id', $category->category_id)->get();
-            return view('client.showBySlug', compact('category', 'products', 'name'));
+            return view('client.showbyslug', compact('category', 'products', 'name'));
         } else {
             return redirect()->route('home');
         }
