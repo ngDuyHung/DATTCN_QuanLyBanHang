@@ -10,6 +10,79 @@
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">
+            <!-- Form lọc -->
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body py-3">
+                    <form action="{{ route('admin.product.index') }}" method="GET">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">Tìm kiếm</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                                    <input type="text" name="search" class="form-control"
+                                        placeholder="Tên, SKU..." value="{{ request('search') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Phân loại</label>
+                                <div class="input-group input-group-sm">
+                                    <select name="category_id" class="form-select">
+                                        <option value="">Danh mục...</option>
+                                        @foreach($categories as $category)
+                                        <option value="{{ $category->category_id }}"
+                                            {{ request('category_id') == $category->category_id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <select name="brand_id" class="form-select">
+                                        <option value="">Thương hiệu...</option>
+                                        @foreach($brands as $brand)
+                                        <option value="{{ $brand->brand_id }}"
+                                            {{ request('brand_id') == $brand->brand_id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted">Khoảng giá (VNĐ)</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" name="price_from" class="form-control" placeholder="Từ" value="{{ request('price_from') }}">
+                                    <span class="input-group-text">-</span>
+                                    <input type="number" name="price_to" class="form-control" placeholder="Đến" value="{{ request('price_to') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label small fw-bold text-muted">Trạng thái</label>
+                                <select name="is_active" class="form-select form-select-sm">
+                                    <option value="">Tất cả</option>
+                                    <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>Hoạt động</option>
+                                    <option value="0" {{ request('is_active') === '0' ? 'selected' : '' }}>Ngưng</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between align-items-center mt-3">
+                                <div class="text-muted small">
+                                    <i class="bi bi-info-circle"></i> Tìm thấy <strong>{{ $products->total() }}</strong> sản phẩm
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('admin.product.index') }}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-arrow-clockwise"></i> Làm mới
+                                    </a>
+                                    <button type="submit" class="btn btn-sm btn-primary px-4">
+                                        <i class="bi bi-funnel-fill"></i> Lọc dữ liệu
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -135,47 +208,47 @@
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
                 fetch('/admin/products/change-status', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        is_active: isActive
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            is_active: isActive
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            new Notify({
+                                status: 'success',
+                                title: 'Thành công',
+                                text: data.message,
+                                effect: 'fade',
+                                speed: 300,
+                                autoclose: true,
+                                autotimeout: 2000,
+                                position: 'right top'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
                         new Notify({
-                            status: 'success',
-                            title: 'Thành công',
-                            text: data.message,
+                            status: 'error',
+                            title: 'Lỗi',
+                            text: 'Không thể cập nhật trạng thái!',
                             effect: 'fade',
                             speed: 300,
                             autoclose: true,
                             autotimeout: 2000,
                             position: 'right top'
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    new Notify({
-                        status: 'error',
-                        title: 'Lỗi',
-                        text: 'Không thể cập nhật trạng thái!',
-                        effect: 'fade',
-                        speed: 300,
-                        autoclose: true,
-                        autotimeout: 2000,
-                        position: 'right top'
+                        // Hoàn trả lại trạng thái cũ
+                        checkbox.checked = !checkbox.checked;
                     });
-                    // Hoàn trả lại trạng thái cũ
-                    checkbox.checked = !checkbox.checked;
-                });
             });
         });
 

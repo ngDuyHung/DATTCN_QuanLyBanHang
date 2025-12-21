@@ -15,14 +15,52 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Thêm with() để tối ưu truy vấn (Eager Loading)
-        $products = Product::with('category', 'brand')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+        // Khởi tạo query với Eager Loading
+        $query = Product::with('category', 'brand');
 
-        return view('admin.product.index', compact('products'));
+        // Tìm kiếm theo tên hoặc SKU
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
+            });
+        }
+
+        // Lọc theo danh mục
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Lọc theo thương hiệu
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        // Lọc theo trạng thái
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
+        // Lọc theo khoảng giá
+        if ($request->filled('price_from')) {
+            $query->where('price', '>=', $request->price_from);
+        }
+
+        if ($request->filled('price_to')) {
+            $query->where('price', '<=', $request->price_to);
+        }
+
+        // Sắp xếp và phân trang
+        $products = $query->orderBy('created_at', 'desc')->paginate(20);
+
+        // Lấy danh sách categories và brands cho dropdown
+        $categories = Category::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get();
+
+        return view('admin.product.index', compact('products', 'categories', 'brands'));
     }
 
     /**

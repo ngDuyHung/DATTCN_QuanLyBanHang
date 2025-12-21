@@ -62,8 +62,21 @@ class OrderController extends Controller
         if(empty($fullName) || empty($email) || empty($phone) || empty($address) || empty($tinh_thanh) || empty($quan_huyen) || empty($phuong_xa)) {
             return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin thanh toán.');
         }
-
+        
+        //Kiểm tra số lương sản phẩm trong kho
+        foreach ($products as $pd) {
+            $product = \App\Models\Product::find($pd['id']);
+            if ($product) {
+                $inventory = $product->inventory;
+                if ($inventory && $pd['qty'] > $inventory->quantity) {
+                    return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
+                     '" không đủ số lượng trong kho.'."\n Vui lòng điều chỉnh lại giỏ hàng.");
+                }
+            }
+        }
+        // Tìm khuyến mãi nếu có
         $promotion = Promotion::where('code', $promotionCode)->first();
+        // Tính tổng tiền
         $totalAmount = 0;
         foreach ($products as $pd) {
             $product = \App\Models\Product::find($pd['id']);
@@ -75,7 +88,7 @@ class OrderController extends Controller
         if(Auth::check()){
             $userId = Auth::id();
         } else {
-            $userId = null; // or handle guest users differently
+            $userId = null; // Khách vãng lai
         }
         $randomNumber = $this->generateUniqueNumber('orders', 'order_number', 10);
         $order = Order::create([
