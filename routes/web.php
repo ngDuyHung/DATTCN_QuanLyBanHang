@@ -61,3 +61,4 @@ Route::get('/checkout/success/{order_number}', [App\Http\Controllers\client\Orde
 
 // show by slug 
 Route::get('/{slug}', [App\Http\Controllers\client\ProductController::class, 'showBySlug'])->name('client.showBySlug');
+
