@@ -20,6 +20,85 @@ class OrderController extends Controller
     }
 
     /**
+     * Kiểm tra và áp dụng mã giảm giá
+     */
+    public function applyDiscount(Request $request)
+    {
+        $code = $request->input('code');
+        $totalAmount = $request->input('totalAmount', 0);
+
+        if (empty($code)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vui lòng nhập mã giảm giá!'
+            ]);
+        }
+
+        // Tìm mã giảm giá
+        $promotion = Promotion::where('code', $code)
+            ->where('is_active', true)
+            ->first();
+
+        if (!$promotion) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã giảm giá không tồn tại hoặc đã hết hạn!'
+            ]);
+        }
+
+        // Kiểm tra thời gian hiệu lực
+        $now = now();
+        if ($promotion->starts_at && $now < $promotion->starts_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã giảm giá chưa có hiệu lực!'
+            ]);
+        }
+
+        if ($promotion->ends_at && $now > $promotion->ends_at) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã giảm giá đã hết hạn!'
+            ]);
+        }
+
+        // Kiểm tra số lần sử dụng
+        if ($promotion->usage_limit && $promotion->times_used >= $promotion->usage_limit) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã giảm giá đã hết lượt sử dụng!'
+            ]);
+        }
+
+        // Tính giá trị giảm
+        $discountAmount = 0;
+        if ($promotion->discount_type === 'percen') {
+            $discountAmount = ($totalAmount * $promotion->discount_value) / 100;
+        } elseif ($promotion->discount_type === 'fixed') {
+            $discountAmount = $promotion->discount_value;
+        }
+
+        // Đảm bảo giảm giá không vượt quá tổng tiền
+        $discountAmount = min($discountAmount, $totalAmount);
+        $finalAmount = $totalAmount - $discountAmount;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Áp dụng mã giảm giá thành công!',
+            'data' => [
+                'promo_id' => $promotion->promo_id,
+                'code' => $promotion->code,
+                'discount_type' => $promotion->discount_type,
+                'discount_value' => $promotion->discount_value,
+                'discount_amount' => $discountAmount,
+                'discount_amount_formatted' => number_format($discountAmount, 0, ',', '.') . ' ₫',
+                'final_amount' => $finalAmount,
+                'final_amount_formatted' => number_format($finalAmount, 0, ',', '.') . ' ₫'
+            ]
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -55,7 +134,9 @@ class OrderController extends Controller
         $address = $request->input('billingAddress', '');
         $note = $request->input('note', '');
         $paymentMethod = $request->input('paymentMethod', 'cod');
-        $promotionCode = $request->input('reductionCode', null);
+        $promoCode = $request->input('reductionCode', null); // Lấy promo_id từ form
+        $promoID = $request->input('promo_id', null); // Lấy promo_id từ form
+        
         if (empty($products)) {
             return redirect()->back()->with('error', 'Giỏ hàng trống!');
         }
@@ -68,14 +149,29 @@ class OrderController extends Controller
             $product = \App\Models\Product::find($pd['id']);
             if ($product) {
                 $inventory = $product->inventory;
-                if ($inventory && $pd['qty'] > $inventory->quantity) {
+                if(!$inventory) {
+                    return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
+                     '" hiện không có trong kho.'."\n Vui lòng điều chỉnh lại giỏ hàng.");
+                }
+                if ($inventory->quantity_in_stock < $pd['qty']) {
+                    //dd("inventory:".$inventory->quantity_in_stock,"pd:" . $pd['qty']);
+
                     return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
                      '" không đủ số lượng trong kho.'."\n Vui lòng điều chỉnh lại giỏ hàng.");
                 }
             }
         }
-        // Tìm khuyến mãi nếu có
-        $promotion = Promotion::where('code', $promotionCode)->first();
+        
+        // Tìm khuyến mãi nếu có (dùng promo_id từ AJAX)
+        $promotion = null;
+        $discountAmount = 0;
+        if ($promoCode) {
+            $promotion = Promotion::where('code', $promoCode)->first();
+            //dd("code" .$promotion);
+        }else if ($promoID) {
+            $promotion = Promotion::find($promoID);
+            //dd("id" .$promotion);
+        }
         // Tính tổng tiền
         $totalAmount = 0;
         foreach ($products as $pd) {
@@ -84,6 +180,20 @@ class OrderController extends Controller
                 $totalAmount += $product->price * $pd['qty'];
             }
         }
+
+        // Tính giảm giá nếu có promotion
+        if ($promotion) {
+            if ($promotion->discount_type === 'percen') {
+                $discountAmount = ($totalAmount * $promotion->discount_value) / 100;
+            } elseif ($promotion->discount_type === 'fixed') {
+                $discountAmount = $promotion->discount_value;
+            }
+            // Đảm bảo giảm giá không vượt quá tổng tiền
+            $discountAmount = min($discountAmount, $totalAmount);
+        }
+
+        // Tính tổng tiền sau giảm giá
+        $finalAmount = $totalAmount - $discountAmount;
 
         if(Auth::check()){
             $userId = Auth::id();
@@ -102,8 +212,8 @@ class OrderController extends Controller
             'payment_method' => $paymentMethod,
             'shipping_fee' => 0,
             'subtotal' => $totalAmount,
-            'discount_amount' => 0,
-            'total_amount' => $totalAmount,
+            'discount_amount' => $discountAmount,
+            'total_amount' => $finalAmount,
             'status' => 'pending',
             'note' => $note,
         ]);
@@ -123,6 +233,12 @@ class OrderController extends Controller
                 ]);
             }
         }
+        
+        // Cập nhật số lần sử dụng promotion
+        if ($promotion) {
+            $promotion->increment('times_used');
+        }
+        
         //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
         
         //Xóa giỏ hàng

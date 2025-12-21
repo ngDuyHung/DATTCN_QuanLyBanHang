@@ -56,6 +56,7 @@ Route::get('/cart/checkout', [App\Http\Controllers\client\CartController::class,
 
 //Checkout routes
 Route::post('/checkout', [App\Http\Controllers\client\OrderController::class, 'store'])->name('checkout');
+Route::post('/checkout/apply-discount', [App\Http\Controllers\client\OrderController::class, 'applyDiscount'])->name('checkout.applyDiscount');
 Route::get('/checkout/success/{order_number}', [App\Http\Controllers\client\OrderController::class, 'topup'])->name('checkout.success');
 
 // show by slug 
