@@ -25,11 +25,7 @@ class SePayWebhookListener
      */
     public function handle(\SePay\SePay\Events\SePayWebhookEvent $event): void
     {
-        // Dòng log này PHẢI xuất hiện nếu xác thực Token thành công
-        \Illuminate\Support\Facades\Log::info('==== CO REQUEST DEN LISTENER ====');
 
-        $data = $event->sePayWebhookData;
-        \Illuminate\Support\Facades\Log::info('Dữ liệu content:', ['content' => $data->content]);
         $data = $event->sePayWebhookData; // Dữ liệu giao dịch từ SePay
         $orderNumber = $event->info;    // Package đã tách được số 12345 từ "DH12345"
 
@@ -54,8 +50,8 @@ class SePayWebhookListener
 
                 // 3. Cập nhật trạng thái đơn hàng
                 $order->update([
-                    'status' => 'processing', // Hoặc 'completed' tùy workflow của bạn
-                    'paid_at' => now(),       // Nếu bạn có cột lưu ngày thanh toán
+                    'status' => 'completed', // Hoặc 'completed' tùy workflow của bạn
+                    'updated_at' => now(),       // Nếu bạn có cột lưu ngày th anh toán
                 ]);
 
                 // 4. (Tùy chọn) Gửi Email thông báo cho khách hàng đã nhận được tiền

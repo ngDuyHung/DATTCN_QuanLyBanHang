@@ -10,94 +10,91 @@
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="mb-3">
-                    <a href="{{ route('admin.inventory.create') }}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Thêm mới
-                    </a>
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{{ route('admin.inventory.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Thêm mới
+                        </a>
+                    </div>
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered table-striped table-hover table-module mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Mã id</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>SKU</th>
+                                    <th>Số lượng trong kho</th>
+                                    <th>cảnh báo tối thiểu</th>
+                                    <th>Ngày cập nhật cuối</th>
+                                    <th>Trạng thái</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($inventorys as $inventory)
+                                <tr>
+                                    <td>{{ $inventory->inventory_id }}</td>
+                                    <td>{{ Str::limit($inventory->product->name ?? 'N/A', 20) }}</td>
+                                    <td>{{ $inventory->product->sku ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->quantity_in_stock }}</td>
+                                    <td>{{ $inventory->min_alert_quantity }}</td>
+                                    <td>{{ $inventory->last_updated }}</td>
+                                    <td>
+                                        @if($inventory->quantity_in_stock <= $inventory->min_alert_quantity)
+                                            <span class="badge bg-danger">Sắp hết hàng</span>
+                                            @elseif($inventory->quantity_in_stock <= $inventory->min_alert_quantity * 2)
+                                                <span class="badge bg-warning">Cần nhập thêm</span>
+                                                @else
+                                                <span class="badge bg-success">Đủ hàng</span>
+                                                @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.inventory.edit', $inventory) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
+                                        <form action="{{ route('admin.inventory.destroy', $inventory) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"> Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered table-striped table-hover table-module mb-0">
-                        <thead>
-                            <tr>
-                                <th>Mã id</th>
-                                <th>Tên sản phẩm</th>
-                                <th>SKU</th>
-                                <th>Số lượng trong kho</th>
-                                <th>cảnh báo tối thiểu</th>
-                                <th>Ngày cập nhật cuối</th>
-                                <th>Trạng thái</th>
-                                <th class="text-center">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($inventorys as $inventory)
-                            <tr>
-                                <td>{{ $inventory->inventory_id }}</td>
-                                <td>{{ Str::limit($inventory->product->name ?? 'N/A', 20) }}</td>
-                                <td>{{ $inventory->product->sku ?? 'N/A' }}</td>
-                                <td>{{ $inventory->quantity_in_stock }}</td>
-                                <td>{{ $inventory->min_alert_quantity }}</td>
-                                <td>{{ $inventory->last_updated }}</td>                                
-                                <td>
-                                    @if($inventory->quantity_in_stock <= $inventory->min_alert_quantity)
-                                        <span class="badge bg-danger">Sắp hết hàng</span>
-                                    @elseif($inventory->quantity_in_stock <= $inventory->min_alert_quantity * 2)
-                                        <span class="badge bg-warning">Cần nhập thêm</span>
-                                    @else
-                                        <span class="badge bg-success">Đủ hàng</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.inventory.edit', $inventory) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
-                                    <form action="{{ route('admin.inventory.destroy', $inventory) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"> Xóa</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix mt-2">
+                    <ul class="pagination pagination-sm m-0 float-end">
+                        {{-- Nút quay về trang trước --}}
+                        <li class="page-item {{ $inventorys->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $inventorys->previousPageUrl() ?? '#' }}">&laquo;</a>
+                        </li>
+
+                        {{-- Hiển thị danh sách số trang --}}
+                        @for ($i = 1; $i <= $inventorys->lastPage(); $i++)
+                            <li class="page-item {{ $i == $inventorys->currentPage() ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $inventorys->url($i) }}">{{ $i }}</a>
+                            </li>
+                            @endfor
+
+                            {{-- Nút sang trang sau --}}
+                            <li class="page-item {{ !$inventorys->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $inventorys->nextPageUrl() ?? '#' }}">&raquo;</a>
+                            </li>
+                    </ul>
+
                 </div>
+                <!-- /.card -->
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix mt-2">
-                <ul class="pagination pagination-sm m-0 float-end">
-                    {{-- Nút quay về trang trước --}}
-                    <li class="page-item {{ $inventorys->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $inventorys->previousPageUrl() ?? '#' }}">&laquo;</a>
-                    </li>
-
-                    {{-- Hiển thị danh sách số trang --}}
-                    @for ($i = 1; $i <= $inventorys->lastPage(); $i++)
-                        <li class="page-item {{ $i == $inventorys->currentPage() ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $inventorys->url($i) }}">{{ $i }}</a>
-                        </li>
-                        @endfor
-
-                        {{-- Nút sang trang sau --}}
-                        <li class="page-item {{ !$inventorys->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $inventorys->nextPageUrl() ?? '#' }}">&raquo;</a>
-                        </li>
-                </ul>
-            </div>
-
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
-
+        <!-- /.col -->
     </div>
-    <!-- /.card -->
-    <!-- /.card -->
+    <!-- /.row -->
 </div>
-<!-- /.col -->
-</div>
-<!--end::Row-->
-<!--begin::Row-->
-<!-- Modal -->
+<!-- /.container-fluid -->
 
-<!--end::Row-->
-</div>
+
 @endsection

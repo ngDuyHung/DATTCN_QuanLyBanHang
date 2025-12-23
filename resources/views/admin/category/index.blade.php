@@ -10,120 +10,113 @@
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="table-responsive-md">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>Tên</th>
-                                <th>slug</th>
-                                <th>Mô tả</th>
-                                <th>Ngày tạo</th>
-                                <th>Ngày cập nhật</th>
-                                <th>Trạng thái</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categorys as $category)
-                            <tr>
-                                <td>{{ $category->category_id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->slug }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>{{ $category->created_at }}</td>
-                                <td>{{ $category->updated_at }}</td>
-                                <td>
-                                    <div class="form-check form-switch custom-switch">
-                                        <input class="form-check-input change-status" type="checkbox" role="switch"
-                                            data-id="{{ $category->category_id }}"
-                                            {{ $category->is_active ? 'checked' : '' }}>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-outline-info shadow bi bi-eye view-category" 
-                                        data-category-id="{{ $category->category_id }}" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#categoryModal"></button>
-                                    <a href="{{ route('admin.category.edit', $category) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
-                                    <form action="{{ route('admin.category.destroy', $category) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3"> Xóa</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive-md">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Tên</th>
+                                    <th>slug</th>
+                                    <th>Mô tả</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categorys as $category)
+                                <tr>
+                                    <td>{{ $category->category_id }}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $category->slug }}</td>
+                                    <td>{{ $category->description }}</td>
+                                    <td>{{ $category->created_at }}</td>
+                                    <td>{{ $category->updated_at }}</td>
+                                    <td>
+                                        <div class="form-check form-switch custom-switch">
+                                            <input class="form-check-input change-status" type="checkbox" role="switch"
+                                                data-id="{{ $category->category_id }}"
+                                                {{ $category->is_active ? 'checked' : '' }}>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-info shadow bi bi-eye view-category"
+                                            data-category-id="{{ $category->category_id }}"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#categoryModal"></button>
+                                        <a href="{{ route('admin.category.edit', $category) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
+                                        <form action="{{ route('admin.category.destroy', $category) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3"> Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix mt-2">
-                <ul class="pagination pagination-sm m-0 float-end">
-                    {{-- Nút quay về trang trước --}}
-                    <li class="page-item {{ $categorys->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $categorys->previousPageUrl() ?? '#' }}">&laquo;</a>
-                    </li>
-
-                    {{-- Hiển thị danh sách số trang --}}
-                    @for ($i = 1; $i <= $categorys->lastPage(); $i++)
-                        <li class="page-item {{ $i == $categorys->currentPage() ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $categorys->url($i) }}">{{ $i }}</a>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-end">
+                        {{-- Nút quay về trang trước --}}
+                        <li class="page-item {{ $categorys->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $categorys->previousPageUrl() ?? '#' }}">&laquo;</a>
                         </li>
+
+                        {{-- Hiển thị danh sách số trang --}}
+                        @for ($i = 1; $i <= $categorys->lastPage(); $i++)
+                            <li class="page-item {{ $i == $categorys->currentPage() ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $categorys->url($i) }}">{{ $i }}</a>
+                            </li>
                         @endfor
 
                         {{-- Nút sang trang sau --}}
                         <li class="page-item {{ !$categorys->hasMorePages() ? 'disabled' : '' }}">
                             <a class="page-link" href="{{ $categorys->nextPageUrl() ?? '#' }}">&raquo;</a>
                         </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
-
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
-
+        <!-- /.col -->
     </div>
-    <!-- /.card -->
-    <!-- /.card -->
+    <!--end::Row-->
 </div>
-<!-- /.col -->
-</div>
-<!--end::Row-->
-<!--begin::Row-->
-
-<!--end::Row-->
-</div>
+<!--end::Container-->
 
 <!-- Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="categoryModalLabel">
-          <i class="bi bi-folder me-2"></i>Thông tin chi tiết danh mục
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="categoryModalBody">
-        <div class="text-center py-5">
-          <div class="spinner-border text-info" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="categoryModalLabel">
+                    <i class="bi bi-folder me-2"></i>Thông tin chi tiết danh mục
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="categoryModalBody">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-1"></i>Đóng
+                </button>
+                <a href="#" id="editCategoryBtn" class="btn btn-sm btn-warning">
+                    <i class="bi bi-pencil me-1"></i>Sửa
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-          <i class="bi bi-x-circle me-1"></i>Đóng
-        </button>
-        <a href="#" id="editCategoryBtn" class="btn btn-sm btn-warning">
-          <i class="bi bi-pencil me-1"></i>Sửa
-        </a>
-      </div>
     </div>
-  </div>
 </div>
 
 
@@ -183,7 +176,7 @@
         function loadCategoryDetails(categoryId) {
             const modalBody = $('#categoryModalBody');
             const editBtn = $('#editCategoryBtn');
-            
+
             // Hiển thị loading
             modalBody.html(`
                 <div class="text-center py-5">
@@ -204,10 +197,10 @@
                 success: function(data) {
                     const category = data.category;
                     const productsCount = data.products_count || 0;
-                    
+
                     // Cập nhật nút sửa
                     editBtn.attr('href', `/admin/category/${categoryId}/edit`);
-                    
+
                     // Render nội dung
                     modalBody.html(`
                         <div class="row">

@@ -10,109 +10,106 @@
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered table-striped table-hover table-module mb-0">
-                        <thead>
-                            <tr>
-                                <th>mã đơn hàng </th>
-                                <th>họ và tên</th>
-                                <th>email/phone</th>
-                                <th>hình thức</th>
-                                <th>tổng tiền</th>
-                                <th>Trạng thái</th>
-                                <th>ngày đặt</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($orders as $order)
-                            <tr>
-                                <td>{{ $order->order_number }}</td>
-                                <td>{{ $order->full_name }}<br>
-                                    @if(!empty($order->user_id)){{ 'Mã user:' }}<span class="h6 text-danger">{{ $order->user_id }}</span>@else <span class="h6 text-danger">Khách vãng lai</span> @endif
-                                </td>
-                                <td>
-                                    {{ $order->email }}<br>{{ $order->phone }}
-                                </td>
-                                <td>@if($order->payment_method== 'cod')
-                                    Thanh toán khi nhận hàng
-                                    @elseif($order->payment_method== 'bank_transfer')
-                                    Thanh toán online
-                                    @endif
-                                </td>
-                                <td>{{ $order->total_amount_format }}</td>
-                                <td>@if($order->status == 'pending')
-                                    <p class="badge text-bg-warning">Chờ thanh toán</p>
-                                    @elseif($order->status == 'processing')
-                                    <p class="badge text-bg-info">Đang xử lý</p>
-                                    @elseif($order->status == 'shipped')
-                                    <p class="badge text-bg-primary">Đã giao hàng</p>
-                                    @elseif($order->status == 'delivered')
-                                    <p class="badge text-bg-success">Đã nhận hàng</p>
-                                    @elseif($order->status == 'completed')
-                                    <p class="badge text-bg-secondary">Hoàn thành</p>
-                                    @elseif($order->status == 'cancelled')
-                                    <p class="badge text-bg-danger">Đã hủy không hoàn tiền</p>
-                                    @elseif($order->status == 'refunded')
-                                    <p class="badge text-bg-danger">Đã hủy và hoàn tiền</p>
-                                    @endif
-                                <td>{{ $order->placed_at }}</td>
-                                <td>
-                                    <a href="javascript:void(0)"
-                                        class="btn btn-sm btn-outline-primary shadow bi bi-eye btn-show-order" 
-                                        data-url="{{ route('admin.order.show_api', ['id' => $order->order_id]) }}">
-                                    </a>
-                                    <a href="{{ route('admin.order.edit', $order) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
-                                    <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3"> Xóa</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered table-striped table-hover table-module mb-0">
+                            <thead>
+                                <tr>
+                                    <th>mã đơn hàng </th>
+                                    <th>họ và tên</th>
+                                    <th>email/phone</th>
+                                    <th>hình thức</th>
+                                    <th>tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>ngày đặt</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($orders as $order)
+                                <tr>
+                                    <td>{{ $order->order_number }}</td>
+                                    <td>{{ $order->full_name }}<br>
+                                        @if(!empty($order->user_id)){{ 'Mã user:' }}<span class="h6 text-danger">{{ $order->user_id }}</span>@else <span class="h6 text-danger">Khách vãng lai</span> @endif
+                                    </td>
+                                    <td>
+                                        {{ $order->email }}<br>{{ $order->phone }}
+                                    </td>
+                                    <td>@if($order->payment_method== 'cod')
+                                        Thanh toán khi nhận hàng
+                                        @elseif($order->payment_method== 'bank_transfer')
+                                        Thanh toán online
+                                        @endif
+                                    </td>
+                                    <td>{{ $order->total_amount_format }}</td>
+                                    <td>@if($order->status == 'pending')
+                                        <p class="badge text-bg-warning">Chờ thanh toán</p>
+                                        @elseif($order->status == 'processing')
+                                        <p class="badge text-bg-info">Đang xử lý</p>
+                                        @elseif($order->status == 'shipped')
+                                        <p class="badge text-bg-primary">Đã giao hàng</p>
+                                        @elseif($order->status == 'delivered')
+                                        <p class="badge text-bg-success">Đã nhận hàng</p>
+                                        @elseif($order->status == 'completed')
+                                        <p class="badge text-bg-secondary">Hoàn thành</p>
+                                        @elseif($order->status == 'cancelled')
+                                        <p class="badge text-bg-danger">Đã hủy không hoàn tiền</p>
+                                        @elseif($order->status == 'refunded')
+                                        <p class="badge text-bg-danger">Đã hủy và hoàn tiền</p>
+                                        @endif
+                                    <td>{{ $order->placed_at }}</td>
+                                    <td>
+                                        <a href="javascript:void(0)"
+                                            class="btn btn-sm btn-outline-primary shadow bi bi-eye btn-show-order"
+                                            data-url="{{ route('admin.order.show_api', ['id' => $order->order_id]) }}">
+                                        </a>
+                                        <a href="{{ route('admin.order.edit', $order) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
+                                        <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3"> Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix mt-2">
-                <ul class="pagination pagination-sm m-0 float-end">
-                    {{-- Nút quay về trang trước --}}
-                    <li class="page-item {{ $orders->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $orders->previousPageUrl() ?? '#' }}">&laquo;</a>
-                    </li>
-
-                    {{-- Hiển thị danh sách số trang --}}
-                    @for ($i = 1; $i <= $orders->lastPage(); $i++)
-                        <li class="page-item {{ $i == $orders->currentPage() ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a>
+                <!-- /.card-body -->
+                <div class="card-footer clearfix mt-2">
+                    <ul class="pagination pagination-sm m-0 float-end">
+                        {{-- Nút quay về trang trước --}}
+                        <li class="page-item {{ $orders->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $orders->previousPageUrl() ?? '#' }}">&laquo;</a>
                         </li>
-                        @endfor
 
-                        {{-- Nút sang trang sau --}}
-                        <li class="page-item {{ !$orders->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $orders->nextPageUrl() ?? '#' }}">&raquo;</a>
-                        </li>
-                </ul>
+                        {{-- Hiển thị danh sách số trang --}}
+                        @for ($i = 1; $i <= $orders->lastPage(); $i++)
+                            <li class="page-item {{ $i == $orders->currentPage() ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a>
+                            </li>
+                            @endfor
+
+                            {{-- Nút sang trang sau --}}
+                            <li class="page-item {{ !$orders->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $orders->nextPageUrl() ?? '#' }}">&raquo;</a>
+                            </li>
+                    </ul>
+                </div>
+
             </div>
+            <!-- /.card -->
 
         </div>
         <!-- /.card -->
-
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-    <!-- /.card -->
+    <!-- /.col -->
 </div>
-<!-- /.col -->
-</div>
-<!--end::Row-->
-<!--begin::Row-->
 
-<!--end::Row-->
-</div>
 
 {{-- Đoạn Modal Vỏ Rỗng --}}
 <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-hidden="true">
@@ -134,7 +131,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Script loaded successfully');
-        
+
         // Sử dụng Event Delegation (bắt sự kiện từ body) để không bị lỗi với các element sinh ra sau
         document.body.addEventListener('click', function(event) {
 
@@ -147,7 +144,7 @@
 
                 const url = button.getAttribute('data-url');
                 console.log('URL:', url);
-                
+
                 const modalElement = document.getElementById('orderDetailModal');
                 const modalContent = document.getElementById('modalContentArea');
 
@@ -188,7 +185,7 @@
                     .then(html => {
                         console.log('HTML received, length:', html.length);
                         console.log('First 200 chars:', html.substring(0, 200));
-                        
+
                         // 4. Gán HTML vào modal
                         modalContent.innerHTML = html;
                         console.log('HTML injected successfully');
