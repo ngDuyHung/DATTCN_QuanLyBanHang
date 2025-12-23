@@ -40,9 +40,9 @@
                                     <td>{{ $promotion->code }}</td>
                                     <td>
                                         @if($promotion->discount_type == 'percent')
-                                        Giảm theo phần trăm
+                                        Theo phần trăm
                                         @elseif($promotion->discount_type == 'fixed')
-                                        Giảm theo số tiền cố định
+                                        Số tiền cố định
                                         @endif
                                     </td>
                                     <td>

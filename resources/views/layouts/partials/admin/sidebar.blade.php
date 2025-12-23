@@ -40,7 +40,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-grid-fill"></i>
                         <p>
-                            Danh mục
+                            Phân loại
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
@@ -52,36 +52,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.category.create') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Thêm danh mục</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-shop"></i>
-                        <p>
-                            Thương hiệu
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
                             <a href="{{ route('admin.brand.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Danh sách thương hiệu</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.brand.create') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Thêm thương hiệu</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
+              
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-box-seam-fill"></i>
@@ -121,7 +99,7 @@
                                 <p>Danh sách đơn hàng</p>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -145,56 +123,25 @@
                                 <p>Thêm kho</p>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.promotion.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-ticket-perforated-fill"></i>
                         <p>
                             Khuyến mãi
-                            <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.promotion.index') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Danh sách khuyến mãi</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.promotion.create') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Thêm khuyến mãi</p>
-                            </a>
-                        </li>
-                       
-                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.account.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>
                             Tài khoản
-                            <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.account.index') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Danh sách tài khoản</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.account.create') }}" class="nav-link">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Thêm tài khoản</p>
-                            </a>
-                        </li>
-                       
-                    </ul>
+
                 </li>
                 <li class="nav-header">Cài đặt hệ thống</li>
                 <li class="nav-item">
