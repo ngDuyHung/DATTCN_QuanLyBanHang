@@ -20,9 +20,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-               // Chỉ yêu cầu đăng nhập với các chức năng quản lý
+        // Chỉ yêu cầu đăng nhập với các chức năng quản lý
         $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy', 'dashboard']);
-   
     }
 
     /**
@@ -32,10 +31,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $brands=Brand::orderBy('brand_id','desc')->take(5)->get();
-        $products=Product::orderBy('created_at','desc')->take(8)->get();
-        $home=true;
-        return view('client.home', compact('brands', 'products', 'home'));
+        $brands = Brand::orderBy('brand_id', 'desc')->take(5)->get();
+        $products = Product::orderBy('created_at', 'desc')->take(8)->get();
+        $LaptopBrands = Brand::where('category_id', Category::where('slug', 'laptop')->first()->category_id)
+            ->orderBy('brand_id', 'desc')
+            ->take(5)
+            ->get();
+        $productLaptops = Product::where('category_id', Category::where('slug', 'laptop')->first()->category_id)
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+        $PCBrands = Brand::where('category_id', Category::where('slug', 'pcmaybo')->first()->category_id)
+            ->orderBy('brand_id', 'desc')
+            ->take(5)
+            ->get();
+        $productPCs = Product::where('category_id', Category::where('slug', 'pcmaybo')->first()->category_id)
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+        $home = true;
+        return view('client.home', compact('brands', 'products', 'home', 'LaptopBrands', 'PCBrands','productLaptops','productPCs'));
     }
 
     public function dashboard()
@@ -63,11 +78,11 @@ class HomeController extends Controller
             DB::raw('SUM(total_amount) as total'),
             DB::raw('COUNT(*) as order_count')
         )
-        ->where('placed_at', '>=', now()->subMonths(7))
-        ->groupBy('year', 'month')
-        ->orderBy('year', 'asc')
-        ->orderBy('month', 'asc')
-        ->get();
+            ->where('placed_at', '>=', now()->subMonths(7))
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
 
         // Thống kê cho progress bar
         $ordersCompleted = Order::where('status', 'completed')->count();
@@ -76,11 +91,11 @@ class HomeController extends Controller
         $productsActive = Product::where('is_active', 1)->count();
 
         return view('admin.dashboard', compact(
-            'totalOrders', 
-            'totalProducts', 
-            'totalRevenue', 
-            'totalCustomers', 
-            'recentOrders', 
+            'totalOrders',
+            'totalProducts',
+            'totalRevenue',
+            'totalCustomers',
+            'recentOrders',
             'lowStockProducts',
             'monthlyRevenue',
             'ordersCompleted',

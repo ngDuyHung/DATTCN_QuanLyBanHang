@@ -4,20 +4,7 @@
 
 
   <div class="opacity_menu"></div>
-  <!-- <div class="container">
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-      defer=""></script>
-    <div class="google-translate text-right">
-      <div class="ggtrans">
-        <div id="google_translate_element"></div>
-      </div>
-    </div>
-    <script type="text/javascript" defer="">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: 'vi', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL }, 'google_translate_element');
-      }
-    </script>
-  </div> -->
+  
   <div class="topbar-slider swiper-container">
     <div class="swiper-wrapper">
 
@@ -137,39 +124,7 @@
             </ae-widget>
 
 
-            <div class="search-dropdow">
-              <ul class="search__list pl-0 d-flex list-unstyled mb-0 flex-wrap">
-                <li class="mr-2">
-                  <a id="filter-search-ban-phim-keychron"
-                    href="/search?query=b%C3%A0n+ph%C3%ADm+keychron&type=product">bàn phím keychron</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-msi-cyborg-15" href="/search?query=MSI+Cyborg+15&type=product">MSI Cyborg 15</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-asus-oled" href="/search?query=ASUS+OLED&type=product">ASUS OLED</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-pc-gaming" href="/search?query=PC+Gaming&type=product">PC Gaming</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-razer-pro-click" href="/search?query=razer+pro+click&type=product">razer pro
-                    click</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-the-nho" href="/search?query=Th%E1%BA%BB+nh%E1%BB%9B&type=product">Thẻ nhớ</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-usb" href="/search?query=USB&type=product">USB</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-loa" href="/search?query=Loa&type=product">Loa</a>
-                </li>
-                <li class="mr-2">
-                  <a id="filter-search-" href="/search?query=&type=product"></a>
-                </li>
-              </ul>
-            </div>
+            
           </div>
           <div class="col-4 col-sm-3 col-lg-6 col-xl-3 pl-0">
             <ul class="header-right mb-0 list-unstyled d-flex align-items-center">

@@ -7,6 +7,8 @@
 {{-- Đặt nội dung cho trang --}}
 @section('content')
 <div class="container-fluid">
+    <a href="{{ route('admin.category.create') }}" class="btn btn-sm btn-primary mb-3 shadow bi bi-plus-lg">Thêm danh mục</a>
+
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">
@@ -73,12 +75,12 @@
                             <li class="page-item {{ $i == $categorys->currentPage() ? 'active' : '' }}">
                                 <a class="page-link" href="{{ $categorys->url($i) }}">{{ $i }}</a>
                             </li>
-                        @endfor
+                            @endfor
 
-                        {{-- Nút sang trang sau --}}
-                        <li class="page-item {{ !$categorys->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $categorys->nextPageUrl() ?? '#' }}">&raquo;</a>
-                        </li>
+                            {{-- Nút sang trang sau --}}
+                            <li class="page-item {{ !$categorys->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $categorys->nextPageUrl() ?? '#' }}">&raquo;</a>
+                            </li>
                     </ul>
                 </div>
             </div>

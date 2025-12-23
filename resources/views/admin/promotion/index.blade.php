@@ -7,6 +7,8 @@
 {{-- Đặt nội dung cho trang --}}
 @section('content')
 <div class="container-fluid">
+    <a href="{{ route('admin.promotion.create') }}" class="btn btn-sm btn-primary mb-3 shadow bi bi-plus-lg">Thêm mã khuyến mãi</a>
+
     <!--begin::Row-->
     <div class="row">
         <div class="col-md-12">

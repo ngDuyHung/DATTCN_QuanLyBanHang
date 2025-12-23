@@ -45,19 +45,14 @@
                                     </td>
                                     <td>{{ $order->total_amount_format }}</td>
                                     <td>@if($order->status == 'pending')
-                                        <p class="badge text-bg-warning">Chờ thanh toán</p>
-                                        @elseif($order->status == 'processing')
-                                        <p class="badge text-bg-info">Đang xử lý</p>
-                                        @elseif($order->status == 'shipped')
-                                        <p class="badge text-bg-primary">Đã giao hàng</p>
-                                        @elseif($order->status == 'delivered')
-                                        <p class="badge text-bg-success">Đã nhận hàng</p>
+                                        <p class="badge text-bg-warning">Đang chờ xử lý</p>
+                                        @elseif($order->status == 'delivery')
+                                        <p class="badge text-bg-success">Đang giao hàng</p>
                                         @elseif($order->status == 'completed')
                                         <p class="badge text-bg-secondary">Hoàn thành</p>
                                         @elseif($order->status == 'cancelled')
-                                        <p class="badge text-bg-danger">Đã hủy không hoàn tiền</p>
-                                        @elseif($order->status == 'refunded')
-                                        <p class="badge text-bg-danger">Đã hủy và hoàn tiền</p>
+                                        <p class="badge text-bg-danger">Đã hủy </p>
+                                      
                                         @endif
                                     <td>{{ $order->placed_at }}</td>
                                     <td>

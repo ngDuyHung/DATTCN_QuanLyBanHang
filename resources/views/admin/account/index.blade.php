@@ -14,7 +14,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="mb-3">
-                        <a href="{{ route('admin.account.create') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.account.create') }}" class="btn btn-sm btn-primary">
                             <i class="bi bi-plus-circle"></i> Thêm mới
                         </a>
                     </div>

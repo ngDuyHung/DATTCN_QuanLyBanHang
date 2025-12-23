@@ -65,10 +65,10 @@
                                  <div class="swiper-slide">
                                      <a href="#" class="clearfix" title="Gear Arena - Đón Deal Vô Địch">
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-pc"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_1.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_1.png')}}"
                                              alt="Gear Arena - Đ&#243;n Deal V&#244; Địch" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_1_mb.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_1_mb.png')}}"
                                              alt="Gear Arena - Đ&#243;n Deal V&#244; Địch" width="480" height="480" />
                                      </a>
                                  </div>
@@ -83,10 +83,10 @@
                                  <div class="swiper-slide">
                                      <a href="#" class="clearfix" title="Nuphy">
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-pc"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_2.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_2.png')}}"
                                              alt="Nuphy" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_2_mb.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_2.png')}}"
                                              alt="Nuphy" width="480" height="480" />
                                      </a>
                                  </div>
@@ -101,10 +101,10 @@
                                  <div class="swiper-slide">
                                      <a href="#" class="clearfix" title="Asus Expertbook">
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-pc"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_3.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_3.png')}}"
                                              alt="Asus Expertbook" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_3_mb.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_3_mb.png')}}"
                                              alt="Asus Expertbook" width="480" height="480" />
                                      </a>
                                  </div>
@@ -119,10 +119,10 @@
                                  <div class="swiper-slide">
                                      <a href="#" class="clearfix" title="SanDisk">
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-pc"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_4.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_4.png')}}"
                                              alt="SanDisk" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_4_mb.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_4_mb.png')}}"
                                              alt="SanDisk" width="480" height="480" />
                                      </a>
                                  </div>
@@ -137,10 +137,10 @@
                                  <div class="swiper-slide">
                                      <a href="#" class="clearfix" title="PC siêu tốc">
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-pc"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_5.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_5.png')}}"
                                              alt="PC si&#234;u tốc" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/slider1_5_mb.jpg?1762606819649"
+                                             src="{{asset('/assets/admin/img/slider/slider1_5_mb.png')}}"
                                              alt="PC si&#234;u tốc" width="480" height="480" />
                                      </a>
                                  </div>
@@ -437,4 +437,145 @@
  </div>
  <div class='menu-overlay'>
 
+ </div>
+ <section class="section awe-section-2">
+     <section class="section_collections section">
+         <div class="container border-0">
+             <div class="mt-2 text-center row flex-nowrap collections-slide">
+
+
+
+                 <div class="item  ">
+                     <a href="#" title="PC - Máy bộ" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/pcmaybo.png')}}"
+                             width="100" height="100" alt="coll_2_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="PC - Máy bộ">
+                             PC - Máy bộ
+                         </a>
+                     </h3>
+                 </div>
+
+
+                 <div class="item  ">
+                     <a href="#" title="Màn hình" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/manhinh.png')}}"
+                             width="100" height="100" alt="coll_3_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Màn hình">
+                             Màn hình
+                         </a>
+                     </h3>
+                 </div>
+
+                 <div class="item  ">
+                     <a href="#" title="Laptop" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/laptop.png')}}"
+                             width="100" height="100" alt="coll_4_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Laptop">
+                             Laptop
+                         </a>
+                     </h3>
+                 </div>
+
+                 <div class="item  ">
+                     <a href="#" title="Chuột - Phím Tai nghe"
+                         class="pos-relative d-flex align-items-center " style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/chuotbanphim.png')}}"
+                             width="100" height="100" alt="coll_5_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Chuột - Phím Tai nghe">
+                             Chuột - Phím Tai nghe
+                         </a>
+                     </h3>
+                 </div>
+
+                 <div class="item  ">
+                     <a href="#" title="Ổ cứng SSD Gắn trong"
+                         class="pos-relative d-flex align-items-center " style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/ocungssdgantrong.png')}}"
+                             width="100" height="100" alt="coll_6_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Ổ cứng SSD Gắn trong">
+                             Ổ cứng SSD Gắn trong
+                         </a>
+                     </h3>
+                 </div>
+
+                 <div class="item  ">
+                     <a href="#" title="Ổ cứng SSD Di động"
+                         class="pos-relative d-flex align-items-center " style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/ocungssdidong.png')}}"
+                             width="100" height="100" alt="coll_7_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Ổ cứng SSD Di động">
+                             Ổ cứng SSD Di động
+                         </a>
+                     </h3>
+                 </div>
+
+
+                 <div class="item  ">
+                     <a href="#" title="Thẻ nhớ" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                         src="{{asset('/assets/admin/img/thenho.png')}}"
+                             width="100" height="100" alt="coll_8_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="Thẻ nhớ">
+                             Thẻ nhớ
+                         </a>
+                     </h3>
+                 </div>
+
+
+                 <div class="item  ">
+                     <a href="#" title="RAM" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/ram.png')}}"
+                             width="100" height="100" alt="coll_9_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="RAM">
+                             RAM
+                         </a>
+                     </h3>
+                 </div>
+
+
+                 <div class="item  ">
+                     <a href="#" title="NAS" class="pos-relative d-flex align-items-center "
+                         style="aspect-ratio:100/ 100">
+                         <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
+                             src="{{asset('/assets/admin/img/usb.png')}}"
+                             width="100" height="100" alt="coll_10_title" />
+                     </a>
+                     <h3 class="mb-0">
+                         <a href="#" title="USB">
+                             USB
+                         </a>
+                     </h3>
+                 </div>
+             </div>
+         </div>
+     </section>
+ </section>
  </div>

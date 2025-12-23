@@ -14,15 +14,15 @@
                 <div class="collapse" id="collapseListMenu01">
                   <ul class="list-menu">
 
-                    <li class="li_menu"><a href="https://www.sieutoc.com/">Giới thiệu MemoryZone</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Giới thiệu DuyHungZone</a></li>
 
-                    <li class="li_menu"><a href="https://memoryzone.com.vn/lien-he">Hệ thống cửa hàng</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Hệ thống cửa hàng</a></li>
 
-                    <li class="li_menu"><a href="dieu-khoan-mua-ban-hang-hoa">Điều khoản giao dịch</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Điều khoản giao dịch</a></li>
 
-                    <li class="li_menu"><a href="chinh-sach-bao-mat">Bảo mật thông tin</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Bảo mật thông tin</a></li>
 
-                    <li class="li_menu"><a href="https://tuyendung.sieutoc.com/jobs">Tuyển dụng</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Tuyển dụng</a></li>
 
                   </ul>
                 </div>
@@ -39,16 +39,15 @@
                 <div class="collapse time_work" id="collapseListMenu02">
                   <ul class="list-menu">
 
-                    <li class="li_menu"><a href="chinh-sach-giao-hang">Chính sách giao nhận</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Chính sách giao nhận</a></li>
 
-                    <li class="li_menu"><a href="chinh-sach-doi-tra-hang-hoa">Chính sách đổi trả hàng</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Chính sách đổi trả hàng</a></li>
 
-                    <li class="li_menu"><a href="/chinh-sach-bao-hanh">Chính sách bảo hành</a></li>
-
-                    <li class="li_menu"><a href="https://memoryzone.com.vn/huong-dan-thanh-toan">Hướng dẫn thanh
+                    <li class="li_menu"><a href="{{route('home')}}">Chính sách bảo hành</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Hướng dẫn thanh
                         toán</a></li>
 
-                    <li class="li_menu"><a href="https://memoryzone.com.vn/huong-dan-tra-gop">Hướng dẫn trả góp</a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Hướng dẫn trả góp</a></li>
 
 
 
@@ -67,14 +66,14 @@
                 <div class="collapse" id="collapseListMenu03">
                   <ul class="list-menu">
 
-                    <li class="li_menu"><a href="tel:02873013878">Mua hàng: <b>(028) 7301 3878</b></a></li>
+                    <li class="li_menu"><a href="tel:0123456789">Mua hàng: <b>(012) 3456 789</b></a></li>
 
-                    <li class="li_menu"><a href="tel:02873013879">Bảo hành: <b>(028) 7301 3879</b></a></li>
+                    <li class="li_menu"><a href="tel:0123456789">Bảo hành: <b>(012) 3456 789</b></a></li>
 
-                    <li class="li_menu"><a href="https://hotro.sieutoc.com/">Cổng thông tin hỗ trợ khách hàng:
-                        <b>hotro.sieutoc.com</b></a></li>
+                    <li class="li_menu"><a href="{{route('home')}}">Cổng thông tin hỗ trợ khách hàng:
+                        <b>hotro@duyhungzone.com</b></a></li>
 
-                    <li class="li_menu"><a href="https://hotro.sieutoc.com/ho-tro-ky-thuat">Gửi yêu cầu hỗ trợ kỹ
+                    <li class="li_menu"><a href="{{route('home')}}">Gửi yêu cầu hỗ trợ kỹ
                         thuật</a></li>
 
 
@@ -95,20 +94,16 @@
                   <h4 class="title-menu1">
                     <a>
                       CÔNG TY TNHH DỊCH VỤ TIN HỌC DUY HÙNG <p
-                        style="font-weight: normal;font-size: small;text-transform: none; margin-bottom: 0;">Địa chỉ: 22
-                        Nguyễn Hoàng, Phường Bình Trưng, Thành phố Hồ Chí Minh, Việt Nam. </br> MST: 0311427563 - cấp
-                        ngày 22 tháng 12 năm 2011 tại Sở Kế Hoạch Và Đầu Tư THÀNH PHỐ HỒ CHÍ MINH</p>
+                        style="font-weight: normal;font-size: small;text-transform: none; margin-bottom: 0;">Địa chỉ: 123
+                        Nguyễn Hoàng, Phường Bình Trưng, Thành phố Hồ Chí Minh, Việt Nam. </br> MST: 012345678 - cấp
+                        ngày .. tháng .. năm 2026 tại THÀNH PHỐ HỒ CHÍ MINH</p>
                     </a>
                   </h4>
 
                   <div class="bct">
                     <ul class="ul_bct">
                       <li>
-                        <a href="http://online.gov.vn/Home/WebDetails/10935" target="_blank">
-                          <img loading="lazy"
-                            src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/boct_1.png?1762606819649"
-                            alt="MemoryZone by SieuToc" />
-                        </a>
+                       
                       </li>
                       <li>
                         <!--	<a href="#">

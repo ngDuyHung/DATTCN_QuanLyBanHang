@@ -227,6 +227,8 @@
                                     <span class="badge bg-warning">Chờ xử lý</span>
                                     @elseif($order->status == 'cancelled')
                                     <span class="badge bg-danger">Đã hủy</span>
+                                    @elseif($order->status == 'delivery')
+                                    <span class="badge bg-primary">Đang giao hàng</span>
                                     @else
                                     <span class="badge bg-info">{{ $order->status }}</span>
                                     @endif

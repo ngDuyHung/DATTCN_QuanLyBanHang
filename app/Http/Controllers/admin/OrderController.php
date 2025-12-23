@@ -62,7 +62,7 @@ class OrderController extends Controller
             'phone' => 'required|string|max:20',
             'address_snapshot' => 'required|string|max:500',
             'shipping_fee' => 'required|numeric|min:0',
-            'status' => 'required|in:pending,processing,completed,cancelled,refunded,shipped,delivered',
+            'status' => 'required|in:pending,delivery,completed,cancelled',
             'note' => 'nullable|string',
         ]);
 

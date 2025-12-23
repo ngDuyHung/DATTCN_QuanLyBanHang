@@ -74,12 +74,9 @@
                             <label for="status" class="form-label fw-bold">Trạng thái đơn hàng</label>
                             <select class="form-select form-select-lg @error('status') is-invalid @enderror" id="status" name="status" required>
                                 <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>🕒 Đang chờ xử lý</option>
-                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>⚙️ Đang xử lý</option>
-                                <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>🚚 Đang giao hàng</option>
-                                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>📦 Đã giao hàng</option>
+                                <option value="delivery" {{ $order->status == 'delivery' ? 'selected' : '' }}>🚛 Đang giao hàng</option>
                                 <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>✅ Hoàn thành</option>
                                 <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>❌ Đã hủy</option>
-                                <option value="refunded" {{ $order->status == 'refunded' ? 'selected' : '' }}>💸 Đã hoàn tiền</option>
                             </select>
                         </div>
                         <div class="d-grid gap-2">

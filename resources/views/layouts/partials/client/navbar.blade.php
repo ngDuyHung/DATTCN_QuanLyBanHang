@@ -68,29 +68,24 @@
       @endif
       <ul class="shop-policises list-unstyled d-flex align-items-center flex-wrap m-0 pr-0">
         <li class="">
-          <a class="link" href="{{ route('home') }}" title="THANH TOÁN">
+          <a class="link" href="{{ route('home') }}" title="TRANG CHỦ">
             TRANG CHỦ
           </a>
         </li>
 
         <li class="">
-          <a class="link" href="#" title="LIÊN HỆ">
-            LIÊN HỆ
+          <a class="link" href="/laptop" title="LAP TOP">
+            LAP TOP
           </a>
         </li>
         <li class="">
-          <a class="link" href="#" title="CHĂM SÓC KHÁCH HÀNG">
-            CHĂM SÓC KHÁCH HÀNG
+          <a class="link" href="/pcmaybo" title="PC MÁY BỘ">
+            PC MÁY BỘ
           </a>
         </li>
         <li class="">
-          <a class="link" href="#" title="THƯ VIỆN">
-            THƯ VIỆN
-          </a>
-        </li>
-        <li class="">
-          <a class="link" href="#" title="TUYỂN DỤNG">
-            TUYỂN DỤNG
+          <a class="link" href="#" title=" LIÊN HỆ ">
+            LIÊN HỆ 
           </a>
         </li>
       </ul>
