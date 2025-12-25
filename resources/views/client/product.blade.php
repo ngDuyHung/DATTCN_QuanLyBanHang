@@ -346,18 +346,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                                                           <span class="special-price"><span
                                                                   class="price product-price">{{ $Product->price_format }} ₫</span>
                                                           </span> <!-- Giá Khuyến mại -->
@@ -489,15 +477,6 @@
                                                                           THÊM VÀO GIỎ
                                                                       </button>
 
-
-
-                                                                      <!-- <button class="btn btn-fundiin"
-                                                                              onclick="instantBuy(event)">
-                                                                              <span class="text_1">TRẢ SAU QUA
-                                                                                  FUNDIIN<br><span
-                                                                                      style='font-size:12px'>Duyệt
-                                                                                      nhanh 5s</span></span>
-                                                                          </button> -->
                                                                   </div>
                                                               </div>
 

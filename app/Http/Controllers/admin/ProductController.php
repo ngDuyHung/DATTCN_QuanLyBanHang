@@ -158,7 +158,8 @@ class ProductController extends Controller
             }
 
             DB::commit(); // Hoàn tất
-            return redirect()->route('admin.product.create')->with('success', 'Thêm sản phẩm thành công!');
+            $productId = $product->product_id;
+            return redirect()->route('admin.inventory.create')->with('success', 'Thêm sản phẩm thành công, Bây giờ hãy thêm số lượng vào kho.')->with('productId', $productId);
         } catch (\Exception $e) {
             DB::rollBack(); // Hoàn tác nếu có lỗi
             return back()->withInput()->with('error', $e->getMessage()); // Dùng khi debug

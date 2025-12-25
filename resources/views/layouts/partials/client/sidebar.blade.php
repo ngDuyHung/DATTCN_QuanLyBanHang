@@ -68,7 +68,7 @@
                                              src="{{asset('/assets/admin/img/slider/slider1_1.png')}}"
                                              alt="Gear Arena - Đ&#243;n Deal V&#244; Địch" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="{{asset('/assets/admin/img/slider/slider1_1_mb.png')}}"
+                                             src="{{asset('/assets/admin/img/slider/slider1_1.png')}}"
                                              alt="Gear Arena - Đ&#243;n Deal V&#244; Địch" width="480" height="480" />
                                      </a>
                                  </div>
@@ -104,7 +104,7 @@
                                              src="{{asset('/assets/admin/img/slider/slider1_3.png')}}"
                                              alt="Asus Expertbook" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="{{asset('/assets/admin/img/slider/slider1_3_mb.png')}}"
+                                             src="{{asset('/assets/admin/img/slider/slider1_3.png')}}"
                                              alt="Asus Expertbook" width="480" height="480" />
                                      </a>
                                  </div>
@@ -122,7 +122,7 @@
                                              src="{{asset('/assets/admin/img/slider/slider1_4.png')}}"
                                              alt="SanDisk" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="{{asset('/assets/admin/img/slider/slider1_4_mb.png')}}"
+                                             src="{{asset('/assets/admin/img/slider/slider1_4.png')}}"
                                              alt="SanDisk" width="480" height="480" />
                                      </a>
                                  </div>
@@ -140,7 +140,7 @@
                                              src="{{asset('/assets/admin/img/slider/slider1_5.png')}}"
                                              alt="PC si&#234;u tốc" width="890" height="443" />
                                          <img loading="lazy" class="img-fluid img-responsive center-block mx-auto slider-mb"
-                                             src="{{asset('/assets/admin/img/slider/slider1_5_mb.png')}}"
+                                             src="{{asset('/assets/admin/img/slider/slider1_5.png')}}"
                                              alt="PC si&#234;u tốc" width="480" height="480" />
                                      </a>
                                  </div>

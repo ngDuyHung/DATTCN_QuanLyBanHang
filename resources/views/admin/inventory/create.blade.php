@@ -17,7 +17,8 @@
                     <select name="product_id" id="product_id" class="form-select" required>
                         <option value="">-- Chọn sản phẩm --</option>
                         @foreach($products as $product)
-                            <option value="{{ $product->product_id }}" {{ old('product_id') == $product->product_id ? 'selected' : '' }}>
+                            <option value="{{ $product->product_id }}" {{ 
+                                old('product_id', session('productId')) == $product->product_id ? 'selected' : '' }}>
                                 {{ $product->name }} (SKU: {{ $product->sku }})
                             </option>
                         @endforeach
