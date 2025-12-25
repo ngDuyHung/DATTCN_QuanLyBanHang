@@ -318,11 +318,11 @@
                                               </span>
 
 
-                                              <a href=''
+                                              <!-- <a href=''
                                                   class='js-compare-product-add d-inline-block text-success mt-2 pd-compare-product-add'
                                                   data-id="54117557" title='So sánh'>
                                                   <i class="fas fa-random mr-1"></i> <span>So sánh</span>
-                                              </a>
+                                              </a> -->
                                           </div>
 
                                           <!-- Start Aeflashsale -->

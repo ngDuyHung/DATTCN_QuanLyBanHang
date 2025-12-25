@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Container\Attributes\DB;
 use Illuminate\Support\Facades\Auth;
@@ -109,14 +110,14 @@ class OrderController extends Controller
     // Tạo số đơn hàng ngẫu nhiên và đảm bảo không trùng lặp
     public function generateUniqueNumber($table, $column, $length = 8)
     {
-       do{
+        do {
             $number = '';
             for ($i = 0; $i < $length; $i++) {
                 $number .= rand(0, 9);
             }
             $exists = \Illuminate\Support\Facades\DB::table($table)->where($column, $number)->exists();
-        } while ($exists);  
-       
+        } while ($exists);
+
         return $number;
     }
     /**
@@ -136,46 +137,46 @@ class OrderController extends Controller
         $paymentMethod = $request->input('paymentMethod', 'cod');
         $promoCode = $request->input('reductionCode', null); // Lấy promo_id từ form
         $promoID = $request->input('promo_id', null); // Lấy promo_id từ form
-        
+
         if (empty($products)) {
             return redirect()->back()->with('error', 'Giỏ hàng trống!');
         }
-        if(empty($fullName) || empty($email) || empty($phone) || empty($address) || empty($tinh_thanh) || empty($quan_huyen) || empty($phuong_xa)) {
+        if (empty($fullName) || empty($email) || empty($phone) || empty($address) || empty($tinh_thanh) || empty($quan_huyen) || empty($phuong_xa)) {
             return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin thanh toán.');
         }
-        
+
         //Kiểm tra số lương sản phẩm trong kho
         foreach ($products as $pd) {
-            $product = \App\Models\Product::find($pd['id']);
+            $product = Product::find($pd['id']);
             if ($product) {
                 $inventory = $product->inventory;
-                if(!$inventory) {
+                if (!$inventory) {
                     return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
-                     '" hiện không có trong kho.'."\n Vui lòng điều chỉnh lại giỏ hàng.");
+                        '" hiện không có trong kho.' . "\n Vui lòng điều chỉnh lại giỏ hàng.");
                 }
                 if ($inventory->quantity_in_stock < $pd['qty']) {
                     //dd("inventory:".$inventory->quantity_in_stock,"pd:" . $pd['qty']);
 
                     return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
-                     '" không đủ số lượng trong kho.'."\n Vui lòng điều chỉnh lại giỏ hàng.");
+                        '" không đủ số lượng trong kho.' . "\n Vui lòng điều chỉnh lại giỏ hàng.");
                 }
             }
         }
-        
+
         // Tìm khuyến mãi nếu có (dùng promo_id từ AJAX)
         $promotion = null;
         $discountAmount = 0;
         if ($promoCode) {
             $promotion = Promotion::where('code', $promoCode)->first();
             //dd("code" .$promotion);
-        }else if ($promoID) {
+        } else if ($promoID) {
             $promotion = Promotion::find($promoID);
             //dd("id" .$promotion);
         }
         // Tính tổng tiền
         $totalAmount = 0;
         foreach ($products as $pd) {
-            $product = \App\Models\Product::find($pd['id']);
+            $product = Product::find($pd['id']);
             if ($product) {
                 $totalAmount += $product->price * $pd['qty'];
             }
@@ -195,7 +196,7 @@ class OrderController extends Controller
         // Tính tổng tiền sau giảm giá
         $finalAmount = $totalAmount - $discountAmount;
 
-        if(Auth::check()){
+        if (Auth::check()) {
             $userId = Auth::id();
         } else {
             $userId = null; // Khách vãng lai
@@ -220,7 +221,7 @@ class OrderController extends Controller
 
         // Lưu các mục đơn hàng
         foreach ($products as $pd) {
-            $product = \App\Models\Product::find($pd['id']);
+            $product = Product::find($pd['id']);
             if ($product) {
                 $order->orderItems()->create([
                     'product_id' => $product->product_id,
@@ -229,22 +230,34 @@ class OrderController extends Controller
                     'quantity' => $pd['qty'],
                     'unit_price' => $product->price,
                     'line_total' => $product->price * $pd['qty'],
-                    'created_at'=> now(),
+                    'created_at' => now(),
                 ]);
             }
         }
-        
+
+        //Cập nhật số lượng trong kho
+        foreach ($products as $pd) {
+            $product = Product::find($pd['id']);
+            if ($product) {
+                $inventory = $product->inventory;
+                if ($inventory) {
+                    //decrement dùng để giảm số lượng trong kho
+                    $inventory->decrement('quantity_in_stock', $pd['qty']);
+                }
+            }
+        }
+
         // Cập nhật số lần sử dụng promotion
         if ($promotion) {
             $promotion->increment('times_used');
         }
-        
+
         //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
-        
+
         //Xóa giỏ hàng
-        if(Auth::check()){
+        if (Auth::check()) {
             $cart = \App\Models\Cart::where('user_id', $userId)->first();
-            if($cart){
+            if ($cart) {
                 $cart->cartItems()->delete();
             }
         } else {
@@ -252,9 +265,10 @@ class OrderController extends Controller
         }
 
         // Chuyển hướng đến trang thanh toán với mã đơn hàng
-        return redirect()->route('checkout.success', ['order_number' => $randomNumber]);
+        //return redirect()->route('checkout.topup', ['order_number' => $randomNumber]);
+        return redirect()->route('checkout.success', ['id' => $randomNumber]);
     }
-    
+
     /**
      * Hiển thị trang thanh toán với mã đơn hàng
      */
@@ -264,17 +278,17 @@ class OrderController extends Controller
         $order = Order::where('order_number', $order_number)
             ->with(['orderItems.product'])
             ->first();
-        
+
         // Kiểm tra đơn hàng có tồn tại không
         if (!$order) {
             return redirect()->route('home')->with('error', 'Không tìm thấy đơn hàng.');
         }
-        
+
         // Kiểm tra nếu đơn hàng đã thanh toán thì không cho xem lại
         if ($order->status === 'completed') {
             return redirect()->route('home')->with('error', 'Đơn hàng đã hoàn thành.');
         }
-        
+
         return view('client.topup', compact('order'));
     }
     /**
@@ -308,5 +322,15 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    /**
+     * Hiển thị trang thành công sau khi thanh toán
+     */
+    public function success()
+    {
+        $order_number = request()->route('id');
+        $order = Order::where('order_number', $order_number)->firstOrFail();
+        return view('client.order_success', compact('order'));
     }
 }
