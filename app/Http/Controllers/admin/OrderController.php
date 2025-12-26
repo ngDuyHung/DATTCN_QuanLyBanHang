@@ -39,7 +39,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-       //
+        //
     }
 
     /**
@@ -64,7 +64,32 @@ class OrderController extends Controller
             'shipping_fee' => 'required|numeric|min:0',
             'status' => 'required|in:pending,delivery,completed,cancelled',
             'note' => 'nullable|string',
+        ], [
+            'full_name.required' => 'Họ và tên không được để trống.',
+            'email.required' => 'Email không được để trống.',
+            'email.email' => 'Định dạng email không hợp lệ.',
+            'phone.required' => 'Số điện thoại không được để trống.',
+            'address_snapshot.required' => 'Địa chỉ không được để trống.',
+            'shipping_fee.required' => 'Phí vận chuyển không được để trống.',
+            'shipping_fee.numeric' => 'Phí vận chuyển phải là một số hợp lệ.',
+            'shipping_fee.min' => 'Phí vận chuyển không được âm.',
+            'status.required' => 'Trạng thái đơn hàng không được để trống.',
+            'status.in' => 'Trạng thái đơn hàng không hợp lệ.',
         ]);
+
+        // Luồng trạng thái hợp lệ 
+        $validTransitions = [
+            'pending' => ['pending','delivery', 'cancelled'],
+            'delivery' => ['delivery','completed', 'cancelled'],
+            'completed' => [],
+            'cancelled' => [],
+        ];
+        $currentStatus = $order->status;
+        $newStatus = $validated['status'];
+
+        if (!in_array($newStatus, $validTransitions[$currentStatus])) {
+            return redirect()->back()->withErrors(['status' => 'Không thể chuyển từ trạng thái ' . $currentStatus . ' sang ' . $newStatus]);
+        }
 
         $order->update([
             'full_name' => $validated['full_name'],
