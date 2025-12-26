@@ -13,7 +13,7 @@
        <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">IP:</a></li>
      </ul>
      <!--end::Start Navbar Links-->
-
+      
      <!--begin::End Navbar Links-->
      <ul class="navbar-nav ms-auto">
        <!--begin::Navbar Search-->
@@ -28,8 +28,9 @@
        <li class="nav-item dropdown">
          <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)">
            <span class="theme-icon-active">
-             <i class="bi bi-moon-fill me-2"></i>
+             <i class="bi bi-moon-fill me-2 "></i>
            </span>
+           <span class="d-lg-none ms-2" id="bd-theme-text"></span>
          </button>
          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text" style="--bs-dropdown-min-width: 8rem">
            <li>
