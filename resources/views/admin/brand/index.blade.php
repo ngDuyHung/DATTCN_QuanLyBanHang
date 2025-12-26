@@ -15,7 +15,7 @@
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="table-responsive-md">
+                    <div class="table-responsive text-nowrap">
                         <table class="table table-bordered table-striped table-hover table-module mb-0">
                             <thead>
                                 <tr>

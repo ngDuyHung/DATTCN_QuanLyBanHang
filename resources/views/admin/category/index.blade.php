@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive-md">
+                    <div class="table-responsive text-nowrap">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
