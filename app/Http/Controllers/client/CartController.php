@@ -79,7 +79,7 @@ class CartController extends Controller
             }
         }
 
-        // Người chưa login → session
+        // Người chưa login -> session
         $cart = session()->get('cart', []);
         $found = false;
 
@@ -110,6 +110,8 @@ class CartController extends Controller
             $cartItems = $cart->cartItems()->with('product')->get();
         } else {
             $sessionCart = session()->get('cart', []);
+            // Dùng collect() để chuyển mảng sessionCart thành Collection.
+            // Nhờ đó có thể gọi ->map() để duyệt và biến đổi từng phần tử thành object gồm product và quantity.
             $cartItems = collect($sessionCart)->map(function ($item) {
                 $product = Product::find($item['product_id']);
                 return (object)[

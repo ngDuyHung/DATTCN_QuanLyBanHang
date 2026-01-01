@@ -26,6 +26,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
@@ -37,7 +39,7 @@
     <!--OverlayScrollbars CSS is now included via Vite-->
     <!--Bootstrap Icons are now included via Vite-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="./css/adminlte.css" />
+    
     <!--end::Required Plugin(AdminLTE)-->
 
     <link rel="stylesheet" href="{{ asset('assets/admin/css/simple-notify.css') }}" />

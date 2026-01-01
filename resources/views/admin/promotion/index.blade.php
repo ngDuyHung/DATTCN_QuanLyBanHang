@@ -3,11 +3,11 @@
 
 {{-- Đặt tiêu đề cho trang --}}
 @section('title', 'Danh sách mã khuyến mãi')
-
+@section('name_btn_add', 'Thêm mã khuyến mãi')
+@section('link_btn_add', route('admin.promotion.create'))
 {{-- Đặt nội dung cho trang --}}
 @section('content')
 <div class="container-fluid">
-    <a href="{{ route('admin.promotion.create') }}" class="btn btn-sm btn-primary mb-3 shadow bi bi-plus-lg">Thêm mã khuyến mãi</a>
 
     <!--begin::Row-->
     <div class="row">

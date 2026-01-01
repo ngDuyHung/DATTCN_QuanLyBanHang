@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
+
 // Auth routes (login, register, reset password)
 Route::group(['prefix' => 'account'], function () {
     Auth::routes();
@@ -12,7 +13,7 @@ Route::group(['prefix' => 'account'], function () {
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    
+
 // Dashboard sau login
 Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->middleware(['auth', 'admin'])->name('admin.dashboard');
 
@@ -32,7 +33,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::post('categories/change-status', [\App\Http\Controllers\admin\CategoryController::class, 'changeStatus'])->name('category.changeStatus');
     Route::post('products/change-status', [\App\Http\Controllers\admin\ProductController::class, 'changeStatus'])->name('product.changeStatus');
+    Route::get('products/ajax-brands-by-category/{category_id}', [\App\Http\Controllers\admin\ProductController::class, 'getAjaxBrandsByCategory'])->name('product.AjaxBrandsByCategory');
 
+    Route::get('/clear-cache', function () {
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        return back()->with('success', 'Đã xóa cache thành công!');
+    })->name('home.clearCache'); 
+
+
+    //tất cả mà bọc trong admin thì lúc gọi phải kèm admin.{route_name} ví dụ admin.product.index
 });
 
 
@@ -47,7 +59,7 @@ Route::post('/cart/store', [App\Http\Controllers\client\CartController::class, '
 
 Route::get('/cart', [App\Http\Controllers\client\CartController::class, 'index'])->name('cart');
 
-    
+
 Route::post('/cart/store-ajax', [App\Http\Controllers\client\CartController::class, 'storeAjax'])->name('cart.storeAjax');
 Route::post('/cart/update', [App\Http\Controllers\client\CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete/{id}', [App\Http\Controllers\client\CartController::class, 'destroy'])->name('cart.destroy');
@@ -62,4 +74,3 @@ Route::get('/checkout/success/{id}', [App\Http\Controllers\client\OrderControlle
 
 // show by slug 
 Route::get('/{slug}', [App\Http\Controllers\client\ProductController::class, 'showBySlug'])->name('client.showBySlug');
-

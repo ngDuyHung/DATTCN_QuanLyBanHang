@@ -25,7 +25,7 @@
                         <input type="text" name="name" class="form-control"
                             value="{{ old('name', $product->name ?? '') }}" required>
                     </div>
-                    
+
                 </div>
 
                 <div class="mb-3">
@@ -39,7 +39,7 @@
                     <textarea name="description" id="description_ckeditor" rows="3" class="form-control">{{ old('description', $product->description ?? '') }}</textarea>
                 </div>
 
-                 <div class="mb-3">
+                <div class="mb-3">
                     <label class="form-label">Mô tả khuyển mãi</label>
                     <textarea name="sale_description" id="sale_description_ckeditor" rows="3" class="form-control">{{ old('sale_description', $product->sale_description ?? '') }}</textarea>
                 </div>
@@ -65,24 +65,20 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Danh mục</label>
-                        <select name="category_id" class="form-select">
+                        <select id="category" name="category_id" class="form-select">
+                            <option value="">-- Chọn danh mục --</option>
                             @foreach($categories as $category)
-                            <option value="{{ $category->category_id }}"
-                                {{ old('category_id', $product->category_id ?? '') == $category->category_id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
+                            <option value="{{ $category->category_id  }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Thương hiệu</label>
-                        <select name="brand_id" class="form-select">
+                        <select id="brand" name="brand_id" class="form-select">
+                            <option value="">-- Chọn thương hiệu --</option>
                             @foreach($brands as $brand)
-                            <option value="{{ $brand->brand_id }}"
-                                {{ old('brand_id', $product->brand_id ?? '') == $brand->brand_id ? 'selected' : '' }}>
-                                {{ $brand->name }}
-                            </option>
+                            <option value="{{ $brand->brand_id  }}">{{ $brand->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -116,7 +112,7 @@
                         <div class="position-relative border rounded overflow-hidden" style="width:100px;height:100px;">
                             <img src="{{ asset('storage/'.$img->image_url) }}" alt="Ảnh"
                                 style="object-fit:cover;width:100%;height:100%;">
-                                <input type="number" name="existing_sort_orders[{{ $img->image_id }}]" value="{{ $img->sort_order }}" class="form-control form-control-sm mt-1" placeholder="Thứ tự">
+                            <input type="number" name="existing_sort_orders[{{ $img->image_id }}]" value="{{ $img->sort_order }}" class="form-control form-control-sm mt-1" placeholder="Thứ tự">
                             <button type="button"
                                 class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 p-1 btn-mark-delete"
                                 data-id="{{ $img->image_id }}" title="Xóa ảnh này">✕</button>
@@ -266,15 +262,15 @@
                 const reader = new FileReader();
                 reader.onload = ev => {
                     const wrapper = document.createElement('div');
-    wrapper.classList.add('position-relative', 'border', 'rounded', 'overflow-hidden', 'p-1');
-    wrapper.style.width = '120px';
-    wrapper.style.height = 'auto';
-    wrapper.innerHTML = `
+                    wrapper.classList.add('position-relative', 'border', 'rounded', 'overflow-hidden', 'p-1');
+                    wrapper.style.width = '120px';
+                    wrapper.style.height = 'auto';
+                    wrapper.innerHTML = `
         <img src="${ev.target.result}" class="object-fit-cover mb-1" style="width:100px;height:100px;">
         <input type="number" name="sort_orders[]" class="form-control form-control-sm" placeholder="Thứ tự" min="0">
         <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 p-1 btn-remove-temp">✕</button>
     `;
-    previewNew.appendChild(wrapper);
+                    previewNew.appendChild(wrapper);
                 };
                 reader.readAsDataURL(file);
             });
@@ -309,28 +305,57 @@
         }
     });
 
-    
-    document.getElementById('main_img_url').addEventListener('change', function (event) {
-    const preview = document.getElementById('previewMain_img');
-    preview.innerHTML = ''; // Xóa ảnh cũ nếu có
+
+    document.getElementById('main_img_url').addEventListener('change', function(event) {
+        const preview = document.getElementById('previewMain_img');
+        preview.innerHTML = ''; // Xóa ảnh cũ nếu có
 
 
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'img-thumbnail';
-            img.style.maxWidth = '150px';
-            img.style.maxHeight = '150px';
-            preview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    }
-});
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'img-thumbnail';
+                img.style.maxWidth = '150px';
+                img.style.maxHeight = '150px';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    // AJAX load brands theo category
+    $('#category').on('change', function() {
+        let categoryId = $(this).val();
+        let brandSelect = $('#brand');
+
+        if (categoryId) {
+            $.get('/products/ajax-brands-by-category/' + categoryId, function(data) {
+                brandSelect.empty();
+                brandSelect.append('<option value="">-- Chọn thương hiệu --</option>');
+                data.forEach(function(brand) {
+                    brandSelect.append('<option value="' + brand.brand_id + '">' + brand.name + '</option>');
+                });
+                window.console&&console.log(data);
+            });
+        } else {
+            // Nếu không chọn category thì load lại tất cả brand
+            $.get('/products/ajax-brands-by-category/0', function(data) {
+                brandSelect.empty();
+                brandSelect.append('<option value="">-- Chọn thương hiệu --</option>');
+                data.forEach(function(brand) {
+                    brandSelect.append('<option value="' + brand.brand_id + '">' + brand.name + '</option>');
+                });
+            });
+        }
+    });
+
 
     CKEDITOR.replace('description_ckeditor');
     CKEDITOR.replace('sale_description_ckeditor');
 </script>
+
 @endsection

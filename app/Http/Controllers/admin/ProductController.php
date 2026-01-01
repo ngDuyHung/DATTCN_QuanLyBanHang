@@ -23,9 +23,9 @@ class ProductController extends Controller
         // Tìm kiếm theo tên hoặc SKU
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%");
+                    ->orWhere('sku', 'like', "%{$search}%");
             });
         }
 
@@ -58,7 +58,14 @@ class ProductController extends Controller
 
         // Lấy danh sách categories và brands cho dropdown
         $categories = Category::orderBy('name')->get();
-        $brands = Brand::orderBy('name')->get();
+        // Nếu có category_id thì chỉ lấy brand thuộc category đó 
+        if ($request->filled('category_id')) {
+            $brands = Brand::where('category_id', $request->category_id)
+                ->orderBy('name')
+                ->get();
+        } else {
+            $brands = Brand::orderBy('name')->get();
+        }
 
         return view('admin.product.index', compact('products', 'categories', 'brands'));
     }
@@ -123,7 +130,7 @@ class ProductController extends Controller
                 'total_attributes',
                 'brand_id'
             ]));
-             $product->slug = $slug;
+            $product->slug = $slug;
             $product->save();
             // Lưu ảnh đại diện chính nếu có
             if ($request->hasFile('main_img_url')) {
@@ -173,7 +180,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load('images', 'attributes', 'category', 'brand');
-        
+
         // Nếu là AJAX request, trả về JSON
         if (request()->ajax()) {
             return response()->json([
@@ -184,7 +191,7 @@ class ProductController extends Controller
                 'brand_name' => $product->brand->name ?? 'N/A'
             ]);
         }
-        
+
         return view('admin.product.show', compact('product'));
     }
 
@@ -367,5 +374,19 @@ class ProductController extends Controller
             'success' => false,
             'message' => 'Không tìm thấy sản phẩm.'
         ], 404);
+    }
+
+    /**
+     * Get brands by category for AJAX request.
+     */
+    public function getAjaxBrandsByCategory($category_id){
+        if ($category_id == 0) {
+            $brands = Brand::orderBy('name')->get();
+        } else {
+            $brands = Brand::where('category_id', $category_id)
+                ->orderBy('name')
+                ->get();
+        }
+        return response()->json($brands);
     }
 }

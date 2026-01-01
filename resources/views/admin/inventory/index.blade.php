@@ -3,7 +3,8 @@
 
 {{-- Đặt tiêu đề cho trang --}}
 @section('title', 'Danh sách kho hàng')
-
+@section('name_btn_add', 'Thêm kho hàng')
+@section('link_btn_add', route('admin.inventory.create'))
 {{-- Đặt nội dung cho trang --}}
 @section('content')
 <div class="container-fluid">
@@ -13,11 +14,6 @@
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="mb-3">
-                        <a href="{{ route('admin.inventory.create') }}" class="btn btn-sm btn-primary">
-                            <i class="bi bi-plus-circle"></i> Thêm mới
-                        </a>
-                    </div>
                     <div class="table-responsive text-nowrap">
                         <table class="table table-bordered table-striped table-hover table-module mb-0">
                             <thead>

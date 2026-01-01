@@ -50,8 +50,8 @@ class SePayWebhookListener
 
                 // 3. Cập nhật trạng thái đơn hàng
                 $order->update([
-                    'status' => 'completed', // Hoặc 'completed' tùy workflow của bạn
-                    'updated_at' => now(),       // Nếu bạn có cột lưu ngày th anh toán
+                    'status' => 'completed',
+                    'updated_at' => now(),       
                 ]);
 
                 // 4. (Tùy chọn) Gửi Email thông báo cho khách hàng đã nhận được tiền
