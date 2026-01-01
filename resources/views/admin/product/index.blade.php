@@ -106,11 +106,21 @@
                             <tbody>
                                 @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $product->sku }}</td>
+                                    <td>
+                                        @if(isset($product->inventory->inventory_id))
+                                        {{ $product->sku }}
+                                        @else
+                                        <span title="Chưa có trong kho" class="btn btn-sm btn-outline-danger fw-bold">
+                                            {{ $product->sku }}
+                                            <i class="bi bi-exclamation-circle"
+                                                data-bs-toggle="tooltip"></i>
+                                        </span>
+                                        @endif
+                                    </td>
                                     <td><img src="{{ asset('storage/'.$product->main_img_url) }}" alt="" style="height: 40px; max-width: 100%;"></td>
                                     <td>{{ $product->price_format }} đ</td>
-                                    <td>{{ $product->category->name ?? 'N/A' }}</td>
-                                    <td>{{ $product->brand->name ?? 'N/A' }}</td>
+                                    <td>{!! $product->category->name ?? '<span class="badge bg-warning text-dark"><i class="bi bi-exclamation-circle"></i> Chưa có</span>' !!}</td>
+                                    <td>{!! $product->brand->name ?? '<span class="badge bg-warning text-dark"><i class="bi bi-exclamation-circle"></i> Chưa có</span>' !!}</td>
                                     <td>{{ $product->created_at }}</td>
                                     <td>{{ $product->updated_at }}</td>
                                     <td>
@@ -120,7 +130,7 @@
                                                 {{ $product->is_active ? 'checked' : '' }}>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="d-flex justify-content-center align-items-center gap-1">
                                         <button type="button" class="btn btn-sm btn-outline-primary shadow bi bi-eye view-product"
                                             data-product-id="{{ $product->product_id }}"
                                             data-bs-toggle="modal"

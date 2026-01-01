@@ -48,13 +48,13 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.category.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Danh sách danh mục</p>
+                                <p>Danh mục</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.brand.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
-                                <p>Danh sách thương hiệu</p>
+                                <p>Thương hiệu</p>
                             </a>
                         </li>
                     </ul>
@@ -172,8 +172,23 @@
                         <i class="nav-icon bi bi-gear-fill"></i>
                         <p>
                             Cấu hình
+                            <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Cài đặt</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>Quản lý vai trò</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"

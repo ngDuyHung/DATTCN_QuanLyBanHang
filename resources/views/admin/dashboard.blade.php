@@ -3,7 +3,7 @@
 
 {{-- Đặt tiêu đề cho trang --}}
 @section('title', 'Bảng quản trị')
-@section('title_cache', 'Xóa Cache')
+@section('title_cache', 'Xóa cache hệ thống')
 @section('link_cache', route('admin.home.clearCache'))
 @push('styles')
 <style>

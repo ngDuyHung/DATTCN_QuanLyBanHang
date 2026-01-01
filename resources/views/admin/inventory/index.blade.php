@@ -18,13 +18,16 @@
                         <table class="table table-bordered table-striped table-hover table-module mb-0">
                             <thead>
                                 <tr>
-                                    <th>Mã id</th>
+                                    <th>Mã ID</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>SKU</th>
-                                    <th>Số lượng trong kho</th>
-                                    <th>cảnh báo tối thiểu</th>
+                                    <th>Mã SKU</th>
+                                    <th>Tình trạng</th>
+                                    <th>Đã bán</th>
+                                    <th>SL trong kho</th>
+                                    <th class="text-danger" title="Ngưỡng cảnh báo tối thiểu">
+                                        Tối thiểu
+                                    </th>
                                     <th>Ngày cập nhật cuối</th>
-                                    <th>Trạng thái</th>
                                     <th class="text-center">Thao tác</th>
                                 </tr>
                             </thead>
@@ -32,20 +35,20 @@
                                 @foreach ($inventorys as $inventory)
                                 <tr>
                                     <td>{{ $inventory->inventory_id }}</td>
-                                    <td>{{ Str::limit($inventory->product->name ?? 'N/A', 20) }}</td>
+                                    <td>{{ Str::limit($inventory->product->name ?? 'N/A', 25) }}</td>
                                     <td>{{ $inventory->product->sku ?? 'N/A' }}</td>
-                                    <td>{{ $inventory->quantity_in_stock }}</td>
-                                    <td>{{ $inventory->min_alert_quantity }}</td>
-                                    <td>{{ $inventory->last_updated }}</td>
                                     <td>
                                         @if($inventory->quantity_in_stock <= $inventory->min_alert_quantity)
-                                            <span class="badge bg-danger">Sắp hết hàng</span>
-                                            @elseif($inventory->quantity_in_stock <= $inventory->min_alert_quantity * 2)
-                                                <span class="badge bg-warning">Cần nhập thêm</span>
-                                                @else
-                                                <span class="badge bg-success">Đủ hàng</span>
-                                                @endif
+                                            <span class="badge bg-danger"><i class="bi bi-exclamation-circle me-1"></i> Sắp hết hàng</span>
+                                            @else
+                                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Đủ hàng</span>
+                                            @endif
                                     </td>
+                                    <td></td>
+                                    <td>{{ $inventory->quantity_in_stock }}</td>
+                                    <td class="text-danger">{{ $inventory->min_alert_quantity }}</td>
+                                    <td>{{ $inventory->last_updated }}</td>
+
                                     <td>
                                         <a href="{{ route('admin.inventory.edit', $inventory) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
                                         <form action="{{ route('admin.inventory.destroy', $inventory) }}" method="POST" class="d-inline">

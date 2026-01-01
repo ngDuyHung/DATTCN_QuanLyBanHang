@@ -5,11 +5,6 @@
 @section('content')
 <div class="container-fluid">
     {{-- Header & Breadcrumb --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="{{ route('admin.order.index') }}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
-        </a>
-    </div>
 
     <form action="{{ route('admin.order.update', $order->order_id) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -63,6 +58,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
             {{-- CỘT PHẢI: TRẠNG THÁI & TÀI CHÍNH --}}
@@ -149,5 +145,10 @@
             </div>
         </div>
     </form>
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2 mt-sm-0">
+        <a href="{{ route('admin.order.index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+        </a>
+    </div>
 </div>
 @endsection

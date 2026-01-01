@@ -47,25 +47,44 @@
                                     <td>@if($order->status == 'pending')
                                         <p class="badge text-bg-warning">Đang chờ xử lý</p>
                                         @elseif($order->status == 'delivery')
-                                        <p class="badge text-bg-success">Đang giao hàng</p>
+                                        <p class="badge text-bg-primary">Đang giao hàng</p>
                                         @elseif($order->status == 'completed')
-                                        <p class="badge text-bg-secondary">Hoàn thành</p>
+                                        <p class="badge text-bg-success">Hoàn thành</p>
                                         @elseif($order->status == 'cancelled')
                                         <p class="badge text-bg-danger">Đã hủy </p>
-                                      
+
                                         @endif
                                     <td>{{ $order->placed_at }}</td>
-                                    <td>
+                                    <td class="text-center">
+                                        <!-- Nút xem -->
                                         <a href="javascript:void(0)"
                                             class="btn btn-sm btn-outline-primary shadow bi bi-eye btn-show-order"
                                             data-url="{{ route('admin.order.show_api', ['id' => $order->order_id]) }}">
                                         </a>
-                                        <a href="{{ route('admin.order.edit', $order) }}" class="btn btn-sm btn-outline-warning shadow bi bi-pencil"> Sửa</a>
-                                        <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger shadow bi bi-trash3"> Xóa</button>
-                                        </form>
+
+                                        <!-- Dropdown cho Sửa / Xóa -->
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary shadow dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-gear"></i> <!-- icon bánh răng -->
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="{{ route('admin.order.edit', $order) }}" class="dropdown-item">
+                                                        <i class="bi bi-pencil text-warning"></i> Sửa
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('admin.order.destroy', $order) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger">
+                                                            <i class="bi bi-trash3"></i> Xóa
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

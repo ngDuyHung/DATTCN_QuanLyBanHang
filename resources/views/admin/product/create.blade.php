@@ -333,7 +333,7 @@
         let brandSelect = $('#brand');
 
         if (categoryId) {
-            $.get('/products/ajax-brands-by-category/' + categoryId, function(data) {
+            $.get('/admin/products/ajax-brands-by-category/' + categoryId, function(data) {
                 brandSelect.empty();
                 brandSelect.append('<option value="">-- Chọn thương hiệu --</option>');
                 data.forEach(function(brand) {
@@ -343,7 +343,7 @@
             });
         } else {
             // Nếu không chọn category thì load lại tất cả brand
-            $.get('/products/ajax-brands-by-category/0', function(data) {
+            $.get('/admin/products/ajax-brands-by-category/0', function(data) {
                 brandSelect.empty();
                 brandSelect.append('<option value="">-- Chọn thương hiệu --</option>');
                 data.forEach(function(brand) {
