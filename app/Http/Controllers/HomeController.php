@@ -41,6 +41,7 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(8)
             ->get();
+
         $PCBrands = Brand::where('category_id', Category::where('slug', 'pcmaybo')->first()->category_id)
             ->orderBy('brand_id', 'desc')
             ->take(5)
@@ -49,8 +50,17 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(8)
             ->get();
+
+        $RamBrands = Brand::where('category_id', Category::where('slug', 'ram')->first()->category_id)
+            ->orderBy('brand_id', 'desc')
+            ->take(5)
+            ->get();
+        $productRams = Product::where('category_id', Category::where('slug', 'ram')->first()->category_id)
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
         $home = true;
-        return view('client.home', compact('brands', 'products', 'home', 'LaptopBrands', 'PCBrands','productLaptops','productPCs'));
+        return view('client.home', compact('brands', 'products', 'home', 'LaptopBrands', 'PCBrands', 'productLaptops', 'productPCs', 'RamBrands', 'productRams'));
     }
 
     public function dashboard()
