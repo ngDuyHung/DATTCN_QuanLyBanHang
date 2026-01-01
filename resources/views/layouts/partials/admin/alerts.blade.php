@@ -1,6 +1,6 @@
 {{-- ✅ Hiển thị thông báo thành công --}}
 @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #198754;">
+    <div class="mb-0 alert alert-success alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #198754;">
         <i class="bi bi-check-circle me-2 fs-5 text-success"></i>
         <div class="flex-grow-1">
             {{ session('success') }}
@@ -12,7 +12,7 @@
 
 {{-- ⚠️ Hiển thị thông báo lỗi --}}
 @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #dc3545;">
+    <div class="mb-0alert alert-danger alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #dc3545;">
         <i class="bi bi-exclamation-triangle me-2 fs-5 text-danger"></i>
         <div class="flex-grow-1">
             {{ session('error') }}
@@ -24,7 +24,7 @@
 
 {{-- 🚫 Hiển thị lỗi validate --}}
 @if ($errors->any())
-   <div class="alert alert-danger alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #dc3545;">
+   <div class="mb-0 alert alert-danger alert-dismissible fade show py-2 px-3 d-flex align-items-center shadow-sm small position-relative" role="alert" style="border-left: 4px solid #dc3545;">
     <i class="bi bi-exclamation-circle me-2 fs-5 text-danger"></i>
     <div class="flex-grow-1">
         @foreach ($errors->all() as $error)

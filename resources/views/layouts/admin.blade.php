@@ -27,10 +27,14 @@
                             @endif
                         </div>
                         <div class="col-sm-6">
+                            @if(View::hasSection('title_cache') && View::hasSection('link_cache'))
+                            <a class=" float-sm-end btn btn-sm btn-warning " href="@yield('link_cache')"><i class="bi bi-trash3-fill"></i> @yield('title_cache')</a>
+                            @else
                             <ol class="breadcrumb float-sm-end">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
                             </ol>
+                            @endif
                         </div>
                     </div>
                     <!--end::Row-->
