@@ -386,6 +386,13 @@
          </nav>
 
          <ul class="shop-policises list-unstyled d-flex align-items-center flex-wrap m-0 pr-0">
+             @if(Auth::check() && Auth::user()->role_id == 2)
+             <li class="">
+                 <a class="link d-inline d-md-none text-danger" href="{{ route('admin.dashboard') }}" title="TRANG QUẢN TRỊ">
+                     TRANG QUẢN TRỊ
+                 </a>
+             </li>
+             @endif
              <li class="">
                  <a class="link" href="https://memoryzone.com.vn/huong-dan-thanh-toan" title="THANH TOÁN">
                      THANH TOÁN
@@ -421,13 +428,13 @@
 
      <div class="mobile-menu-footer border-top w-100 d-flex align-items-center text-center">
          <div class="hotline  w-50   p-2 ">
-             <a href="tel:02873013878" title="028 7301 3878">
+             <a href="tel:02873013878" title="012 3456 789">
                  Gọi điện <i class="fas fa-phone ml-3"></i>
              </a>
          </div>
          <div class="messenger border-left p-2 w-50 border-left">
 
-             <a href="https://www.messenger.com/t/memoryzonevietnam/" title="https://www.messenger.com/t/memoryzonevietnam/">
+             <a href="https://www.messenger.com/t/#" title="https://www.messenger.com/t/#/">
                  Nhắn tin
                  <i class="fab fa-facebook-messenger ml-3"></i>
              </a>
@@ -535,7 +542,7 @@
                      <a href="#" title="Thẻ nhớ" class="pos-relative d-flex align-items-center "
                          style="aspect-ratio:100/ 100">
                          <img class="img-fluid m-auto object-contain mh-100" loading="lazy"
-                         src="{{asset('/assets/admin/img/thenho.png')}}"
+                             src="{{asset('/assets/admin/img/thenho.png')}}"
                              width="100" height="100" alt="coll_8_title" />
                      </a>
                      <h3 class="mb-0">

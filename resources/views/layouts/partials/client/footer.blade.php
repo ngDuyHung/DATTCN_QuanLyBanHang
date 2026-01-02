@@ -154,7 +154,7 @@
                   <a href="#">
                     <img loading="lazy"
                       src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/payment.png?1762606819649"
-                      alt="MemoryZone by SieuToc" />
+                      alt="DuyHungZone by NguyenDuyHung" />
                   </a>
                 </li>
               </ul>
@@ -168,7 +168,7 @@
 
                   <li>
                     <a href="https://www.facebook.com/ndhung2k4/"
-                      title="Theo dõi Facebook MemoryZone by SieuToc"><img
+                      title="Theo dõi Facebook DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/facebook.png?1762606819649"
                         alt="Facebook"></a>
                   </li>
@@ -177,14 +177,14 @@
 
 
                   <li>
-                    <a href="https://www.facebook.com/ndhung2k4/" title="Theo dõi lazada MemoryZone by SieuToc"><img
+                    <a href="https://www.facebook.com/ndhung2k4/" title="Theo dõi lazada DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/lazada.png?1762606819649"
                         alt="lazada"></a>
                   </li>
 
 
                   <li>
-                    <a href="https://www.facebook.com/ndhung2k4/" title="Theo dõi shopee MemoryZone by SieuToc"><img
+                    <a href="https://www.facebook.com/ndhung2k4/" title="Theo dõi shopee DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/shopee.png?1762606819649"
                         alt="shopee"></a>
                   </li>
@@ -192,7 +192,7 @@
 
                   <li>
                     <a href="https://www.facebook.com/ndhung2k4/"
-                      title="Theo dõi Instagam MemoryZone by SieuToc"><img
+                      title="Theo dõi Instagam DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/instagram.png?1762606819649"
                         alt="Instagam"></a>
                   </li>
@@ -200,7 +200,7 @@
 
                   <li>
                     <a href="https://www.facebook.com/ndhung2k4/ "
-                      title="Theo dõi Youtube MemoryZone by SieuToc"><img
+                      title="Theo dõi Youtube DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/youtube.png?1762606819649"
                         alt="Youtube"></a>
                   </li>
@@ -208,7 +208,7 @@
 
                   <li>
                     <a href="https://www.facebook.com/ndhung2k4/"
-                      title="Theo dõi Tiktok MemoryZone by SieuToc"><img
+                      title="Theo dõi Tiktok DuyHungZone by NguyenDuyHung"><img
                         src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/tiktok1.png?1762606819649"
                         alt="Youtube"></a>
                   </li>
@@ -226,8 +226,8 @@
         <span class="mobile">© Bản quyền thuộc về <b>CÔNG TY TNHH DỊCH VỤ TIN HỌC DUY HÙNG</b>
           <span class="hidden-xs"> | </span>
         </span>
-        <span class="opacity1">MemoryZone by </span>
-        <a href="https://www.sieutoc.com/" rel="dofollow" title="Sapo" target="_blank">Duy Hùng</a>
+        <span class="opacity1">DuyHungZone by </span>
+        <a href="#" rel="dofollow" title="Sapo" target="_blank">Duy Hùng</a>
       </div>
     </div>
   </footer>

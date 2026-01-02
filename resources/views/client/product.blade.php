@@ -86,7 +86,7 @@
                                       @foreach($Product->images as $image)
 
                                       <div class="item gallery-item"
-                                          data-src="{{ $image->image_url }}">
+                                          data-src="{{ asset('storage/'.$image->image_url) }}">
                                           <a class="d-block  pos-relative embed-responsive embed-responsive-1by1"
                                               href="javascript:void(0);"
                                               title="{{$Product->name}}"

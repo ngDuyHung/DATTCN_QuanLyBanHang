@@ -189,7 +189,7 @@
                    </style>
 
                    <form action="/cart/add" method="post" class="variants product-action" enctype="multipart/form-data"
-                     data-tags='["OLED","qlkm_Office_2019","16GB","SSD 512GB","DDR5","14 inch","Thiết kế Đồ họa","Học tập Văn phòng","Mỏng nhẹ cao cấp","Ryzen 5","Radeon Graphics","90Hz - 120Hz","2.8K - 3.2K"]'>
+                     data-tags='[""]'>
 
                      <div class="product-thumbnail pos-relative">
 
@@ -363,11 +363,11 @@
          <div class="tagnav--horizontal d-lg-flex align-items-center mt-3">
            <div class="tagnav-wrapper">
              <ul class='mt-2 mt-sm-0 tabs tabs-title list-unstyled mb-0 d-flex align-items-center overflow-auto'>
-             @foreach($PCBrands as $brand)
+               @foreach($PCBrands as $brand)
                <li class="menu-item ega-small tab-link link mr-2 mt-2111">
                  <a href='/{{$brand->slug}}' class="menu-item__link" title="{{$brand->name}}">{{$brand->name}}</a>
                </li>
-               @endforeach 
+               @endforeach
                <li class="menu-item ega-small tab-link link d-none d-sm-block">
                  <a href="pcmaybo" title="Xem tất cả" class="menu-item__link text-primary">
                    Xem tất cả
@@ -407,7 +407,7 @@
          <div class="col-md-12 col-lg-12 product-box-content">
            <div class="md-product-slider-2 swiper-container">
              <div class="swiper-wrapper">
-                @foreach($productPCs as $product)
+               @foreach($productPCs as $product)
                <div class="swiper-slide">
                  <div class="item_product_main">
 
@@ -558,7 +558,7 @@
                    </form>
                  </div>
                </div>
-                @endforeach
+               @endforeach
 
              </div>
            </div>
@@ -612,7 +612,7 @@
    </script>
  </section>
 
-<section class="section awe-section-7">
+ <section class="section awe-section-7">
    <div class="section_product section_product_2 section_product_tag section">
      <div class="container">
        <div
@@ -632,11 +632,11 @@
          <div class="tagnav--horizontal d-lg-flex align-items-center mt-3">
            <div class="tagnav-wrapper">
              <ul class='mt-2 mt-sm-0 tabs tabs-title list-unstyled mb-0 d-flex align-items-center overflow-auto'>
-             @foreach($RamBrands as $brand)
+               @foreach($RamBrands as $brand)
                <li class="menu-item ega-small tab-link link mr-2 mt-2111">
                  <a href='/{{$brand->slug}}' class="menu-item__link" title="{{$brand->name}}">{{$brand->name}}</a>
                </li>
-               @endforeach 
+               @endforeach
                <li class="menu-item ega-small tab-link link d-none d-sm-block">
                  <a href="ram" title="Xem tất cả" class="menu-item__link text-primary">
                    Xem tất cả
@@ -676,7 +676,7 @@
          <div class="col-md-12 col-lg-12 product-box-content">
            <div class="md-product-slider-2 swiper-container">
              <div class="swiper-wrapper">
-                @foreach($productRams as $product)
+               @foreach($productRams as $product)
                <div class="swiper-slide">
                  <div class="item_product_main">
 
@@ -738,7 +738,7 @@
                    </style>
 
                    <form action="/cart/add" method="post" class="variants product-action" enctype="multipart/form-data"
-                     data-tags='["OLED","qlkm_Office_2019","16GB","SSD 512GB","DDR5","14 inch","Thiết kế Đồ họa","Học tập Văn phòng","Mỏng nhẹ cao cấp","Ryzen 5","Radeon Graphics","90Hz - 120Hz","2.8K - 3.2K"]'>
+                     data-tags='[""]'>
 
                      <div class="product-thumbnail pos-relative">
 
@@ -827,7 +827,7 @@
                    </form>
                  </div>
                </div>
-                @endforeach
+               @endforeach
 
              </div>
            </div>
@@ -1084,7 +1084,7 @@
    })
  </script>
 
- 
+
 
  <section class="section_service_end">
    <div class="container">

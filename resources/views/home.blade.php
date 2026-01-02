@@ -4,7 +4,7 @@
 
 
   <div class="opacity_menu"></div>
-  
+
   <div class="topbar-slider swiper-container">
     <div class="swiper-wrapper">
 
@@ -54,7 +54,7 @@
                 <nav class="h-100">
                   <ul class="navigation list-group list-group-flush scroll">
 
-                
+
                     @foreach($categories_sidebar as $category)
                     <li class="menu-item list-group-item">
                       <a href="/{{ $category->slug }}" class="menu-item__link" title="{{ $category->name }}">
@@ -96,7 +96,7 @@
                       </div> -->
                     </li>
                     @endforeach
-                 
+
                   </ul>
                 </nav>
 
@@ -124,12 +124,17 @@
             </ae-widget>
 
 
-            
+
           </div>
           <div class="col-4 col-sm-3 col-lg-6 col-xl-3 pl-0">
             <ul class="header-right mb-0 list-unstyled d-flex align-items-center">
               @if(Auth::check() && Auth::user()->role_id == 2)
-              <a href="{{ route('admin.dashboard') }}">Quản trị</a>
+              <a href="{{ route('admin.dashboard') }}">
+                <!-- Chữ chỉ hiện trên PC/laptop -->
+                <span class="d-none d-md-inline">
+                  Quản trị
+                </span>
+              </a>
               @endif
               <li class='ml-4 mr-4 mr-md-0 ml-md-3 media d-lg-flex d-none'>
                 <img loading="lazy"
