@@ -30,8 +30,23 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id', 'role_id');
     }
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'user_id', 'id');
+    }
     
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
+
+    public function handled()
+    {
+        return $this->hasMany(Order::class, 'handled_by', 'id');
+    }
+
     
+
     /**
      * The attributes that should be hidden for serialization.
      *

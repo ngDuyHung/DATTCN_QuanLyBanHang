@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,5 +37,31 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $sessionCart = session()->get('cart', []);
+
+        // trường hợp không có giỏ hàng
+        if (!$user->cart) {
+            $user->cart()->create();
+        }
+        foreach ($sessionCart as $item) {
+            $cartItem = $user->cart->cartItems()->where('product_id', $item['product_id'])->first();
+
+            if ($cartItem) {
+                $cartItem->update([
+                    'quantity' => $cartItem->quantity + $item['quantity'],
+                ]);
+            } else {
+                $user->cart->cartItems()->create([
+                    'product_id' => $item['product_id'],
+                    'quantity' => $item['quantity'],
+                ]);
+            }
+        }
+
+        session()->forget('cart');
     }
 }
