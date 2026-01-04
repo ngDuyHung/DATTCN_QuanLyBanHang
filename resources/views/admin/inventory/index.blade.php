@@ -3,7 +3,7 @@
 
 {{-- Đặt tiêu đề cho trang --}}
 @section('title', 'Danh sách kho hàng')
-@section('name_btn_add', 'Thêm kho hàng')
+@section('name_btn_add', 'Thêm sản phẩm vào kho')
 @section('link_btn_add', route('admin.inventory.create'))
 {{-- Đặt nội dung cho trang --}}
 @section('content')
@@ -38,13 +38,15 @@
                                     <td>{{ Str::limit($inventory->product->name ?? 'N/A', 25) }}</td>
                                     <td>{{ $inventory->product->sku ?? 'N/A' }}</td>
                                     <td>
-                                        @if($inventory->quantity_in_stock <= $inventory->min_alert_quantity)
-                                            <span class="badge bg-danger"><i class="bi bi-exclamation-circle me-1"></i> Sắp hết hàng</span>
+                                        @if($inventory->quantity_in_stock == 0)
+                                            <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i> hết hàng</span>
+                                            @elseif($inventory->quantity_in_stock <= $inventory->min_alert_quantity)
+                                            <span class="badge bg-warning"><i class="bi bi-exclamation-circle me-1"></i>Sắp  Hết hàng</span>
                                             @else
                                             <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Đủ hàng</span>
                                             @endif
                                     </td>
-                                    <td></td>
+                                    <td>{{ $inventory->quantitySold() }}</td>
                                     <td>{{ $inventory->quantity_in_stock }}</td>
                                     <td class="text-danger">{{ $inventory->min_alert_quantity }}</td>
                                     <td>{{ $inventory->last_updated }}</td>

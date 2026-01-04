@@ -19,7 +19,7 @@ class Promotion extends Model
 
     public function getDiscountValueFormatAttribute()
     {
-        if ($this->discount_type === 'percen') {
+        if ($this->discount_type === 'percent') {
             return $this->discount_value . '%';
         } elseif ($this->discount_type === 'fixed') {
             return number_format($this->discount_value, 0, ',', '.') . ' ₫';

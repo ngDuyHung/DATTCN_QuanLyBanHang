@@ -596,7 +596,7 @@
                                 
                                 <div class="item-price">
                                     <div class="item-quantity">SL: {{ $item->quantity }}</div>
-                                    <div class="item-total">{{ number_format($item->price * $item->quantity, 0, ',', '.') }}₫</div>
+                                    <div class="item-total">{{ number_format($item->line_total, 0, ',', '.') }}₫</div>
                                 </div>
                             </div>
                             @endforeach

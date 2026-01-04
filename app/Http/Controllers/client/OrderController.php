@@ -73,7 +73,7 @@ class OrderController extends Controller
 
         // Tính giá trị giảm
         $discountAmount = 0;
-        if ($promotion->discount_type === 'percen') {
+        if ($promotion->discount_type === 'percent') {
             $discountAmount = ($totalAmount * $promotion->discount_value) / 100;
         } elseif ($promotion->discount_type === 'fixed') {
             $discountAmount = $promotion->discount_value;
@@ -145,6 +145,8 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin thanh toán.');
         }
 
+        $totalAmount = 0; // Tính tổng tiền
+        $orderItemsData = [];
         //Kiểm tra số lương sản phẩm trong kho
         foreach ($products as $pd) {
             $product = Product::find($pd['id']);
@@ -160,6 +162,22 @@ class OrderController extends Controller
                     return redirect()->back()->with('error', 'Sản phẩm "' . $product->name .
                         '" không đủ số lượng trong kho.' . "\n Vui lòng điều chỉnh lại giỏ hàng.");
                 }
+                // Tính toán tiền
+                $itemTotal = $product->price * $pd['qty'];
+                $totalAmount += $itemTotal;
+
+                // Chuẩn bị dữ liệu để insert sau
+                $orderItemsData[] = [
+                    'product_id' => $product->product_id,
+                    'sku' => $product->sku,
+                    'product_name' => $product->name,
+                    'quantity' => $pd['qty'],
+                    'unit_price' => $product->price,
+                    'line_total' => $itemTotal,
+                ];
+
+                // Cập nhật số lượng
+                $product->inventory->decrement('quantity_in_stock', $pd['qty']);
             }
         }
 
@@ -173,18 +191,11 @@ class OrderController extends Controller
             $promotion = Promotion::find($promoID);
             //dd("id" .$promotion);
         }
-        // Tính tổng tiền
-        $totalAmount = 0;
-        foreach ($products as $pd) {
-            $product = Product::find($pd['id']);
-            if ($product) {
-                $totalAmount += $product->price * $pd['qty'];
-            }
-        }
+
 
         // Tính giảm giá nếu có promotion
         if ($promotion) {
-            if ($promotion->discount_type === 'percen') {
+            if ($promotion->discount_type === 'percent') {
                 $discountAmount = ($totalAmount * $promotion->discount_value) / 100;
             } elseif ($promotion->discount_type === 'fixed') {
                 $discountAmount = $promotion->discount_value;
@@ -220,39 +231,13 @@ class OrderController extends Controller
         ]);
 
         // Lưu các mục đơn hàng
-        foreach ($products as $pd) {
-            $product = Product::find($pd['id']);
-            if ($product) {
-                $order->orderItems()->create([
-                    'product_id' => $product->product_id,
-                    'sku' => $product->sku,
-                    'product_name' => $product->name,
-                    'quantity' => $pd['qty'],
-                    'unit_price' => $product->price,
-                    'line_total' => $product->price * $pd['qty'],
-                    'created_at' => now(),
-                ]);
-            }
-        }
+        $order->orderItems()->createMany($orderItemsData);
 
-        //Cập nhật số lượng trong kho
-        foreach ($products as $pd) {
-            $product = Product::find($pd['id']);
-            if ($product) {
-                $inventory = $product->inventory;
-                if ($inventory) {
-                    //decrement dùng để giảm số lượng trong kho
-                    $inventory->decrement('quantity_in_stock', $pd['qty']);
-                }
-            }
-        }
 
         // Cập nhật số lần sử dụng promotion
         if ($promotion) {
             $promotion->increment('times_used');
         }
-
-        //return redirect()->route('client.order.show', $order->order_id)->with('success', 'Đặt hàng thành công.');
 
         //Xóa giỏ hàng
         if (Auth::check()) {

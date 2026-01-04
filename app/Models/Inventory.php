@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
@@ -19,5 +20,18 @@ class Inventory extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
+
+
+
+
+    public function quantitySold()
+    {
+        return DB::table('order_items')
+            ->join('orders', 'order_items.order_id', '=', 'orders.order_id')
+            ->where('orders.status', 'completed')
+            ->where('order_items.product_id', $this->product_id)
+            ->sum('order_items.quantity');
     }
 }
