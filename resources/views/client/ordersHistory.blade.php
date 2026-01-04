@@ -134,7 +134,7 @@
 
 
 
-
+						@if(isset($orders))
 						@foreach($orders as $order)
 
 						<div class="order-card" data-status="{{ $order->status }}">
@@ -188,7 +188,11 @@
 						@endforeach
 
 
-
+						@else
+						<div class="container mt-4 mb-4 text-center">
+							<p class="justify-content-center">Không tìm thấy đơn hàng nào.</p>
+						</div>
+						@endif
 
 
 					</div>
