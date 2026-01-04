@@ -70,7 +70,10 @@ class InventoryController extends Controller
      */
     public function edit(Inventory $inventory)
     {
-        $products = Product::where('is_active', 1)->get();
+        // Lấy các sản phẩm đang active HOẶC chính là sản phẩm đang sửa (dù nó bị off)
+    $products = Product::where('is_active', 1)
+                ->orWhere('product_id', $inventory->product_id)
+                ->get();
         return view('admin.inventory.edit', compact('inventory', 'products'));
     }
 

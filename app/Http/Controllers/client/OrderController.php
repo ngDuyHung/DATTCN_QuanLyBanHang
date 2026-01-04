@@ -177,7 +177,10 @@ class OrderController extends Controller
                 ];
 
                 // Cập nhật số lượng
-                $product->inventory->decrement('quantity_in_stock', $pd['qty']);
+                $currentQuantity = $inventory->quantity_in_stock;
+                $inventory->quantity_in_stock = $currentQuantity - $pd['qty'];
+                $inventory->last_updated = now();
+                $inventory->save();
             }
         }
 

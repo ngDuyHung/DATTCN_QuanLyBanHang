@@ -98,6 +98,7 @@ class CartController extends Controller
             ];
         }
 
+        // lưu $cart vào session
         session()->put('cart', $cart);
 
         return $this->index();
