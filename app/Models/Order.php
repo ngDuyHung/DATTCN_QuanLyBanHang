@@ -45,6 +45,7 @@ class Order extends Model
         return number_format($this->shipping_fee, 0, ',', '.') . ' đ';
     }
 
+    // lúc gọi thì dùng $order->discount_amount_format
     public function getDiscountAmountFormatAttribute()
     {
         return number_format($this->discount_amount, 0, ',', '.') . ' đ';

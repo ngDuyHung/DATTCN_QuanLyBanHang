@@ -74,3 +74,10 @@ Route::get('/checkout/success/{id}', [App\Http\Controllers\client\OrderControlle
 
 // show by slug 
 Route::get('/{slug}', [App\Http\Controllers\client\ProductController::class, 'showBySlug'])->name('client.showBySlug');
+
+
+// Account orders không cần đăng nhập
+Route::prefix('account')->name('account.')->group(function (Router $router) {
+    $router->get('/orders', [App\Http\Controllers\client\OrderController::class, 'indexClient'])->name('orders.indexClient');
+    $router->get('/orders/{id}', [App\Http\Controllers\client\OrderController::class, 'showClient'])->name('orders.showClient');
+});

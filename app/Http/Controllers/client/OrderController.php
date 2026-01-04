@@ -20,6 +20,18 @@ class OrderController extends Controller
         //
     }
 
+    public function indexClient()
+    {
+        $orders = null;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $orders = Order::where('user_id', $user->id)
+                ->orderBy('placed_at', 'desc')
+                ->paginate(10);
+        }
+        return view('client.ordersHistory', compact('orders'));
+    }
+
     /**
      * Kiểm tra và áp dụng mã giảm giá
      */

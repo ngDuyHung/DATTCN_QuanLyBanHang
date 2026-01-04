@@ -21,4 +21,14 @@ class Order_item extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
+
+    public function getUnitPriceFormatAttribute()
+    {
+        return number_format($this->unit_price, 0, ',', '.') . ' đ';
+    }
+
+    public function getLineTotalFormatAttribute()
+    {
+        return number_format($this->line_total, 0, ',', '.') . ' đ';
+    }
 }

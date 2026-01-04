@@ -41,6 +41,7 @@
 <link rel="stylesheet" href="{{ asset('assets/client/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/product-infor-style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/client/quickviews-popup-cart.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/client/account_new.scss.css') }}">
 
 
 

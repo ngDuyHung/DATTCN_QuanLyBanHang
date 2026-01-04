@@ -89,7 +89,7 @@
           </a>
         </li>
         <li class="">
-          <a class="link" href="#" title=" XEM ĐƠN HÀNG ">
+          <a class="link" href="{{ route('account.orders.indexClient') }}" title=" XEM ĐƠN HÀNG ">
             XEM ĐƠN HÀNG 
           </a>
         </li>
