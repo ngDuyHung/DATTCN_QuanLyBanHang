@@ -35,7 +35,7 @@
 
             <a href="/" class="logo-wrapper " title='MemoryZone by SieuToc'>
               <img loading="lazy" class="img-fluid"
-                src="https://upanhnhanh.com/76ceccbf4688ed0f74dd4c0a6de3101a"
+                src="{{ asset('storage/' . get_option('site_logo', 'assets/img/no-image.png')) }}"
                 alt="logo DuyhungZone by Nguyễn Duy Hùng" width="248" height="56">
             </a>
 

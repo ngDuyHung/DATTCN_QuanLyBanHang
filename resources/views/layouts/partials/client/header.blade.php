@@ -10,19 +10,19 @@
 		<meta name="robots" content="noodp,index,follow" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
-		<meta name="description" content="MemoryZone là một thương hiệu chuyên cung cấp Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.">
-		<title>Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.		</title>
-		<meta name="keywords" content="Laptop, PC gaming, Gear, Thẻ nhớ điện thoại, máy ảnh chính hãng, USB, USB 3.0, ổ cứng di động, ổ cứng gắn ngoài, ổ cứng SSD, thiết bị wireless, chuột logitech, bàn phím logitech."/>		
+		<meta name="description" content="{{ get_option('site_description', 'DuyHungZone là một thương hiệu chuyên cung cấp Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.') }}">
+		<title>{{ get_option('site_title', 'Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.') }}</title>
+		<meta name="keywords" content="{{ get_option('site_keywords', 'Laptop, PC gaming, Gear, Thẻ nhớ điện thoại, máy ảnh chính hãng, USB, USB 3.0, ổ cứng di động, ổ cứng gắn ngoài, ổ cứng SSD, thiết bị wireless, chuột logitech, bàn phím logitech.') }}"/>		
 		
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.">
-	<meta property="og:image" content="https://bizweb.dktcdn.net/100/329/122/themes/1038963/assets/share_fb_home.jpg?1763544043956">
-	<meta property="og:image:secure_url" content="https://bizweb.dktcdn.net/100/329/122/themes/1038963/assets/share_fb_home.jpg?1763544043956">
+	<meta property="og:title" content="{{ get_option('site_name', 'DuyHungZone by SieuToc') }}">
+	<meta property="og:image" content="{{ asset('storage/' . get_option('site_logo', 'assets/img/no-image.png')) }}">
+	<meta property="og:image:secure_url" content="{{ asset('storage/' . get_option('site_logo', 'assets/img/no-image.png')) }}">
 
-<meta property="og:description" content="MemoryZone là một thương hiệu chuyên cung cấp Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.">
+<meta property="og:description" content="{{ get_option('site_description', 'MemoryZone là một thương hiệu chuyên cung cấp Laptop, PC, thiết bị lưu trữ, màn hình và các phụ kiện khác.') }}">
 <meta property="og:url" content="https://memoryzone.com.vn/">
-<meta property="og:site_name" content="MemoryZone by SieuToc">
+<meta property="og:site_name" content="{{ get_option('site_name', 'DuyHungZone by SieuToc') }}">
 
 		<link rel="icon" href="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/favicon.png?1763544043956" type="image/x-icon" />
 		<link  rel="dns-prefetch" href="https://fonts.googleapis.com">

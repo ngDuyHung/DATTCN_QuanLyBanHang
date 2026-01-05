@@ -28,7 +28,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     $router->resource('account', \App\Http\Controllers\admin\AccountController::class);
 
     // Setting - Menu management
-    $router->resource('settings', \App\Http\Controllers\admin\SettingController::class);
+    Route::get('/settings', [\App\Http\Controllers\admin\SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [\App\Http\Controllers\admin\SettingController::class, 'update'])->name('settings.update');
     $router->resource('menu', \App\Http\Controllers\admin\MenuController::class);
     Route::post('menus/change-status', [\App\Http\Controllers\admin\MenuController::class, 'changeStatus'])->name('menu.changeStatus');
     Route::get('menus/get-parent-menus', [\App\Http\Controllers\admin\MenuController::class, 'getParentMenusByType'])->name('menu.getParentMenusByType');
@@ -47,7 +48,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         \Illuminate\Support\Facades\Artisan::call('route:clear');
         \Illuminate\Support\Facades\Artisan::call('view:clear');
         return back()->with('success', 'Đã xóa cache thành công!');
-    })->name('home.clearCache'); 
+    })->name('home.clearCache');
 
 
     //tất cả mà bọc trong admin thì lúc gọi phải kèm admin.{route_name} ví dụ admin.product.index

@@ -25,7 +25,7 @@
                                 <div class="form-group text-center">
                                     <label>Logo Website</label>
                                     <div class="mb-3">
-                                        <img src="{{ asset(get_option('site_logo', 'assets/img/no-image.png')) }}" id="preview-logo" class="img-thumbnail" style="max-height: 150px;">
+                                        <img src="{{ asset('storage/' . get_option('site_logo', 'assets/img/no-image.png')) }}" id="preview-logo" class="img-thumbnail" style="max-height: 150px;">
                                     </div>
                                     <input type="file" name="site_logo" class="form-control" onchange="previewImage(this, 'preview-logo')">
                                 </div>
@@ -33,7 +33,7 @@
                                 <div class="form-group text-center">
                                     <label>Favicon (Icon trình duyệt)</label>
                                     <div class="mb-3">
-                                        <img src="{{ asset(get_option('site_favicon', 'assets/img/no-icon.png')) }}" id="preview-favicon" class="img-thumbnail" style="max-height: 50px;">
+                                        <img src="{{ asset('storage/' . get_option('site_favicon', 'assets/img/no-icon.png')) }}" id="preview-favicon" class="img-thumbnail" style="max-height: 50px;">
                                     </div>
                                     <input type="file" name="site_favicon" class="form-control" onchange="previewImage(this, 'preview-favicon')">
                                 </div>
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label>Slogan / Tiêu đề trang chủ</label>
+                                    <label>Slogan / Tiêu đề trang chủ / Footer</label>
                                     <input type="text" name="site_title" class="form-control" value="{{ get_option('site_title') }}">
                                 </div>
 
