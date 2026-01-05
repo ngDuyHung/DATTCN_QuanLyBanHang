@@ -35,6 +35,7 @@ class InventoryController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,product_id|unique:inventory,product_id',
+            'location' => 'nullable|string|max:255',
             'quantity_in_stock' => 'required|integer|min:0',
             'min_alert_quantity' => 'required|integer|min:0',
         ],[
@@ -49,6 +50,7 @@ class InventoryController extends Controller
 
         $inventory = Inventory::create([
             'product_id' => $validated['product_id'],
+            'location' => $validated['location'] ?? null,
             'quantity_in_stock' => $validated['quantity_in_stock'],
             'min_alert_quantity' => $validated['min_alert_quantity'],
             'last_updated' => now(),
@@ -84,6 +86,7 @@ class InventoryController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,product_id|unique:inventory,product_id,'.$inventory->inventory_id.',inventory_id',
+            'location' => 'nullable|string|max:255',
             'quantity_in_stock' => 'required|integer|min:0',
             'min_alert_quantity' => 'required|integer|min:0',
         ],[
@@ -98,6 +101,7 @@ class InventoryController extends Controller
 
         $inventory->update([
             'product_id' => $validated['product_id'],
+            'location' => $validated['location'] ?? null,
             'quantity_in_stock' => $validated['quantity_in_stock'],
             'min_alert_quantity' => $validated['min_alert_quantity'],
             'last_updated' => now(),

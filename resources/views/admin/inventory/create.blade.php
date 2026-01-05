@@ -16,18 +16,30 @@
                     <select name="product_id" id="product_id" class="form-select" required>
                         <option value="">-- Chọn sản phẩm --</option>
                         @foreach($products as $product)
-                         @if(!isset($product->inventory))
+                        @if(!isset($product->inventory))
                         <option value="{{ $product->product_id }}" {{ 
                                 old('product_id', session('productId')) == $product->product_id ? 'selected' : '' }}>
                             {{ $product->name }} (SKU: {{ $product->sku }})
                         </option>
-                         @endif
+                        @endif
                         @endforeach
                     </select>
                     @error('product_id')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                
+                <div class="mb-3">
+                    <label for="location" class="form-label">Vị trí trong kho</label>
+                    <input type="text" name="location" id="location"
+                        class="form-control"
+                        value="{{ old('location', '') }}"
+                        placeholder="Nhập vị trí trong kho">
+                    @error('location')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            
 
                 <div class="mb-3">
                     <label for="quantity_in_stock" class="form-label">Số lượng trong kho <span class="text-danger">*</span></label>

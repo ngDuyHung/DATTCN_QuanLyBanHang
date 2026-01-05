@@ -37,6 +37,17 @@
                     @enderror
                 </div>
 
+                  <div class="mb-3">
+                    <label for="location" class="form-label">Vị trí trong kho</label>
+                    <input type="text" name="location" id="location"
+                        class="form-control"
+                        value="{{ old('location', $inventory->location ?? '') }}"
+                        placeholder="Vị trí trong kho">
+                    @error('location')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="mb-3">
                     <label for="quantity_in_stock" class="form-label">Số lượng trong kho <span class="text-danger">*</span></label>
                     <input type="number" name="quantity_in_stock" id="quantity_in_stock"
