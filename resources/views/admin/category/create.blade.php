@@ -87,6 +87,8 @@
 </div>
 {{-- Script sinh slug tự động --}}
 <script>
+CKEDITOR.replace('description');
+
 document.addEventListener("DOMContentLoaded", function () {
     const nameInput = document.getElementById('name');
     const slugInput = document.getElementById('slug');

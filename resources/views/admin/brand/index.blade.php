@@ -22,7 +22,6 @@
                                     <th>id</th>
                                     <th>Tên</th>
                                     <th>Logo</th>
-                                    <th>Mô tả</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
                                     <th>Trạng thái</th>
@@ -35,7 +34,6 @@
                                     <td>{{ $brand->brand_id }}</td>
                                     <td>{{ $brand->name }}</td>
                                     <td><img src="{{ asset('storage/' . $brand->logo_url) }}" alt="" style="height: 40px; max-width: 100%;"></td>
-                                    <td>{{ $brand->description }}</td>
                                     <td>{{ $brand->created_at }}</td>
                                     <td>{{ $brand->updated_at }}</td>
                                     <td>

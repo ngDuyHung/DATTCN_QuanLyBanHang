@@ -28,7 +28,7 @@
 
 					@if(isset($brand))
 					<li>
-						<a class="changeurl link" href="/{{ $brand->category->slug }}" title="Laptop">
+						<a class="changeurl link" href="/{{ $brand->category->slug }}" title="{{ $brand->category->name }}">
 							<span>{{ $brand->category->name }}</span>
 						</a>
 						<span class="mr_lr">&nbsp;/&nbsp;</span>
@@ -206,7 +206,7 @@
 										</style>
 
 										<form action="/cart/add" method="post" class="variants product-action" enctype="multipart/form-data"
-											data-tags='["OLED","qlkm_Office_2019","16GB","SSD 512GB","DDR5","14 inch","Thiết kế Đồ họa","Học tập Văn phòng","Mỏng nhẹ cao cấp","Ryzen 5","Radeon Graphics","90Hz - 120Hz","2.8K - 3.2K"]'>
+											data-tags=''>
 
 											<div class="product-thumbnail pos-relative">
 
@@ -257,55 +257,6 @@
 												</div>
 
 
-
-
-
-
-
-												<div class="aer-review-result ae-total-">
-
-
-													<span class="aer-star-deactive"><svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-															xmlns="http://www.w3.org/2000/svg">
-															<path
-																d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
-																fill="#ccc" />
-														</svg></span>
-
-
-													<span class="aer-star-deactive"><svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-															xmlns="http://www.w3.org/2000/svg">
-															<path
-																d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
-																fill="#ccc" />
-														</svg></span>
-
-
-													<span class="aer-star-deactive"><svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-															xmlns="http://www.w3.org/2000/svg">
-															<path
-																d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
-																fill="#ccc" />
-														</svg></span>
-
-
-													<span class="aer-star-deactive"><svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-															xmlns="http://www.w3.org/2000/svg">
-															<path
-																d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
-																fill="#ccc" />
-														</svg></span>
-
-
-													<span class="aer-star-deactive"><svg height="20pt" viewBox="0 -10 511.98685 511" width="20pt"
-															xmlns="http://www.w3.org/2000/svg">
-															<path
-																d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
-																fill="#ccc" />
-														</svg></span>
-													<span class="ae-total-review"> là người đánh giá đầu tiên
-													</span>
-												</div>
 												<style>
 													.ae-total-review {
 														display: none;
@@ -365,36 +316,11 @@
 			<h2 class="heading-bar__title mb-3">Mô tả nhóm sản phẩm</h2>
 			<div class="rte js-product-getcontent product_getcontent pos-relative" style="--maxHeightContent: 100px">
 				<div class="js-content">
-					<p><!--StartFragment --></p>
-					<h2 style="text-align: justify;">Giới thiệu về Laptop Lenovo ThinkPad T Series</h2>
-					<p style="text-align: justify;"><a href="https://memoryzone.com.vn/laptop-lenovo-thinkpad-t-series"><strong>Laptop Lenovo ThinkPad T Series</strong></a> từ lâu đã được xem là biểu tượng của dòng laptop doanh nghiệp. Kế thừa di sản từ IBM cho đến Lenovo, ThinkPad T luôn dẫn đầu về độ bền, sự ổn định và hiệu năng mạnh mẽ. Tại MemoryZone, người dùng có thể tìm thấy các mẫu mới nhất như T14 Gen 6 và T16 Gen 4, trang bị cấu hình AI hiện đại phục vụ công việc chuyên nghiệp.</p>
-					<h2 style="text-align: justify;">Lịch sử và vị thế của ThinkPad T Series</h2>
-					<p style="text-align: justify;"><strong>Hành trình từ IBM đến Lenovo:&nbsp;</strong>ThinkPad T Series ra mắt lần đầu năm 1992 dưới thương hiệu IBM, nhanh chóng được yêu thích nhờ độ bền và bàn phím cùng <strong><a href="https://memoryzone.com.vn/trackpoint-la-gi">TrackPoint</a></strong> huyền thoại. Sau khi Lenovo tiếp quản, dòng T tiếp tục phát triển mạnh mẽ và trở thành dòng laptop business được doanh nghiệp toàn cầu tin dùng.</p>
-					<p style="text-align: justify;"><strong>Vị thế hiện tại trong năm 2025:</strong>&nbsp;Bước sang năm 2025, ThinkPad T Series tập trung mạnh vào hiệu năng AI, khả năng di động và độ tin cậy cao. Điều này giúp dòng T trở thành lựa chọn hàng đầu của doanh nhân và người dùng chuyên nghiệp tại Việt Nam.</p>
-					<h2 style="text-align: justify;">Đặc trưng nổi bật của Lenovo ThinkPad T Series</h2>
-					<ul style="text-align: justify;">
-						<li><strong>Thiết kế bền bỉ và chuyên nghiệp: </strong>Vỏ Carbon Fiber Hybrid, trọng lượng 1.4-1.8 kg, bản lề thép 360°, thiết kế tối giản, phù hợp môi trường doanh nghiệp.</li>
-						<li><strong>Độ bền chuẩn quân đội MIL-STD-810H: </strong>Chống rơi 1.2m, chống bụi, chịu nhiệt -29°C đến 60°C, bàn phím chống tràn 500ml.</li>
-						<li><strong>Hiệu năng mạnh mẽ:</strong> CPU Intel Core Ultra 7 255H tích hợp NPU 13 TOPS, GPU Intel Arc, xử lý AI và đa nhiệm mượt mà với hơn 100 tab Chrome.</li>
-						<li><strong>RAM &amp; SSD linh hoạt: </strong>RAM 32GB DDR5, SSD 1TB PCIe Gen4, nâng cấp tối đa RAM 64GB, phù hợp lập trình, Excel lớn và phần mềm doanh nghiệp.</li>
-						<li><strong>Màn hình sắc nét: </strong>14-16 inch IPS FHD+ 1920×1200, độ sáng 400-500 nits, chống chói, tỷ lệ 16:10, phiên bản WUXGA 500 nits cho công việc thiết kế cơ bản.</li>
-						<li><strong>Trải nghiệm gõ và âm thanh:</strong> Bàn phím ThinkPad hành trình 1.5mm, touchpad Precision, loa Dolby Atmos, webcam FHD IR với Privacy Shutter.</li>
-						<li><strong>Bảo mật toàn diện:</strong> ThinkShield bao gồm TPM 2.0, vân tay Match-on-Chip, nhận diện khuôn mặt Windows Hello, BIOS tự phục hồi.</li>
-						<li><strong>Kết nối hiện đại: </strong>2x Thunderbolt 4 (140W PD), HDMI 2.1, 2x USB-A 3.2, jack 3.5mm, Wi-Fi 6E/7, Bluetooth 5.3, tùy chọn 5G WWAN.</li>
-					</ul>
-					<h2 style="text-align: justify;">Lý do chọn mua Laptop Lenovo ThinkPad T Series tại MemoryZone?</h2>
-					<p style="text-align: justify;">Tại <strong><a href="https://memoryzone.com.vn/">MemoryZone</a></strong>, chúng tôi luôn đảm bảo 100% chính hãng, hỗ trợ giao siêu tốc 2-4 giờ tại TP.HCM và Hà Nội. Quý khách hàng sẽ được hưởng chính sách đổi trả 7 ngày, trả góp 0% và tư vấn nâng cấp miễn phí. Để sở hữu ThinkPad T Series chính hãng giá tốt, bạn có thể liên hệ hotline (028) 7301 3878 để được hỗ trợ nhanh chóng.</p>
-					<h2 style="text-align: justify;">FAQs - Một số câu hỏi thường gặp về Lenovo ThinkPad T Series</h2>
-					<h3 style="text-align: justify;">1. ThinkPad T Series có bền không?</h3>
-					<p style="text-align: justify;">Có, các model T Series đời mới (T14 Gen 6, T16 Gen 4) đạt chuẩn quân đội MIL-STD-810H, chống rơi, bụi, nhiệt độ khắc nghiệt và bàn phím chống tràn nước. Tuy nhiên, độ bền chính xác có thể khác nhau tùy phiên bản.</p>
-					<h3 style="text-align: justify;">2. Máy có nâng cấp RAM và SSD được không?</h3>
-					<p style="text-align: justify;">Nhiều model hỗ trợ nâng cấp RAM và SSD (RAM tối đa 64GB DDR5, SSD PCIe Gen4), nhưng một số phiên bản RAM hàn sẵn (V-Series) không nâng cấp được.</p>
-					<h3 style="text-align: justify;">3. Máy có an toàn cho dữ liệu doanh nghiệp không?</h3>
-					<p style="text-align: justify;">Có, T Series tích hợp ThinkShield gồm TPM 2.0, cảm biến vân tay Match-on-Chip, nhận diện khuôn mặt Windows Hello, BIOS tự phục hồi.</p>
-					<h3 style="text-align: justify;">4. ThinkPad T Series phù hợp ai?</h3>
-					<p style="text-align: justify;">Phù hợp doanh nghiệp, dân văn phòng, lập trình viên và người dùng cần laptop bền bỉ, hiệu năng cao và di chuyển nhiều.</p>
-					<p><!--EndFragment --></p>
-					<p>
+					@if(isset($category))
+					<p>{!! $category->description !!}</p>
+					@elseif(isset($brand))
+					<p>{!! $brand->description !!}</p>
+					@endif
 				</div>
 			</div>
 

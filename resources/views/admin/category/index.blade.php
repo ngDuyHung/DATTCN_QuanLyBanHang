@@ -20,7 +20,6 @@
                                     <th>id</th>
                                     <th>Tên</th>
                                     <th>slug</th>
-                                    <th>Mô tả</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
                                     <th>Trạng thái</th>
@@ -33,7 +32,6 @@
                                     <td>{{ $category->category_id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->slug }}</td>
-                                    <td>{{ $category->description }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td>{{ $category->updated_at }}</td>
                                     <td>
