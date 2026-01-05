@@ -26,13 +26,13 @@
                       </li>
 
 
-                      <li><a class="changeurl link" href="/laptop"><span>{{$Product->category->name}}</span></a><span
+                      <li><a class="changeurl link" href="/{{$Product->category->slug}}"><span>{{$Product->category->name}}</span></a><span
                               class="mr_lr">&nbsp;/&nbsp;</span></li>
 
-                      <li><a class="changeurl link" href="/laptop-acer"><span>{{$Product->brand->name}}</span></a><span
+                      <li><a class="changeurl link" href="/{{$Product->category->slug}}-{{$Product->brand->slug}}"><span>{{$Product->brand->name}}</span></a><span
                               class="mr_lr">&nbsp;/&nbsp;</span></li>
                       <li class="breadcrumb-last"><span>
-                              <a class="changeurl link" href="/laptop-acer-aspire"><span> {{$Product->sku}}</span></a>
+                              <a class="changeurl link" href="/{{$Product->slug}}"><span> {{$Product->sku}}</span></a>
                       </li>
 
 

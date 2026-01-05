@@ -64,7 +64,7 @@
 
        <!--end::Messages Dropdown Menu-->
        <!--begin::Notifications Dropdown Menu-->
-       <li class="nav-item dropdown">
+       <!-- <li class="nav-item dropdown">
          <a class="nav-link" data-bs-toggle="dropdown" href="#">
            <i class="bi bi-bell-fill"></i>
            <span class="navbar-badge badge text-bg-warning">15</span>
@@ -89,7 +89,7 @@
            <div class="dropdown-divider"></div>
            <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
          </div>
-       </li>
+       </li> -->
        <!--end::Notifications Dropdown Menu-->
        <!--begin::Fullscreen Toggle-->
        <li class="nav-item">
@@ -106,7 +106,7 @@
              src="{{asset('/assets/admin/img/unnamed.jpg')}}"
              class="user-image rounded-circle shadow"
              alt="User Image" />
-           <span class="d-none d-md-inline ms-2">Alexander</span>
+           <span class="d-none d-md-inline ms-2">{{ Auth::user()->name }}</span>
          </a>
          <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
            <!--begin::User Image-->
@@ -116,26 +116,17 @@
                class="rounded-circle shadow"
                alt="User Image" />
              <p>
-               Alexander Pierce - Web Developer22
-               <small>Member since Nov. 2023</small>
+               {{ Auth::user()->name }}
              </p>
+             <p>{{ Auth::user()->email }}</p>
            </li>
            <!--end::User Image-->
            <!--begin::Menu Body-->
-           <li class="user-body">
-             <!--begin::Row-->
-             <div class="row">
-               <div class="col-4 text-center"><a href="#">Followers</a></div>
-               <div class="col-4 text-center"><a href="#">Sales</a></div>
-               <div class="col-4 text-center"><a href="#">Friends</a></div>
-             </div>
-             <!--end::Row-->
-           </li>
+           
            <!--end::Menu Body-->
            <!--begin::Menu Footer-->
            <li class="user-footer">
-             <a href="#" class="btn btn-default btn-flat">Profile</a>
-             <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+             <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-end">Đăng xuất</a>
            </li>
            <!--end::Menu Footer-->
          </ul>

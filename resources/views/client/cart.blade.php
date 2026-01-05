@@ -99,10 +99,7 @@
                         </div>
                         @endforeach
 
-                        <div class="cart-note">
-                            <label for="note" class="note-label">Ghi chú đơn hàng</label>
-                            <textarea id="note" name="note" rows="8"></textarea>
-                        </div>
+                       
                     </div>
                     <div class="header-cart-price">
                         <div class="timedeli-modal">
