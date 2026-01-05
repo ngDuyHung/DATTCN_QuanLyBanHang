@@ -72,8 +72,9 @@ Route::post('/checkout/apply-discount', [App\Http\Controllers\client\OrderContro
 Route::get('/checkout/topup/{order_number}', [App\Http\Controllers\client\OrderController::class, 'topup'])->name('checkout.topup');
 Route::get('/checkout/success/{id}', [App\Http\Controllers\client\OrderController::class, 'success'])->name('checkout.success');
 
-// show by slug 
-Route::get('/{slug}', [App\Http\Controllers\client\ProductController::class, 'showBySlug'])->name('client.showBySlug');
+
+//Router search
+Route::get('/search', [App\Http\Controllers\client\SearchController::class, 'index'])->name('client.search.index');
 
 
 // Account orders không cần đăng nhập
@@ -81,3 +82,5 @@ Route::prefix('account')->name('account.')->group(function (Router $router) {
     $router->get('/orders', [App\Http\Controllers\client\OrderController::class, 'indexClient'])->name('orders.indexClient');
     $router->get('/orders/{id}', [App\Http\Controllers\client\OrderController::class, 'showClient'])->name('orders.showClient');
 });
+// show by slug 
+Route::get('/{slug}', [App\Http\Controllers\client\ProductController::class, 'showBySlug'])->name('client.showBySlug');

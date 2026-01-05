@@ -106,22 +106,21 @@
 
           </div>
           <div class="col-lg-6 col-12 header-center pl-lg-0" id="search-header">
-            <ae-widget hydrate="load" component="AeSmartSearchInput" api="https://memoryzone.aecomapp.com/api/"
-              api-key="2">
-              <form action="/search" method="get" class="input-group search-bar custom-input-group " role="search">
-                <input type="text" name="query" value="" autocomplete="off"
-                  class="input-group-field auto-search form-control " required=""
-                  data-placeholder="Tìm tên sản phẩm, SKU,...;Giao hàng Siêu Tốc 2H chỉ 19K;Miễn phí giao hàng toàn quốc;">
-                <input type="hidden" name="type" value="product">
-                <span class="input-group-btn btn-action">
-                  <button type="submit" aria-label="search" class="btn text-white icon-fallback-text h-100">
-                    <svg class="icon">
-                      <use xlink:href="#icon-search" />
-                    </svg> </button>
-                </span>
 
-              </form>
-            </ae-widget>
+            <!-- ae-widget -->
+            <form action="{{ route('client.search.index') }}" method="get" class="input-group search-bar custom-input-group " role="search">
+              <input type="text" name="query" value="{{ request()->input('query') }}" autocomplete="off"
+                class="input-group-field auto-search form-control " required=""
+                data-placeholder="Tìm tên sản phẩm, SKU,...;Giao hàng Siêu Tốc 2H chỉ 19K;Miễn phí giao hàng toàn quốc;">
+              <span class="input-group-btn btn-action">
+                <button type="submit" aria-label="search" class="btn text-white icon-fallback-text h-100">
+                  <svg class="icon">
+                    <use xlink:href="#icon-search" />
+                  </svg> </button>
+              </span>
+
+            </form>
+
 
 
 
