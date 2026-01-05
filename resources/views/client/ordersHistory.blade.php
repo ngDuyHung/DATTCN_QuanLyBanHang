@@ -104,14 +104,14 @@
 			<div class="col-lg-9 col-12">
 				<div class="order-wrapper">
 					<div class="order-title">
-						<h2 class="block-title mb-3 pb-0">Đơn hàng của tôi</h2>
+						<h2 class="block-title mb-3 pb-0">@if(Auth::check()) Đơn hàng của tôi @else Đối với khách chưa đăng nhập vui lòng nhập mã đơn hàng để xem @endif</h2>
 						<form action="{{ route('account.orders.indexClient') }}" method="get"
 							class="order-search d-flex align-items-center gap-2">
 							<div class="flex-grow-1">
-								<input type="text" id="search" name="search"
+								<input type="text" id="searchID" name="searchID"
 									class="form-control form-control-sm"
 									placeholder="Tìm kiếm theo mã đơn hàng"
-									value="{{ request('search') }}">
+									value="{{ request('searchID') }}">
 							</div>
 							<div>
 								<button class="btn btn-outline btn-warning btn-sm px-2 mx-2" type="submit">
@@ -134,7 +134,7 @@
 
 
 
-						@if(isset($orders))
+						@if(isset($orders)&&!$orders->isEmpty())
 						@foreach($orders as $order)
 
 						<div class="order-card" data-status="{{ $order->status }}">

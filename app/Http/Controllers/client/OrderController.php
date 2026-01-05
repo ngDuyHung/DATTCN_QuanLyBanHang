@@ -20,14 +20,35 @@ class OrderController extends Controller
         //
     }
 
-    public function indexClient()
+    public function indexClient(Request $request)
     {
         $orders = null;
-        if (Auth::check()) {
-            $user = Auth::user();
-            $orders = Order::where('user_id', $user->id)
-                ->orderBy('placed_at', 'desc')
-                ->paginate(10);
+        $search = $request->input('searchID', '');
+        if (!empty($search)) {
+            if (Auth::check()) {
+                //Khách hàng đăng nhập
+                $orders = Order::where('user_id', Auth::id())
+                    ->where(function ($query) use ($search) {
+                        $query->where('order_number', 'like', '%' . $search . '%');
+                    })
+                    ->paginate(1)
+                    ->appends(['searchID' => $search]);
+            } else {
+                //Khách hàng vãng lai
+                $orders = Order::where(function ($query) use ($search) {
+                    $query->where('order_number', 'like', '%' . $search . '%');
+                })
+                    ->whereNull('user_id')
+                    ->paginate(1)
+                    ->appends(['searchID' => $search]);
+            }
+        } else {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $orders = Order::where('user_id', $user->id)
+                    ->orderBy('placed_at', 'desc')
+                    ->paginate(10);
+            }
         }
         return view('client.ordersHistory', compact('orders'));
     }
