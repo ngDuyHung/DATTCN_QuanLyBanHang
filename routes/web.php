@@ -27,6 +27,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     $router->resource('promotion', \App\Http\Controllers\admin\PromotionController::class);
     $router->resource('account', \App\Http\Controllers\admin\AccountController::class);
 
+    // Setting - Menu management
+    $router->resource('settings', \App\Http\Controllers\admin\SettingController::class);
+    $router->resource('menu', \App\Http\Controllers\admin\MenuController::class);
+    Route::post('menus/change-status', [\App\Http\Controllers\admin\MenuController::class, 'changeStatus'])->name('menu.changeStatus');
+    Route::get('menus/get-parent-menus', [\App\Http\Controllers\admin\MenuController::class, 'getParentMenusByType'])->name('menu.getParentMenusByType');
+
     // API Modal
     Route::get('/orders/api/{id}', [\App\Http\Controllers\admin\OrderController::class, 'getOrderDetailHtml'])
         ->name('order.show_api');
