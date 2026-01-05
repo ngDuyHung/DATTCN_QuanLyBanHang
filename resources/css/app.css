@@ -61,3 +61,84 @@
 .nav-treeview .nav-icon {
     font-size: 0.75rem; /* icon nhỏ hơn */
 }
+
+/* Admin: Order status steps (scoped to admin layout) */
+body.layout-fixed .order-detail-steps {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 12px 12px;
+}
+
+body.layout-fixed .order-status-steps {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+body.layout-fixed .order-status-steps .step {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    padding: 8px 6px;
+    border-radius: calc(var(--bs-border-radius) - 2px);
+}
+
+body.layout-fixed .order-status-steps .thumb {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 6px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-tertiary-bg);
+}
+
+body.layout-fixed .order-status-steps .thumb img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    opacity: 0.55;
+    filter: grayscale(100%);
+}
+
+body.layout-fixed .order-status-steps .label {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body.layout-fixed .order-status-steps .step.active {
+    background: var(--bs-secondary-bg);
+}
+
+body.layout-fixed .order-status-steps .step.active .thumb {
+    background: var(--bs-body-bg);
+    border-color: var(--bs-primary);
+}
+
+body.layout-fixed .order-status-steps .step.active .thumb img {
+    opacity: 1;
+    filter: none;
+}
+
+body.layout-fixed .order-status-steps .step.active .label {
+    color: var(--bs-body-color);
+}
+
+@media (max-width: 768px) {
+    body.layout-fixed .order-status-steps {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    body.layout-fixed .order-status-steps .step {
+        flex: 1 1 calc(50% - 8px);
+    }
+}

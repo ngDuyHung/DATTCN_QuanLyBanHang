@@ -12,6 +12,36 @@
 
         <div class="row">
             {{-- CỘT TRÁI: THÔNG TIN KHÁCH HÀNG & GIAO HÀNG --}}
+            <div class="col-12 mb-3">
+                <div class="order-detail-steps">
+                    <div class="order-status-steps">
+                        <div class="step {{ $order->status != 'cancelled' ? 'active' : '' }}">
+                            <div class="thumb">
+                                <img src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/icon_step_1.png?1767546091643" alt="Đặt Hàng Thành Công">
+                            </div>
+                            <div class="label">Đặt Hàng Thành Công</div>
+                        </div>
+                        <div class="step {{ $order->status == 'pending'  || $order->status == 'delivery' || $order->status == 'completed' ? 'active' : '' }}">
+                            <div class="thumb">
+                                <img src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/icon_step_2.png?1767546091643" alt="Chờ Lấy Hàng">
+                            </div>
+                            <div class="label">Chờ Lấy Hàng</div>
+                        </div>
+                        <div class="step {{ $order->status == 'delivery' || $order->status == 'completed' ? 'active' : '' }}">
+                            <div class="thumb">
+                                <img src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/icon_step_3.png?1767546091643" alt="Đang Vận Chuyển">
+                            </div>
+                            <div class="label">Đang Vận Chuyển</div>
+                        </div>
+                        <div class="step {{ $order->status == 'completed' ? 'active' : '' }}">
+                            <div class="thumb">
+                                <img src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/icon_step_4.png?1767546091643" alt="Giao Hàng Thành Công">
+                            </div>
+                            <div class="label">Giao Hàng Thành Công</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-8">
                 {{-- Card 1: Thông tin khách hàng --}}
                 <div class="card shadow-sm mb-4">

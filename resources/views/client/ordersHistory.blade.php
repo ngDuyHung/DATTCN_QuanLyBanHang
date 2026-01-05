@@ -76,7 +76,7 @@
 							<!-- <button type="button">
 				<img width="12" height="12" src="//bizweb.dktcdn.net/100/329/122/themes/1038963/assets/account_edit.svg?1767531620370" alt="Sửa Hồ Sơ">
 				<span>Sửa hồ sơ</span>
-			</button> -->
+				</button> -->
 						</div>
 						<button type="button" class="show-menu"><svg xmlns="http://www.w3.org/2000/svg" height="384pt" viewBox="0 -53 384 384" width="384pt">
 								<path d="m368 154.667969h-352c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h352c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
@@ -140,7 +140,7 @@
 						<div class="order-card" data-status="{{ $order->status }}">
 							<div class="order-header">
 								<div class="order-code">
-									<strong>#{{ $order->order_id  }}</strong>
+									<strong>#{{ $order->order_number  }}</strong>
 									<a href="{{ route('account.orders.showClient', $order->order_id) }}" class="btn-link">Chi tiết</a>
 								</div>
 								<div class="order-info">

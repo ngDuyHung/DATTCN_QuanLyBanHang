@@ -300,6 +300,15 @@ class OrderController extends Controller
         return view('client.checkout', compact('order'));
     }
 
+    public function showClient($id)
+    {
+        $order = Order::where('order_id', $id)
+            ->with(['orderItems.product'])
+            ->firstOrFail();
+
+        return view('client.order_detail', compact('order'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
