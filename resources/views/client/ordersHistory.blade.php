@@ -167,7 +167,7 @@
 							<div class="order-body">
 
 								<div class="order-product">
-									<a target="_blank" href="/laptop-lenovo-v14-g5-83hd0062va"></a>
+									<a target="_blank" href="/{{$item->product->slug}}"></a>
 									<img src="//bizweb.dktcdn.net/thumb/large/100/329/122/products/laptop-lenovo-v14-g5-83hd0062va-01.jpg?v=1766398157960" alt="Laptop Lenovo V14 G5 83HD0062VA (i5-13420H, UHD Graphics, RAM 16GB DDR5, SSD 512GB, 14 Inch IPS FHD 60Hz, NoOS)">
 									<div class="product-info">
 										<div class="product-title">{{ $item->product->name }}</div>

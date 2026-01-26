@@ -286,8 +286,9 @@ class OrderController extends Controller
         }
 
         // Chuyển hướng đến trang thanh toán với mã đơn hàng
-        //return redirect()->route('checkout.topup', ['order_number' => $randomNumber]);
-        return redirect()->route('checkout.success', ['id' => $randomNumber]);
+        return redirect()->route('checkout.topup', ['order_number' => $randomNumber]);
+        // Chuyển hướng đến trang thành công (dùng cho thanh toán COD)
+        //return redirect()->route('checkout.success', ['id' => $randomNumber]);
     }
 
     /**
@@ -306,9 +307,9 @@ class OrderController extends Controller
         }
 
         // Kiểm tra nếu đơn hàng đã thanh toán thì không cho xem lại
-        if ($order->status === 'completed') {
-            return redirect()->route('home')->with('error', 'Đơn hàng đã hoàn thành.');
-        }
+        // if ($order->status === 'completed') {
+        //     return redirect()->route('home')->with('error', 'Đơn hàng đã hoàn thành.');
+        // }
 
         return view('client.topup', compact('order'));
     }

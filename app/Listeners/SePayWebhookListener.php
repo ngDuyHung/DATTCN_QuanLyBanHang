@@ -51,9 +51,11 @@ class SePayWebhookListener
                 // 3. Cập nhật trạng thái đơn hàng
                 $order->update([
                     'status' => 'completed',
-                    'updated_at' => now(),       
+                    'updated_at' => now(),
                 ]);
-
+                // ... sau khi update order thành 'completed' để bắt sự kiện cập nhật trạng thái tự động thông qua websocket
+                event(new \App\Events\OrderStatusUpdated($order));
+                Log::info("Đã phát sự kiện cập nhật đơn hàng {$order->order_number} qua WebSocket.");
                 // 4. (Tùy chọn) Gửi Email thông báo cho khách hàng đã nhận được tiền
                 // Mail::to($order->email)->send(new OrderPaidMail($order));
 

@@ -36,9 +36,9 @@ return [
     ],
 
     'bank' => [
-        'bank_id' => env('BANK_ID', 'MB'),
-        'bank_name' => env('BANK_NAME', 'MB Bank'),
-        'account_no' => env('BANK_ACCOUNT_NO', '0124676767777'),
+        'bank_id' => env('BANK_ID', 'BIDV'),
+        'bank_name' => env('BANK_NAME', 'BIDV'),
+        'account_no' => env('BANK_ACCOUNT_NO', '96247DUYHUNG456'),
         'account_name' => env('BANK_ACCOUNT_NAME', 'NGUYEN DUY HUNG'),
     ],
 

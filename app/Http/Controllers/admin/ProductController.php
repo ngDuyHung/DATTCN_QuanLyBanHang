@@ -332,7 +332,31 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+
+        //Kiểm tra tất cả các giỏ hàng có sản phẩm này không
+
+        //lấy tất cả giỏ hàng có sản phẩm này
+        $cart = DB::table('cart_items')->where('product_id', $product->product_id);
+
+        $cartItemsCount = $cart->count();
+        if ($cartItemsCount > 0) {
+            return redirect()->route('admin.product.index')->with('error', 'Đã có đơn hàng đang được đặt với sản phẩm KHÔNG THỂ XÓA..');
+        }
+
+
+        //lấy tất cả đơn hàng có sản phẩm này
+        $orderItems = DB::table('order_items')->where('product_id', $product->product_id);
+        //nếu sản phẩm đã có trong đơn hàng có trang thái chưa hoàn thành thì không được xóa
+        $incompleteOrdersCount = $orderItems->join('orders', 'order_items.order_id', '=', 'orders.order_id')
+            ->whereIn('orders.status', ['pending', 'processing', 'on-hold']) //các trạng thái chưa hoàn thành
+            ->count();
+        if ($incompleteOrdersCount > 0) {
+            return redirect()->route('admin.product.index')->with('error', 'Đã có đơn hàng đang được đặt với sản phẩm KHÔNG THỂ XÓA.');
+        }
+
         DB::beginTransaction();
+
+
         try {
             // LỖI CỦA BẠN: Phải xóa file ảnh trước
             foreach ($product->images as $image) {
@@ -379,7 +403,8 @@ class ProductController extends Controller
     /**
      * Get brands by category for AJAX request.
      */
-    public function getAjaxBrandsByCategory($category_id){
+    public function getAjaxBrandsByCategory($category_id)
+    {
         if ($category_id == 0) {
             $brands = Brand::orderBy('name')->get();
         } else {

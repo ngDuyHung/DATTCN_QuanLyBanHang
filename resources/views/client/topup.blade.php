@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body text-center">
                     <div class="mb-3">
-                        <img src="https://img.vietqr.io/image/{{ config('services.bank.bank_id', 'MB') }}-{{ config('services.bank.account_no', '0124676767777') }}-compact2.png?amount={{ $order->total_amount }}&addInfo=DH{{ $order->order_number }}&accountName={{ urlencode(config('services.bank.account_name', 'NGUYEN DUY HUNG')) }}"
+                        <img src="https://qr.sepay.vn/img?acc={{ config('services.bank.account_no', '96247DUYHUNG456') }}&bank={{ config('services.bank.bank_id', 'MBBank') }}&amount={{ $order->total_amount }}&des=DH{{ $order->order_number }}"
                             alt="QR Code"
                             class="img-fluid"
                             style="max-width: 350px; border: 2px solid #ddd; border-radius: 8px; padding: 10px; background: white;">
@@ -51,7 +51,7 @@
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Chờ thanh toán
                             </span>
-                            @elseif($order->status == 'processing')
+                            @elseif($order->status == 'delivery')
                             <span class="status-badge status-processing">
                                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                 Đang xử lý
@@ -323,4 +323,19 @@
         }
     }
 </style>
+
+<script type="module">
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Đang lắng nghe kênh: order.{{ $order->order_number }}');
+
+        window.Echo.channel('order.{{ $order->order_number }}')
+            .listen('OrderStatusUpdated', (data) => {
+                console.log('Đã nhận dữ liệu real-time:', data);
+                
+                // Lệnh load lại trang
+                window.location.reload();
+            });
+    });
+</script>
+
 @endsection
