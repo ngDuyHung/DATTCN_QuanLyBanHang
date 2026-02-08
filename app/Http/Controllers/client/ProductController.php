@@ -143,7 +143,7 @@ class ProductController extends Controller
         //nhận và áp dụng sắp xếp
         $products = $this->applySorting($query, $request->query('sort'))->get();
 
-        return view('client.showBySlug', compact('products', 'name', 'brand', 'category', 'filterAttributes'));
+        return view('client.showbyslug', compact('products', 'name', 'brand', 'category', 'filterAttributes'));
     }
 
 
