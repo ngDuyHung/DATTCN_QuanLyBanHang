@@ -1,112 +1,123 @@
 <p align="right">
-  <a href="README.md">🇻🇳 Tiếng Việt</a> | <a href="README_EN.md">🇬🇧 English</a>
+  <a href="README_VI.md">🇻🇳 Tiếng Việt</a> | <a href="README.md">🇬🇧 English</a>
 </p>
 
-# 🛒 Hệ Thống Quản Lý Bán Hàng & Website Bán Sản Phẩm Công Nghệ
+# 🛒 Sales Management System & Tech Products E-Commerce Website
 
-> Full-stack e-commerce platform xây dựng bằng **Laravel 12**, bao gồm website mua sắm cho khách hàng và trang quản trị cho admin. Tích hợp thanh toán tự động qua **SePay Webhook** và cập nhật đơn hàng real-time qua **WebSocket (Pusher)**.
+> A full-stack e-commerce platform built with **Laravel 12**, featuring a customer-facing shopping website and an admin management dashboard. Integrated with automatic payment processing via **SePay Webhook** and real-time order status updates via **WebSocket (Pusher)**.
+
+<table>
+  <tr>
+    <td>🌐 <strong>Live Demo</strong></td>
+    <td><a href="https://duyhung.io.vn" target="_blank">duyhung.io.vn</a></td>
+  </tr>
+  <tr>
+    <td>👤 <strong>Demo Account</strong></td>
+    <td><code>duyhung@gmail.com</code> / <code>duyhung456</code></td>
+  </tr>
+</table>
 
 ---
 
-## 📋 Mục Lục
+## 📋 Table of Contents
 
-- [Tổng Quan](#-tổng-quan)
-- [Tính Năng](#-tính-năng)
-- [Công Nghệ Sử Dụng](#-công-nghệ-sử-dụng)
-- [Kiến Trúc Hệ Thống](#-kiến-trúc-hệ-thống)
-- [Cơ Sở Dữ Liệu](#-cơ-sở-dữ-liệu)
-- [Cài Đặt & Chạy Dự Án](#-cài-đặt--chạy-dự-án)
-- [Cấu Trúc Thư Mục](#-cấu-trúc-thư-mục)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [System Architecture](#-system-architecture)
+- [Database](#-database)
+- [Installation & Setup](#-installation--setup)
+- [Project Structure](#-project-structure)
 - [Screenshots](#-screenshots)
-- [Hướng Phát Triển](#-hướng-phát-triển)
+- [Future Development](#-future-development)
 
 ---
 
-## 🎯 Tổng Quan
+## 🎯 Overview
 
-Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về **sản phẩm công nghệ** (Laptop, PC, RAM, linh kiện...), gồm 2 phần chính:
+An online sales system specializing in **tech products** (Laptops, PCs, RAM, components...), consisting of 2 main parts:
 
-| Phần | Mô tả |
-|------|--------|
-| **Client (Khách hàng)** | Duyệt sản phẩm, xem chi tiết, giỏ hàng, checkout, theo dõi đơn hàng |
-| **Admin (Quản trị)** | Dashboard thống kê, CRUD sản phẩm/danh mục/thương hiệu, quản lý đơn hàng, tồn kho, khuyến mãi, tài khoản |
-
----
-
-## ✨ Tính Năng
-
-### Phía Khách Hàng
-- 🏠 Trang chủ hiển thị sản phẩm theo danh mục (Laptop, PC, RAM...)
-- 🔍 Tìm kiếm sản phẩm
-- 🏷️ Duyệt sản phẩm theo **slug** thông minh (tự nhận diện danh mục / thương hiệu / sản phẩm)
-- 📦 Xem chi tiết sản phẩm với ảnh gallery & thông số kỹ thuật
-- 🛒 Giỏ hàng hỗ trợ cả **khách vãng lai (session)** và **người dùng đăng nhập (database)**
-- 💳 Checkout với nhập thông tin giao hàng đầy đủ (tỉnh/huyện/xã)
-- 🎫 Áp mã khuyến mãi (% hoặc số tiền cố định) với kiểm tra hiệu lực
-- 💰 Thanh toán COD hoặc chuyển khoản ngân hàng tự động qua **SePay**
-- 📡 Cập nhật trạng thái đơn hàng **real-time** qua WebSocket khi thanh toán thành công
-- 📋 Tra cứu lịch sử đơn hàng
-
-### Phía Quản Trị (Admin)
-- 📊 **Dashboard** thống kê: tổng đơn hàng, doanh thu, khách hàng, biểu đồ doanh thu theo tháng
-- 📁 Quản lý **danh mục** sản phẩm (CRUD, bật/tắt trạng thái)
-- 🏢 Quản lý **thương hiệu** theo danh mục
-- 📱 Quản lý **sản phẩm**: thông tin, ảnh đại diện, gallery ảnh, thuộc tính kỹ thuật (key-value)
-- 📦 Quản lý **tồn kho**: cảnh báo sản phẩm sắp hết hàng
-- 🧾 Quản lý **đơn hàng**: xem chi tiết, cập nhật trạng thái theo luồng hợp lệ (`pending → delivery → completed`)
-- 🎁 Quản lý **khuyến mãi**: tạo mã giảm giá, giới hạn thời gian & lượt sử dụng
-- 👥 Quản lý **tài khoản** người dùng & phân quyền
-- 🔧 Quản lý **menu** động & cài đặt hệ thống
-
-### Tích Hợp & Kỹ Thuật
-- 🔐 Xác thực & phân quyền (Laravel Auth + Admin Middleware)
-- 🪝 Webhook thanh toán tự động (**SePay**): nhận giao dịch → tách mã đơn → xác nhận thanh toán
-- 📡 Real-time broadcasting (**Pusher**): thông báo cập nhật trạng thái đơn hàng
-- ⚡ Caching danh mục sidebar giảm truy vấn DB
-- 🖼️ Upload & quản lý ảnh sản phẩm (Storage)
+| Part | Description |
+|------|-------------|
+| **Client (Customer)** | Browse products, view details, shopping cart, checkout, order tracking |
+| **Admin (Management)** | Statistics dashboard, CRUD products/categories/brands, order management, inventory, promotions, accounts |
 
 ---
 
-## 🛠 Công Nghệ Sử Dụng
+## ✨ Features
+
+### Customer Side
+- 🏠 Homepage displaying products by category (Laptop, PC, RAM...)
+- 🔍 Product search
+- 🏷️ Smart **slug-based** product browsing (auto-detects category / brand / product)
+- 📦 Product detail with image gallery & technical specifications
+- 🛒 Shopping cart supporting both **guest users (session)** and **logged-in users (database)**
+- 💳 Checkout with full shipping info (province/district/ward)
+- 🎫 Apply discount codes (% or fixed amount) with validity checks
+- 💰 Payment via COD or automatic bank transfer through **SePay**
+- 📡 **Real-time** order status updates via WebSocket upon successful payment
+- 📋 Order history lookup
+
+### Admin Side
+- 📊 **Dashboard** statistics: total orders, revenue, customers, monthly revenue chart
+- 📁 **Category** management (CRUD, toggle active status)
+- 🏢 **Brand** management by category
+- 📱 **Product** management: info, thumbnail, image gallery, technical attributes (key-value)
+- 📦 **Inventory** management: low stock alerts
+- 🧾 **Order** management: view details, update status following valid flow (`pending → delivery → completed`)
+- 🎁 **Promotion** management: create discount codes, set time limits & usage caps
+- 👥 **Account** management & role-based access
+- 🔧 Dynamic **menu** management & system settings
+
+### Integration & Technical
+- 🔐 Authentication & authorization (Laravel Auth + Admin Middleware)
+- 🪝 Automatic payment webhook (**SePay**): receive transaction → extract order code → confirm payment
+- 📡 Real-time broadcasting (**Pusher**): order status update notifications
+- ⚡ Sidebar category caching to reduce DB queries
+- 🖼️ Product image upload & management (Storage)
+
+---
+
+## 🛠 Tech Stack
 
 ### Backend
-| Công nghệ | Phiên bản | Vai trò |
-|-----------|-----------|---------|
-| **PHP** | 8.2+ | Ngôn ngữ lập trình |
-| **Laravel** | 12.x | Framework MVC chính |
-| **Eloquent ORM** | - | Tương tác database |
-| **Laravel UI** | 4.6 | Scaffold Authentication |
-| **SePay Laravel** | 1.2 | Tích hợp thanh toán |
-| **Pusher** | 7.2 | WebSocket real-time |
+| Technology | Version | Role |
+|-----------|---------|------|
+| **PHP** | 8.2+ | Programming language |
+| **Laravel** | 12.x | Main MVC framework |
+| **Eloquent ORM** | - | Database interaction |
+| **Laravel UI** | 4.6 | Authentication scaffolding |
+| **SePay Laravel** | 1.2 | Payment integration |
+| **Pusher** | 7.2 | Real-time WebSocket |
 
 ### Frontend
-| Công nghệ | Vai trò |
-|-----------|---------|
+| Technology | Role |
+|-----------|------|
 | **Blade Template** | Server-side rendering |
-| **AdminLTE 4** | Giao diện trang quản trị |
-| **Bootstrap 5** | UI framework responsive |
+| **AdminLTE 4** | Admin panel UI |
+| **Bootstrap 5** | Responsive UI framework |
 | **Bootstrap Icons** | Icon set |
 | **Vite** | Build tool & HMR |
 | **Laravel Echo + Pusher JS** | Real-time client |
-| **AJAX / Axios** | Tương tác bất đồng bộ |
+| **AJAX / Axios** | Asynchronous requests |
 
-### Database & Infra
-| Công nghệ | Vai trò |
-|-----------|---------|
-| **MySQL / MariaDB** | Hệ quản trị CSDL |
-| **Laravel Migrations** | Quản lý schema |
-| **Laravel Seeder / Factory** | Dữ liệu mẫu |
+### Database & Infrastructure
+| Technology | Role |
+|-----------|------|
+| **MySQL / MariaDB** | Relational DBMS |
+| **Laravel Migrations** | Schema management |
+| **Laravel Seeder / Factory** | Sample data |
 
 ---
 
-## 🏗 Kiến Trúc Hệ Thống
+## 🏗 System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                      CLIENT (Browser)                   │
 │  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐  │
-│  │  Trang chủ   │  │  Giỏ hàng    │  │   Checkout    │  │
-│  │  Sản phẩm    │  │  (AJAX)      │  │   Đặt hàng   │  │
+│  │   Homepage   │  │  Shopping    │  │   Checkout    │  │
+│  │   Products   │  │  Cart (AJAX) │  │  Place Order  │  │
 │  └──────────────┘  └──────────────┘  └───────────────┘  │
 │                         │                                │
 │              Laravel Echo + Pusher JS                    │
@@ -135,9 +146,9 @@ Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về *
 
 ---
 
-## 🗄 Cơ Sở Dữ Liệu
+## 🗄 Database
 
-### Sơ đồ quan hệ (ERD)
+### Entity Relationship Diagram (ERD)
 
 ```
 roles ──────────< users
@@ -154,63 +165,63 @@ categories ────< brands     users ──────< orders
 users ──────< carts ──< cart_items >── products
 ```
 
-### Các bảng chính
+### Main Tables
 
-| Bảng | Mô tả |
-|------|--------|
-| `users` | Người dùng (khách hàng & admin) |
-| `roles` | Vai trò (customer, admin) |
-| `categories` | Danh mục sản phẩm |
-| `brands` | Thương hiệu theo danh mục |
-| `products` | Sản phẩm (SKU, giá, mô tả, slug...) |
-| `product_images` | Gallery ảnh sản phẩm |
-| `product_attributes` | Thông số kỹ thuật (key-value) |
-| `inventory` | Tồn kho & cảnh báo hết hàng |
-| `carts` / `cart_items` | Giỏ hàng cho user đăng nhập |
-| `orders` / `order_items` | Đơn hàng & chi tiết đơn |
-| `promotions` | Mã khuyến mãi giảm giá |
+| Table | Description |
+|-------|-------------|
+| `users` | Users (customers & admins) |
+| `roles` | User roles (customer, admin) |
+| `categories` | Product categories |
+| `brands` | Brands by category |
+| `products` | Products (SKU, price, description, slug...) |
+| `product_images` | Product image gallery |
+| `product_attributes` | Technical specs (key-value pairs) |
+| `inventory` | Stock levels & low stock alerts |
+| `carts` / `cart_items` | Shopping cart for logged-in users |
+| `orders` / `order_items` | Orders & order line items |
+| `promotions` | Discount codes & promotions |
 
 ---
 
-## 🚀 Cài Đặt & Chạy Dự Án
+## 🚀 Installation & Setup
 
-### Yêu cầu hệ thống
+### System Requirements
 - PHP >= 8.2
 - Composer
 - Node.js >= 18 & npm
 - MySQL / MariaDB
 - Git
 
-### Các bước cài đặt
+### Installation Steps
 
 ```bash
 # 1. Clone repository
 git clone <repository-url>
 cd DATTCN_QuanLyBangHang
 
-# 2. Cài đặt dependencies
+# 2. Install dependencies
 composer install
 npm install
 
-# 3. Cấu hình môi trường
+# 3. Configure environment
 cp .env.example .env
 php artisan key:generate
 
-# 4. Cấu hình database trong file .env
+# 4. Configure database in .env
 # DB_DATABASE=your_database
 # DB_USERNAME=your_username
 # DB_PASSWORD=your_password
 
-# 5. Cấu hình Pusher (real-time) trong .env
+# 5. Configure Pusher (real-time) in .env
 # PUSHER_APP_ID=...
 # PUSHER_APP_KEY=...
 # PUSHER_APP_SECRET=...
 # PUSHER_APP_CLUSTER=...
 
-# 6. Cấu hình SePay (thanh toán) trong .env
+# 6. Configure SePay (payment) in .env
 # SEPAY_API_TOKEN=...
 
-# 7. Chạy migration & seeder
+# 7. Run migrations & seeders
 php artisan migrate
 php artisan db:seed
 
@@ -221,14 +232,14 @@ php artisan storage:link
 npm run build
 ```
 
-### Chạy dự án (Development)
+### Running the Project (Development)
 
 ```bash
-# Chạy tất cả services cùng lúc (server + queue + logs + vite)
+# Run all services simultaneously (server + queue + logs + vite)
 composer dev
 ```
 
-Hoặc chạy riêng từng service:
+Or run each service separately:
 
 ```bash
 # Terminal 1 - Laravel server
@@ -237,15 +248,15 @@ php artisan serve
 # Terminal 2 - Vite dev server (HMR)
 npm run dev
 
-# Terminal 3 - Queue worker (xử lý webhook)
+# Terminal 3 - Queue worker (webhook processing)
 php artisan queue:listen
 ```
 
-Truy cập: `http://localhost:8000`
+Access: `http://localhost:8000`
 
 ---
 
-## 📂 Cấu Trúc Thư Mục
+## 📂 Project Structure
 
 ```
 app/
@@ -253,82 +264,82 @@ app/
 ├── Helpers/                # Helper functions
 ├── Http/
 │   ├── Controllers/
-│   │   ├── admin/          # 11 controllers quản trị
-│   │   │   ├── CategoryController      # CRUD danh mục
-│   │   │   ├── BrandController         # CRUD thương hiệu
-│   │   │   ├── ProductController       # CRUD sản phẩm + ảnh + thuộc tính
-│   │   │   ├── OrderController         # Quản lý đơn hàng
-│   │   │   ├── InventoryController     # Quản lý tồn kho
-│   │   │   ├── PromotionController     # Quản lý khuyến mãi
-│   │   │   ├── AccountController       # Quản lý tài khoản
-│   │   │   ├── MenuController          # Quản lý menu
-│   │   │   └── SettingController       # Cài đặt hệ thống
-│   │   ├── client/         # 7 controllers phía khách hàng
-│   │   │   ├── ProductController       # Xem sản phẩm & slug routing
-│   │   │   ├── CartController          # Giỏ hàng (session + DB)
-│   │   │   ├── OrderController         # Checkout & đặt hàng
-│   │   │   └── SearchController        # Tìm kiếm sản phẩm
-│   │   └── HomeController.php          # Trang chủ + Dashboard
+│   │   ├── admin/          # 11 admin controllers
+│   │   │   ├── CategoryController      # Category CRUD
+│   │   │   ├── BrandController         # Brand CRUD
+│   │   │   ├── ProductController       # Product CRUD + images + attributes
+│   │   │   ├── OrderController         # Order management
+│   │   │   ├── InventoryController     # Inventory management
+│   │   │   ├── PromotionController     # Promotion management
+│   │   │   ├── AccountController       # Account management
+│   │   │   ├── MenuController          # Menu management
+│   │   │   └── SettingController       # System settings
+│   │   ├── client/         # 7 client-side controllers
+│   │   │   ├── ProductController       # Product browsing & slug routing
+│   │   │   ├── CartController          # Shopping cart (session + DB)
+│   │   │   ├── OrderController         # Checkout & order placement
+│   │   │   └── SearchController        # Product search
+│   │   └── HomeController.php          # Homepage + Dashboard
 │   └── Middleware/         # Auth, Admin middleware
-├── Listeners/              # SePayWebhookListener (xử lý thanh toán)
+├── Listeners/              # SePayWebhookListener (payment processing)
 ├── Models/                 # 14 Eloquent models
 ├── Observers/              # InventoryObserver
 └── Providers/              # AppServiceProvider, ViewServiceProvider (cache)
 
 resources/views/
-├── admin/                  # Blade views quản trị (AdminLTE)
+├── admin/                  # Admin Blade views (AdminLTE)
 │   ├── dashboard.blade.php
 │   ├── category/, brand/, product/, order/
 │   ├── inventory/, promotion/, account/
 │   └── setting/, menu/
-├── client/                 # Blade views khách hàng
+├── client/                 # Customer Blade views
 │   ├── home.blade.php
 │   ├── product.blade.php, showbyslug.blade.php
 │   ├── cart.blade.php, checkout.blade.php
 │   ├── order_success.blade.php, topup.blade.php
 │   └── ordersHistory.blade.php
-├── layouts/                # Layout chung
-└── auth/                   # Đăng nhập / Đăng ký
+├── layouts/                # Shared layouts
+└── auth/                   # Login / Register
 
 database/migrations/        # 16 migration files
-database/seeders/           # Dữ liệu mẫu
+database/seeders/           # Sample data
 ```
 
 ---
 
 ## 📸 Screenshots
 
-> *Thêm ảnh chụp màn hình giao diện tại đây*
+> *Add screenshots of the interface here*
 
 <!-- 
-![Trang chủ](screenshots/home.png)
-![Chi tiết sản phẩm](screenshots/product-detail.png)
-![Giỏ hàng](screenshots/cart.png)
+![Homepage](screenshots/home.png)
+![Product Detail](screenshots/product-detail.png)
+![Shopping Cart](screenshots/cart.png)
 ![Checkout](screenshots/checkout.png)
 ![Admin Dashboard](screenshots/admin-dashboard.png)
-![Quản lý sản phẩm](screenshots/admin-products.png)
-![Quản lý đơn hàng](screenshots/admin-orders.png)
+![Product Management](screenshots/admin-products.png)
+![Order Management](screenshots/admin-orders.png)
 -->
 
 ---
 
-## 🔮 Hướng Phát Triển
+## 🔮 Future Development
 
-- [ ] Cơ chế giữ hàng (reservation) khi chờ thanh toán
-- [ ] Hoàn kho tự động khi hủy đơn
-- [ ] Lịch sử trạng thái đơn hàng (order status history)
-- [ ] Theo dõi vận chuyển & phí ship theo khu vực
-- [ ] Tìm kiếm nâng cao với bộ lọc & sắp xếp
-- [ ] Phân quyền chi tiết (RBAC) & audit log
-- [ ] Hệ thống đánh giá sản phẩm
-- [ ] Tích hợp thêm cổng thanh toán (VNPay, MoMo)
-- [ ] Unit Test & Feature Test + CI/CD
+- [ ] Stock reservation mechanism during payment pending
+- [ ] Automatic stock restoration on order cancellation
+- [ ] Order status history tracking
+- [ ] Shipping tracking & region-based shipping fees
+- [ ] Advanced search with filters & sorting
+- [ ] Granular role-based access control (RBAC) & audit logs
+- [ ] Product review & rating system
+- [ ] Additional payment gateways (VNPay, MoMo)
+- [ ] Unit Tests & Feature Tests + CI/CD
 
 ---
 
-## 👨‍💻 Thông Tin
+## 👨‍💻 About
 
-- **Dự án:** Đồ án thực tập chuyên ngành
-- **Đề tài:** Xây dựng hệ thống quản lý bán hàng & website bán sản phẩm công nghệ
+- **Project:** Internship Graduation Project
+- **Topic:** Building a Sales Management System & Tech Products E-Commerce Website
 - **Framework:** Laravel 12 + Blade + AdminLTE 4
 - **Database:** MySQL/MariaDB
