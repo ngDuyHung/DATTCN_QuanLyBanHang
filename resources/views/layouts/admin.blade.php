@@ -69,7 +69,8 @@
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <!--begin::All JavaScript dependencies are now handled by Vite-->
-    {{-- JS đã được load trong header qua @vite, không cần load lại ở đây --}}
+    {{-- Tất cả JS dependencies (OverlayScrollbars, Popper, Bootstrap, AdminLTE) được load qua Vite --}}
+    @vite(['resources/js/app.js'])
     <!--end::Required Plugin(AdminLTE)-->
     <!--All JavaScript configuration is now handled in app.js-->
     <!-- OPTIONAL SCRIPTS -->

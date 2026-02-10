@@ -22,7 +22,7 @@
     <meta name="supported-color-schemes" content="light dark" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
-    {{-- Dòng này sẽ gọi các file app.css và app.js đã được Vite biên dịch --}}
+     {{-- Dòng này sẽ gọi các file app.css và app.js đã được Vite biên dịch --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
