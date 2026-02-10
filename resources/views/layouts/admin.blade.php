@@ -69,8 +69,7 @@
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <!--begin::All JavaScript dependencies are now handled by Vite-->
-    {{-- Tất cả JS dependencies (OverlayScrollbars, Popper, Bootstrap, AdminLTE) được load qua Vite --}}
-    @vite(['resources/js/app.js'])
+    {{-- JS đã được load trong header qua @vite, không cần load lại ở đây --}}
     <!--end::Required Plugin(AdminLTE)-->
     <!--All JavaScript configuration is now handled in app.js-->
     <!-- OPTIONAL SCRIPTS -->
@@ -78,7 +77,7 @@
     <!-- simple-notify -->
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery đã được load trong header -->
     <!-- end:simple-notify  -->
 
     <!-- apexcharts -->

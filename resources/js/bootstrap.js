@@ -1,4 +1,4 @@
-import 'bootstrap';
+// Bootstrap JS is imported in app.js - do not import again here to avoid double initialization
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
