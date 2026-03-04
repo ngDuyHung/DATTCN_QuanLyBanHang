@@ -427,7 +427,7 @@ class ProductController extends Controller
             $validated = $request->validate([
                 'quantity' => 'required|integer|min:1|max:100'
             ]);
-            
+
             $quantity = $validated['quantity'];
 
             // Lấy tất cả categories và brands từ database
@@ -456,23 +456,48 @@ class ProductController extends Controller
 
             $sampleNames = [
                 // Laptops
-                'ThinkPad E14', 'ThinkPad T15', 'Lenovo IdeaPad 5', 'Lenovo Legion 5', 
-                'ASUS VivoBook 15', 'ASUS TUF Gaming F15', 'MSI GF63 Thin', 'MSI Creator M17',
-                'HP Pavilion 15', 'HP Envy 13', 'Acer Aspire 5', 'Acer Nitro 5',
-                
+                'Dữ liệu mẫu ThinkPad E14',
+                'Dữ liệu mẫu ThinkPad T15',
+                'Dữ liệu mẫu Lenovo IdeaPad 5',
+                'Dữ liệu mẫu Lenovo Legion 5',
+                'Dữ liệu mẫu ASUS VivoBook 15',
+                'Dữ liệu mẫu ASUS TUF Gaming F15',
+                'Dữ liệu mẫu MSI GF63 Thin',
+                'Dữ liệu mẫu MSI Creator M17',
+                'Dữ liệu mẫu HP Pavilion 15',
+                'Dữ liệu mẫu HP Envy 13',
+                'Dữ liệu mẫu Acer Aspire 5',
+                'Dữ liệu mẫu Acer Nitro 5',
+
                 // Desktop PCs
-                'PC Văn Phòng Core i5', 'PC Văn Phòng Core i7', 'PC Gaming RTX 3060',
-                'PC Gaming RTX 4070', 'PC Đồ Họa Render Workstation', 'PC Nhỏ Gọn Mini ITX',
-                
+                'Dữ liệu mẫu PC Văn Phòng Core i5',
+                'Dữ liệu mẫu PC Văn Phòng Core i7',
+                'Dữ liệu mẫu PC Gaming RTX 3060',
+                'Dữ liệu mẫu PC Gaming RTX 4070',
+                'Dữ liệu mẫu PC Đồ Họa Render Workstation',
+                'Dữ liệu mẫu PC Nhỏ Gọn Mini ITX',
+
                 // Components
-                'RAM Kingston 8GB DDR4', 'RAM Corsair 16GB DDR4', 'RAM G.Skill 32GB DDR4',
-                'SSD Kingston 256GB NVMe', 'SSD Corsair 512GB NVMe', 'SSD Samsung 1TB',
-                'RTX 3060 12GB', 'RTX 4080 16GB', 'RX 7900 XT 24GB',
-                
+                'Dữ liệu mẫu RAM Kingston 8GB DDR4',
+                'Dữ liệu mẫu RAM Corsair 16GB DDR4',
+                'Dữ liệu mẫu RAM G.Skill 32GB DDR4',
+                'Dữ liệu mẫu SSD Kingston 256GB NVMe',
+                'Dữ liệu mẫu SSD Corsair 512GB NVMe',
+                'Dữ liệu mẫu SSD Samsung 1TB',
+                'Dữ liệu mẫu RTX 3060 12GB',
+                'Dữ liệu mẫu RTX 4080 16GB',
+                'Dữ liệu mẫu RX 7900 XT 24GB',
+
                 // Peripherals
-                'Mechanical Keyboard RGB', 'Gaming Mouse DPI 16000', 'Wireless Headset 7.1',
-                'Monitor 24\" 144Hz', 'Monitor 27\" 4K', 'Gaming Chair',
-                'Laptop Cooling Pad', 'Power Supply 650W 80+', 'CPU Cooler'
+                'Dữ liệu mẫu Mechanical Keyboard RGB',
+                'Dữ liệu mẫu Gaming Mouse DPI 16000',
+                'Dữ liệu mẫu Wireless Headset 7.1',
+                'Dữ liệu mẫu Monitor 24\" 144Hz',
+                'Dữ liệu mẫu Monitor 27\" 4K',
+                'Dữ liệu mẫu Gaming Chair',
+                'Dữ liệu mẫu Laptop Cooling Pad',
+                'Dữ liệu mẫu Power Supply 650W 80+',
+                'Dữ liệu mẫu CPU Cooler'
             ];
 
             $descriptions = [
@@ -487,13 +512,13 @@ class ProductController extends Controller
             ];
 
             DB::beginTransaction();
-            
+
             $createdCount = 0;
 
             for ($i = 0; $i < $quantity; $i++) {
                 // Chọn random category
                 $category = $categories->random();
-                
+
                 // Lấy brands thuộc category này
                 $categoryBrands = $brands->filter(function ($b) use ($category) {
                     return $b->category_id == $category->category_id;
@@ -505,15 +530,15 @@ class ProductController extends Controller
                 } else {
                     $brand = $brands->random();
                 }
-                
+
                 // Lấy hình ảnh từ các sản phẩm có cùng category và brand
                 $existingProducts = Product::where('category_id', $category->category_id)
                     ->where('brand_id', $brand->brand_id)
                     ->whereNotNull('main_img_url')
                     ->get();
-                
+
                 $mainImgUrl = null;
-                
+
                 // Nếu có sản phẩm cùng category + brand, lấy hình từ đó
                 if ($existingProducts->isNotEmpty()) {
                     $randomProduct = $existingProducts->random();
@@ -526,9 +551,9 @@ class ProductController extends Controller
                         $mainImgUrl = $randomProduct->main_img_url;
                     }
                 }
-                
+
                 $productName = $sampleNames[array_rand($sampleNames)];
-                
+
                 // Tạo SKU unique với timestamp và random
                 $timestamp = microtime(true) * 10000;
                 $randomNum = rand(1000, 9999);
@@ -538,11 +563,11 @@ class ProductController extends Controller
                 if (Product::where('sku', $sku)->exists()) {
                     continue;
                 }
-
+                $slugProduct = $brand->slug . '-' . $category->slug . '-' . strtolower($sku);
                 $product = Product::create([
                     'sku' => $sku,
                     'name' => $productName . ' - ' . uniqid(),
-                    'slug' => strtolower(str_replace(' ', '-', $productName)) . '-' . uniqid(),
+                    'slug' => $slugProduct,
                     'short_description' => $descriptions[array_rand($descriptions)],
                     'description' => '<p>' . $descriptions[array_rand($descriptions)] . '</p>',
                     'sale_description' => 'Khuyến mại đặc biệt: Giảm 15% cho đơn hàng trong tuần.',
@@ -555,6 +580,17 @@ class ProductController extends Controller
                     'main_img_url' => $mainImgUrl,
                     'total_attributes' => 0
                 ]);
+
+                //Tạo hình ảnh phụ nếu có hình đại diện chính
+                if ($mainImgUrl) {
+                    for ($j = 0; $j < rand(1, 3); $j++) {
+                        $product->images()->create([
+                            'image_url' => $mainImgUrl,
+                            'alt_text' => $product->name . ' - Image ' . ($j + 1),
+                            'sort_order' => $j + 1
+                        ]);
+                    }
+                }
 
                 // Tạo inventory record
                 Inventory::create([
@@ -597,7 +633,7 @@ class ProductController extends Controller
 
             $message = "Đã tạo thành công $createdCount sản phẩm mẫu!";
             Log::info($message);
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => true,
@@ -605,12 +641,11 @@ class ProductController extends Controller
                     'created_count' => $createdCount
                 ]);
             }
-            
+
             return back()->with('success', $message);
-            
         } catch (\Illuminate\Validation\ValidationException $e) {
             $errorMsg = implode(', ', $e->errors()['quantity'] ?? ['Dữ liệu không hợp lệ']);
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => false,
@@ -618,20 +653,19 @@ class ProductController extends Controller
                 ], 422);
             }
             return back()->withErrors($e->errors())->withInput();
-            
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Lỗi tạo dữ liệu mẫu: ' . $e->getMessage() . '\n' . $e->getTraceAsString());
-            
+
             $errorMsg = 'Lỗi: ' . $e->getMessage();
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => false,
                     'message' => $errorMsg
                 ], 500);
             }
-            
+
             return back()->with('error', $errorMsg);
         }
     }

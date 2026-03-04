@@ -223,7 +223,8 @@ users ──────< carts ──< cart_items >── products
 - **Docker Desktop** (optional — recommended for consistent environment)
 
 ### Option A: Quick Start with Docker 🐳
-
+<details>
+ <summary><strong>Click here to see the option A</strong></summary>
 ```bash
 # 1. Clone & configure
 git clone <repository-url>
@@ -246,9 +247,11 @@ exit
 # Web:  http://localhost:8080
 # API:  http://localhost:8080/api/auth/login
 ```
-
+<details>
 ### Option B: Manual Installation
 
+<details>
+ <summary><strong>Click here to see the option B</strong></summary>
 ```bash
 # 1. Clone repository
 git clone <repository-url>
@@ -309,7 +312,7 @@ php artisan queue:listen
 ```
 
 Access: `http://localhost:8000`
-
+<details>
 ---
 
 ## 📂 Project Structure
@@ -364,8 +367,28 @@ database/seeders/           # Sample data
 ---
 
 ## 📸 Screenshots
-
-![alt text](image.png)
+<details>
+ <summary><strong>Click here to see the full sreanshots</strong></summary>
+**CLIEN** 
+![Home Page](docs/image.png)
+![List product](docs/image-1.png)
+![detail product](docs/image-2.png)
+![AJAX add cart](docs/image-5.png)
+![detail cart](docs/image-6.png)
+![detail fillpay](docs/image-7.png)
+![checkout page](docs/image-8.png)
+![alt text](docs/image-3.png)
+![alt text](docs/image-4.png)
+**ADMIN** 
+![alt text](docs/image-9.png)
+![alt text](docs/image-10.png)
+![alt text](docs/image-11.png)
+![alt text](docs/image-12.png)
+![alt text](docs/image-13.png)
+![alt text](docs/image-14.png)
+![alt text](docs/image-16.png)
+![alt text](docs/image-17.png)
+![alt text](docs/image-15.png)
 
 <!-- 
 ![Homepage](screenshots/home.png)
@@ -376,7 +399,7 @@ database/seeders/           # Sample data
 ![Product Management](screenshots/admin-products.png)
 ![Order Management](screenshots/admin-orders.png)
 -->
-
+<details>
 ---
 
 ## 🔮 Future Development
