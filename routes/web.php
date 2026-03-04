@@ -40,6 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::post('categories/change-status', [\App\Http\Controllers\admin\CategoryController::class, 'changeStatus'])->name('category.changeStatus');
     Route::post('products/change-status', [\App\Http\Controllers\admin\ProductController::class, 'changeStatus'])->name('product.changeStatus');
+    Route::post('products/generate-sample-data', [\App\Http\Controllers\admin\ProductController::class, 'generateSampleData'])->name('product.generate-sample-data');
     Route::get('products/ajax-brands-by-category/{category_id}', [\App\Http\Controllers\admin\ProductController::class, 'getAjaxBrandsByCategory'])->name('product.AjaxBrandsByCategory');
 
     Route::get('/clear-cache', function () {

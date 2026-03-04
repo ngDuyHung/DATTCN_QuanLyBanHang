@@ -70,8 +70,19 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between align-items-center mt-3">
-                                    <div class="text-muted small">
-                                        <i class="bi bi-info-circle"></i> Tìm thấy <strong>{{ $products->total() }}</strong> sản phẩm
+                                    <div class="text-muted small d-flex gap-2 align-items-center">
+                                        <div>
+                                            <i class="bi bi-info-circle"></i> Tìm thấy <strong>{{ $products->total() }}</strong> sản phẩm
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <input type="number" name="quantity" id="sample-quantity" class="form-control form-control-sm" style="width: 120px;" placeholder="Số lượng" min="1" max="100">
+                                            <button type="button" class="btn btn-sm btn-outline-success" id="btn-generate-sample-data">
+                                                <i class="bi bi-plus-circle"></i> Tạo dữ liệu mẫu
+                                            </button>
+                                            <span id="generate-loader" style="display: none;">
+                                                <span class="spinner-border spinner-border-sm text-success" role="status"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('admin.product.index') }}" class="btn btn-sm btn-outline-secondary">
@@ -212,6 +223,124 @@
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý nút tạo dữ liệu mẫu
+            const btnGenerateSampleData = document.getElementById('btn-generate-sample-data');
+            const sampleQuantityInput = document.getElementById('sample-quantity');
+            const generateLoader = document.getElementById('generate-loader');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            if (btnGenerateSampleData) {
+                btnGenerateSampleData.addEventListener('click', function() {
+                    const quantity = sampleQuantityInput.value.trim();
+                    
+                    // Validation
+                    if (!quantity) {
+                        new Notify({
+                            status: 'warning',
+                            title: 'Cảnh báo',
+                            text: 'Vui lòng nhập số lượng sản phẩm mẫu (1-100)',
+                            effect: 'fade',
+                            speed: 300,
+                            autoclose: true,
+                            autotimeout: 3000,
+                            position: 'right top'
+                        });
+                        sampleQuantityInput.focus();
+                        return;
+                    }
+                    
+                    const qty = parseInt(quantity);
+                    if (qty < 1 || qty > 100) {
+                        new Notify({
+                            status: 'warning',
+                            title: 'Cảnh báo',
+                            text: 'Số lượng phải từ 1 đến 100',
+                            effect: 'fade',
+                            speed: 300,
+                            autoclose: true,
+                            autotimeout: 3000,
+                            position: 'right top'
+                        });
+                        sampleQuantityInput.focus();
+                        return;
+                    }
+
+                    // Confirm
+                    if (!confirm(`Bạn muốn tạo ${qty} sản phẩm mẫu? Quá trình này có thể mất từ 5-30 giây...`)) {
+                        return;
+                    }
+
+                    // Show loader
+                    generateLoader.style.display = 'inline-block';
+                    btnGenerateSampleData.disabled = true;
+
+                    // Send AJAX request
+                    fetch('{{ route("admin.product.generate-sample-data") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            quantity: qty
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        generateLoader.style.display = 'none';
+                        btnGenerateSampleData.disabled = false;
+                        
+                        if (data.success) {
+                            new Notify({
+                                status: 'success',
+                                title: 'Thành công',
+                                text: data.message,
+                                effect: 'fade',
+                                speed: 300,
+                                autoclose: true,
+                                autotimeout: 3000,
+                                position: 'right top'
+                            });
+                            console.log('Generate response:', data);
+                            // Reset input
+                            sampleQuantityInput.value = '';
+                            // Reload page sau 2 giây
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            new Notify({
+                                status: 'error',
+                                title: 'Lỗi',
+                                text: data.message || 'Tạo dữ liệu mẫu thất bại!',
+                                effect: 'fade',
+                                speed: 300,
+                                autoclose: true,
+                                autotimeout: 4000,
+                                position: 'right top'
+                            });
+                            console.error('Generate error:', data);
+                        }
+                    })
+                    .catch(error => {
+                        generateLoader.style.display = 'none';
+                        btnGenerateSampleData.disabled = false;
+                        console.error('Error:', error);
+                        new Notify({
+                            status: 'error',
+                            title: 'Lỗi',
+                            text: 'Lỗi kết nối: ' + error.message,
+                            effect: 'fade',
+                            speed: 300,
+                            autoclose: true,
+                            autotimeout: 4000,
+                            position: 'right top'
+                        });
+                    });
+                });
+            }
+
             // Xử lý thay đổi trạng thái sản phẩm
             document.querySelectorAll('.change-status-product').forEach(checkbox => {
                 checkbox.addEventListener('change', function() {

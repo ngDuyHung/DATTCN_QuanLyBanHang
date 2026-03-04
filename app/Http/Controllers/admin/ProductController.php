@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Inventory;
 use Illuminate\Support\Facades\Storage; // <-- Thêm thư viện Storage
 use Illuminate\Support\Facades\DB; // <-- Thêm thư viện DB để dùng Transaction
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -413,5 +415,223 @@ class ProductController extends Controller
                 ->get();
         }
         return response()->json($brands);
+    }
+
+    /**
+     * Generate random sample products data.
+     */
+    public function generateSampleData(Request $request)
+    {
+        try {
+            // Validate input
+            $validated = $request->validate([
+                'quantity' => 'required|integer|min:1|max:100'
+            ]);
+            
+            $quantity = $validated['quantity'];
+
+            // Lấy tất cả categories và brands từ database
+            $categories = Category::all();
+            $brands = Brand::all();
+
+            if ($categories->isEmpty()) {
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Vui lòng tạo ít nhất một danh mục trước.'
+                    ], 400);
+                }
+                return back()->with('error', 'Vui lòng tạo ít nhất một danh mục trước.');
+            }
+
+            if ($brands->isEmpty()) {
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Vui lòng tạo ít nhất một thương hiệu trước.'
+                    ], 400);
+                }
+                return back()->with('error', 'Vui lòng tạo ít nhất một thương hiệu trước.');
+            }
+
+            $sampleNames = [
+                // Laptops
+                'ThinkPad E14', 'ThinkPad T15', 'Lenovo IdeaPad 5', 'Lenovo Legion 5', 
+                'ASUS VivoBook 15', 'ASUS TUF Gaming F15', 'MSI GF63 Thin', 'MSI Creator M17',
+                'HP Pavilion 15', 'HP Envy 13', 'Acer Aspire 5', 'Acer Nitro 5',
+                
+                // Desktop PCs
+                'PC Văn Phòng Core i5', 'PC Văn Phòng Core i7', 'PC Gaming RTX 3060',
+                'PC Gaming RTX 4070', 'PC Đồ Họa Render Workstation', 'PC Nhỏ Gọn Mini ITX',
+                
+                // Components
+                'RAM Kingston 8GB DDR4', 'RAM Corsair 16GB DDR4', 'RAM G.Skill 32GB DDR4',
+                'SSD Kingston 256GB NVMe', 'SSD Corsair 512GB NVMe', 'SSD Samsung 1TB',
+                'RTX 3060 12GB', 'RTX 4080 16GB', 'RX 7900 XT 24GB',
+                
+                // Peripherals
+                'Mechanical Keyboard RGB', 'Gaming Mouse DPI 16000', 'Wireless Headset 7.1',
+                'Monitor 24\" 144Hz', 'Monitor 27\" 4K', 'Gaming Chair',
+                'Laptop Cooling Pad', 'Power Supply 650W 80+', 'CPU Cooler'
+            ];
+
+            $descriptions = [
+                'Thiết bị máy tính chất lượng cao, hiệu suất mạnh mẽ.',
+                'Phù hợp cho công việc văn phòng và gaming.',
+                'Hiệu năng vượt trội, thiết kế hiện đại.',
+                'Bảo hành 24 tháng, hỗ trợ kỹ thuật miễn phí.',
+                'Công nghệ mới nhất, đáng tin cậy.',
+                'Tương thích với các hệ thống phổ biến.',
+                'Giá cạnh tranh, chất lượng đảm bảo.',
+                'Được nhiều chuyên gia lựa chọn.'
+            ];
+
+            DB::beginTransaction();
+            
+            $createdCount = 0;
+
+            for ($i = 0; $i < $quantity; $i++) {
+                // Chọn random category
+                $category = $categories->random();
+                
+                // Lấy brands thuộc category này
+                $categoryBrands = $brands->filter(function ($b) use ($category) {
+                    return $b->category_id == $category->category_id;
+                });
+
+                // Chọn random brand từ category, nếu không có thì chọn từ tất cả
+                if ($categoryBrands->isNotEmpty()) {
+                    $brand = $categoryBrands->random();
+                } else {
+                    $brand = $brands->random();
+                }
+                
+                // Lấy hình ảnh từ các sản phẩm có cùng category và brand
+                $existingProducts = Product::where('category_id', $category->category_id)
+                    ->where('brand_id', $brand->brand_id)
+                    ->whereNotNull('main_img_url')
+                    ->get();
+                
+                $mainImgUrl = null;
+                
+                // Nếu có sản phẩm cùng category + brand, lấy hình từ đó
+                if ($existingProducts->isNotEmpty()) {
+                    $randomProduct = $existingProducts->random();
+                    $mainImgUrl = $randomProduct->main_img_url;
+                } else {
+                    // Nếu không có, lấy random từ tất cả sản phẩm có hình
+                    $allProductsWithImage = Product::whereNotNull('main_img_url')->get();
+                    if ($allProductsWithImage->isNotEmpty()) {
+                        $randomProduct = $allProductsWithImage->random();
+                        $mainImgUrl = $randomProduct->main_img_url;
+                    }
+                }
+                
+                $productName = $sampleNames[array_rand($sampleNames)];
+                
+                // Tạo SKU unique với timestamp và random
+                $timestamp = microtime(true) * 10000;
+                $randomNum = rand(1000, 9999);
+                $sku = strtoupper('SKU' . substr($timestamp, -8) . $randomNum);
+
+                // Kiểm tra SKU exists (an toàn)
+                if (Product::where('sku', $sku)->exists()) {
+                    continue;
+                }
+
+                $product = Product::create([
+                    'sku' => $sku,
+                    'name' => $productName . ' - ' . uniqid(),
+                    'short_description' => $descriptions[array_rand($descriptions)],
+                    'description' => '<p>' . $descriptions[array_rand($descriptions)] . '</p>',
+                    'sale_description' => 'Khuyến mại đặc biệt: Giảm 15% cho đơn hàng trong tuần.',
+                    'price' => rand(3000000, 50000000), // Từ 3 triệu đến 50 triệu
+                    'cost_price' => rand(2000000, 40000000), // Giá vốn thấp hơn
+                    'weight' => rand(500, 5000), // Từ 500g đến 5kg
+                    'is_active' => 1,
+                    'category_id' => $category->category_id,
+                    'brand_id' => $brand->brand_id,
+                    'main_img_url' => $mainImgUrl,
+                    'total_attributes' => 0
+                ]);
+
+                // Tạo inventory record
+                Inventory::create([
+                    'product_id' => $product->product_id,
+                    'location' => 'Kho chính #' . rand(1, 5),
+                    'quantity_in_stock' => rand(5, 100),
+                    'min_alert_quantity' => rand(2, 10)
+                ]);
+
+                // Tạo một số thuộc tính ngẫu nhiên phù hợp với thiết bị máy tính
+                $attributeKeys = ['Thông số kỹ thuật', 'Bộ nhớ', 'Lưu trữ', 'Màu sắc', 'Bảo hành', 'Loại sản phẩm'];
+                $attributeValues = [
+                    'Thông số kỹ thuật' => ['Intel Core i5', 'Intel Core i7', 'Intel Core i9', 'AMD Ryzen 5', 'AMD Ryzen 7', 'AMD Ryzen 9'],
+                    'Bộ nhớ' => ['8GB DDR4', '16GB DDR4', '32GB DDR4', '64GB DDR5', '8GB GDDR6', '12GB GDDR6'],
+                    'Lưu trữ' => ['256GB SSD', '512GB SSD', '1TB SSD', '2TB SSD', '4TB SSD', 'Dual Storage'],
+                    'Màu sắc' => ['Đen', 'Bạc', 'Xám', 'Trắng', 'Đỏ', 'Xanh'],
+                    'Bảo hành' => ['12 tháng', '24 tháng', '36 tháng', '5 năm', 'Trọn đời'],
+                    'Loại sản phẩm' => ['Laptop', 'Desktop', 'Component', 'Peripheral', 'Workstation', 'Gaming Rig']
+                ];
+
+                $selectedAttributes = array_rand($attributeKeys, rand(2, 4));
+                if (!is_array($selectedAttributes)) {
+                    $selectedAttributes = [$selectedAttributes];
+                }
+
+                foreach ($selectedAttributes as $attrIndex) {
+                    $key = $attributeKeys[$attrIndex];
+                    $values = $attributeValues[$key];
+                    $product->attributes()->create([
+                        'attr_key' => $key,
+                        'attr_value' => $values[array_rand($values)],
+                        'sort_order' => 0
+                    ]);
+                }
+
+                $createdCount++;
+            }
+
+            DB::commit();
+
+            $message = "Đã tạo thành công $createdCount sản phẩm mẫu!";
+            Log::info($message);
+            
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => $message,
+                    'created_count' => $createdCount
+                ]);
+            }
+            
+            return back()->with('success', $message);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errorMsg = implode(', ', $e->errors()['quantity'] ?? ['Dữ liệu không hợp lệ']);
+            
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Lỗi xác thực: ' . $errorMsg
+                ], 422);
+            }
+            return back()->withErrors($e->errors())->withInput();
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Lỗi tạo dữ liệu mẫu: ' . $e->getMessage() . '\n' . $e->getTraceAsString());
+            
+            $errorMsg = 'Lỗi: ' . $e->getMessage();
+            
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $errorMsg
+                ], 500);
+            }
+            
+            return back()->with('error', $errorMsg);
+        }
     }
 }

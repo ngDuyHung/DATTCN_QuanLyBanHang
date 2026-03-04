@@ -9,7 +9,7 @@
 <table>
   <tr>
     <td>🌐 <strong>Live Demo</strong></td>
-    <td><a href="https://duyhung.io.vn" target="_blank">duyhung.io.vn</a></td>
+    <td><a href="https://ecom.duyhung.io.vn" target="_blank">ecom.duyhung.io.vn</a></td>
   </tr>
   <tr>
     <td>👤 <strong>Demo Account</strong></td>
@@ -383,16 +383,16 @@ database/seeders/           # Sample data
 
 - [x] JWT Authentication with access + refresh token rotation
 - [x] Docker containerized development environment
-- [ ] Enable Redis for session/cache/JWT blacklist (infrastructure ready — see `docs/JWT_REDIS_DOCKER_GUIDE.md`)
-- [ ] Stock reservation mechanism during payment pending
-- [ ] Automatic stock restoration on order cancellation
-- [ ] Order status history tracking
+- [x] Enable Redis for session/cache/JWT blacklist (infrastructure ready — see `docs/JWT_REDIS_DOCKER_GUIDE.md`)
+- [x] Stock reservation mechanism during payment pending
+- [X] Automatic stock restoration on order cancellation
+- [X] Order status history tracking
 - [ ] Shipping tracking & region-based shipping fees
-- [ ] Advanced search with filters & sorting
-- [ ] Granular role-based access control (RBAC) & audit logs
+- [x] Advanced search with filters & sorting
+- [X] Granular role-based access control (RBAC) & audit logs
 - [ ] Product review & rating system
 - [ ] Additional payment gateways (VNPay, MoMo)
-- [ ] Unit Tests & Feature Tests + CI/CD
+- [X] Unit Tests & Feature Tests + CI/CD
 
 ---
 

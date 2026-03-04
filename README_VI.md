@@ -9,7 +9,7 @@
 <table>
   <tr>
     <td>🌐 <strong>Website Demo</strong></td>
-    <td><a href="https://duyhung.io.vn" target="_blank">duyhung.io.vn</a></td>
+    <td><a href="https://ecom.duyhung.io.vn" target="_blank">ecom.duyhung.io.vn</a></td>
   </tr>
   <tr>
     <td>👤 <strong>Tài khoản Demo</strong></td>
@@ -361,7 +361,7 @@ database/seeders/           # Dữ liệu mẫu
 
 ## 📸 Screenshots
 
-> *Thêm ảnh chụp màn hình giao diện tại đây*
+
 
 <!-- 
 ![Trang chủ](screenshots/home.png)
@@ -379,16 +379,16 @@ database/seeders/           # Dữ liệu mẫu
 
 - [x] Xác thực JWT với xoay vòng access + refresh token
 - [x] Docker container hoá môi trường phát triển
-- [ ] Kích hoạt Redis cho session/cache/JWT blacklist (hạ tầng đã sẵn sàng — xem `docs/JWT_REDIS_DOCKER_GUIDE.md`)
-- [ ] Cơ chế giữ hàng (reservation) khi chờ thanh toán
-- [ ] Hoàn kho tự động khi hủy đơn
-- [ ] Lịch sử trạng thái đơn hàng (order status history)
+- [x] Kích hoạt Redis cho session/cache/JWT blacklist (hạ tầng đã sẵn sàng — xem `docs/JWT_REDIS_DOCKER_GUIDE.md`)
+- [x] Cơ chế giữ hàng (reservation) khi chờ thanh toán
+- [x] Hoàn kho tự động khi hủy đơn
+- [x] Lịch sử trạng thái đơn hàng (order status history)
 - [ ] Theo dõi vận chuyển & phí ship theo khu vực
-- [ ] Tìm kiếm nâng cao với bộ lọc & sắp xếp
-- [ ] Phân quyền chi tiết (RBAC) & audit log
+- [x] Tìm kiếm nâng cao với bộ lọc & sắp xếp
+- [x] Phân quyền chi tiết (RBAC) & audit log
 - [ ] Hệ thống đánh giá sản phẩm
 - [ ] Tích hợp thêm cổng thanh toán (VNPay, MoMo)
-- [ ] Unit Test & Feature Test + CI/CD
+- [x] Unit Test & Feature Test + CI/CD
 
 ---
 
