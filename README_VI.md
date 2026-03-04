@@ -394,7 +394,7 @@ database/seeders/           # Dữ liệu mẫu
 ![Product Management](screenshots/admin-products.png)
 ![Order Management](screenshots/admin-orders.png)
 -->
-<details>
+</details>
 ---
 
 ## 🔮 Hướng Phát Triển

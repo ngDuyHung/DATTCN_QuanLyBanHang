@@ -247,7 +247,7 @@ exit
 # Web:  http://localhost:8080
 # API:  http://localhost:8080/api/auth/login
 ```
-<details>
+</details>
 ### Option B: Manual Installation
 
 <details>
@@ -312,7 +312,7 @@ php artisan queue:listen
 ```
 
 Access: `http://localhost:8000`
-<details>
+</details>
 ---
 
 ## 📂 Project Structure
@@ -399,7 +399,7 @@ database/seeders/           # Sample data
 ![Product Management](screenshots/admin-products.png)
 ![Order Management](screenshots/admin-orders.png)
 -->
-<details>
+</details>
 ---
 
 ## 🔮 Future Development
