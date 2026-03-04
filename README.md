@@ -408,6 +408,7 @@ database/seeders/           # Sample data
 -->
 
 </details>
+
 ---
 
 ## 🔮 Future Development
