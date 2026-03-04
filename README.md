@@ -225,6 +225,7 @@ users ──────< carts ──< cart_items >── products
 ### Option A: Quick Start with Docker 🐳
 <details>
  <summary><strong>Click here to see the option A</strong></summary>
+ 
 ```bash
 # 1. Clone & configure
 git clone <repository-url>
@@ -252,6 +253,7 @@ exit
 
 <details>
  <summary><strong>Click here to see the option B</strong></summary>
+ 
 ```bash
 # 1. Clone repository
 git clone <repository-url>
@@ -312,6 +314,7 @@ php artisan queue:listen
 ```
 
 Access: `http://localhost:8000`
+
 </details>
 ---
 
@@ -369,6 +372,7 @@ database/seeders/           # Sample data
 ## 📸 Screenshots
 <details>
  <summary><strong>Click here to see the full sreanshots</strong></summary>
+
 **CLIEN** 
 ![Home Page](docs/image.png)
 ![List product](docs/image-1.png)
@@ -399,6 +403,7 @@ database/seeders/           # Sample data
 ![Product Management](screenshots/admin-products.png)
 ![Order Management](screenshots/admin-orders.png)
 -->
+
 </details>
 ---
 

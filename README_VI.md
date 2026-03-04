@@ -221,6 +221,7 @@ users ──────< carts ──< cart_items >── products
 ### Cách A: Cài đặt nhanh với Docker 🐳
 <details>
  <summary><strong>Nhấn vào đây để xem đầy đủ cách A</strong></summary>
+ 
 ```bash
 # 1. Clone & cấu hình
 git clone <repository-url>
@@ -243,10 +244,13 @@ exit
 # Web:  http://localhost:8080
 # API:  http://localhost:8080/api/auth/login
 ```
-<details>
+</details>
+
 ### Cách B: Cài đặt thủ công
+
 <details>
  <summary><strong>Nhấn vào đây để xem đầy đủ cách B</strong></summary>
+
 ```bash
 # 1. Clone repository
 git clone <repository-url>
@@ -307,7 +311,8 @@ php artisan queue:listen
 ```
 
 Truy cập: `http://localhost:8000`
-<details>
+
+</details>
 ---
 
 ## 📂 Cấu Trúc Thư Mục
@@ -364,6 +369,7 @@ database/seeders/           # Dữ liệu mẫu
 ## 📸 Screenshots
 <details>
  <summary><strong>Nhấn vào đây để xem full hình ảnh</strong></summary>
+
 **CLIEN** 
 ![Home Page](docs/image.png)
 ![List product](docs/image-1.png)
@@ -394,6 +400,7 @@ database/seeders/           # Dữ liệu mẫu
 ![Product Management](screenshots/admin-products.png)
 ![Order Management](screenshots/admin-orders.png)
 -->
+
 </details>
 ---
 
