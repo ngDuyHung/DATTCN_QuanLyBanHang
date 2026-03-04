@@ -225,7 +225,7 @@ users ──────< carts ──< cart_items >── products
 ### Option A: Quick Start with Docker 🐳
 <details>
  <summary><strong>Click here to see the option A</strong></summary>
- 
+
 ```bash
 # 1. Clone & configure
 git clone <repository-url>
@@ -249,8 +249,8 @@ exit
 # API:  http://localhost:8080/api/auth/login
 ```
 </details>
-### Option B: Manual Installation
 
+### Option B: Manual Installation
 <details>
  <summary><strong>Click here to see the option B</strong></summary>
  

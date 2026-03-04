@@ -221,7 +221,7 @@ users ──────< carts ──< cart_items >── products
 ### Cách A: Cài đặt nhanh với Docker 🐳
 <details>
  <summary><strong>Nhấn vào đây để xem đầy đủ cách A</strong></summary>
- 
+
 ```bash
 # 1. Clone & cấu hình
 git clone <repository-url>
@@ -247,7 +247,6 @@ exit
 </details>
 
 ### Cách B: Cài đặt thủ công
-
 <details>
  <summary><strong>Nhấn vào đây để xem đầy đủ cách B</strong></summary>
 
