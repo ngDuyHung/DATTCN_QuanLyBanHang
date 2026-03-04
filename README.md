@@ -375,25 +375,27 @@ database/seeders/           # Sample data
  <summary><strong>Click here to see the full sreanshots</strong></summary>
 
 **CLIEN** 
-![Home Page](docs/image.png)
-![List product](docs/image-1.png)
-![detail product](docs/image-2.png)
-![AJAX add cart](docs/image-5.png)
-![detail cart](docs/image-6.png)
-![detail fillpay](docs/image-7.png)
-![checkout page](docs/image-8.png)
-![alt text](docs/image-3.png)
-![alt text](docs/image-4.png)
+<img width="1763" height="5475" alt="image" src="https://github.com/user-attachments/assets/83c825db-7446-412f-abe5-7c2078e0fc53" />
+<img width="1763" height="2096" alt="image" src="https://github.com/user-attachments/assets/3bf08bf9-dd44-4bc0-aa2e-f70a9d8edcb2" />
+<img width="1763" height="2300" alt="image" src="https://github.com/user-attachments/assets/cd4bb923-88a4-41ef-87a0-d8ac404902ec" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e5543d1b-bfb6-42e2-955c-d50994de772f" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/abae7ec6-3d9e-45db-968d-1b0fe0c4e816" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6bd14e9c-0577-4ec5-bb0b-b1295ddf4426" />
+<img width="1763" height="1917" alt="image" src="https://github.com/user-attachments/assets/26a4aaad-b9e9-48da-a7df-873ebe9018c5" />
+<img width="1763" height="3186" alt="image" src="https://github.com/user-attachments/assets/b1e7d761-5d23-487c-b4df-f2e508b94f39" />
+<img width="1763" height="1855" alt="image" src="https://github.com/user-attachments/assets/4a36efb2-4669-4300-b05e-2c6243a36676" />
+
 **ADMIN** 
-![alt text](docs/image-9.png)
-![alt text](docs/image-10.png)
-![alt text](docs/image-11.png)
-![alt text](docs/image-12.png)
-![alt text](docs/image-13.png)
-![alt text](docs/image-14.png)
-![alt text](docs/image-16.png)
-![alt text](docs/image-17.png)
-![alt text](docs/image-15.png)
+<img width="1763" height="1266" alt="image" src="https://github.com/user-attachments/assets/55259309-2e9f-4d5a-823b-67b86347030f" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3c97467c-931b-4a76-aee6-c04aa61c83cb" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/46360d2e-92ad-4544-bd0f-030223948bc5" />
+<img width="1763" height="2227" alt="image" src="https://github.com/user-attachments/assets/57fca363-f211-4b90-b59f-e622d9396187" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c9035cbc-5fd4-4fbd-a398-e1fca5a87129" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5a3d6438-ea23-48a7-822e-7179b1ff0ae8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/afde2765-df18-4204-a1fb-c93276a8375b" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e1e2d513-709b-4d7a-a3d7-f55707d23599" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fc25f331-29f8-4793-82d8-bcd8f198e5c3" />
+
 
 <!-- 
 ![Homepage](screenshots/home.png)
