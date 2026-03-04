@@ -365,7 +365,7 @@ database/seeders/           # Sample data
 
 ## 📸 Screenshots
 
-> *Add screenshots of the interface here*
+![alt text](image.png)
 
 <!-- 
 ![Homepage](screenshots/home.png)

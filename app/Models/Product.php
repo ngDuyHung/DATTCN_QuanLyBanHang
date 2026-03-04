@@ -9,7 +9,7 @@ class Product extends Model
     //product_id	sku	name	short_description	description	price	cost_price	weight	is_active	category_id	brand_id	created_at	updated_at
     protected $table = 'products';
     protected $primaryKey = 'product_id';
-    protected $fillable = ['sku', 'name', 'short_description', 'description', 'sale_description', 'price', 'cost_price', 'weight', 'is_active','main_img_url', 'category_id', 'brand_id','total_attributes'];
+    protected $fillable = ['sku', 'name', 'slug', 'short_description', 'description', 'sale_description', 'price', 'cost_price', 'weight', 'is_active','main_img_url', 'category_id', 'brand_id','total_attributes'];
     public $timestamps = true;
 
 

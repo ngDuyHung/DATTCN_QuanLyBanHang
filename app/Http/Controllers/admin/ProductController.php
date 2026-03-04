@@ -542,6 +542,7 @@ class ProductController extends Controller
                 $product = Product::create([
                     'sku' => $sku,
                     'name' => $productName . ' - ' . uniqid(),
+                    'slug' => strtolower(str_replace(' ', '-', $productName)) . '-' . uniqid(),
                     'short_description' => $descriptions[array_rand($descriptions)],
                     'description' => '<p>' . $descriptions[array_rand($descriptions)] . '</p>',
                     'sale_description' => 'Khuyến mại đặc biệt: Giảm 15% cho đơn hàng trong tuần.',
