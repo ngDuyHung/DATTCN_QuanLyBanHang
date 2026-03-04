@@ -1,0 +1,40 @@
+# ── Docker ──
+.docker/
+docker-compose.yml
+docker-compose.override.yml
+
+# ── Version control ──
+.git
+.gitignore
+.gitattributes
+
+# ── IDE / Editor ──
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── Dependencies (sẽ cài bên trong container) ──
+node_modules/
+vendor/
+
+# ── Environment ──
+.env
+.env.backup
+.env.*.local
+
+# ── Logs & cache ──
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# ── Tests ──
+tests/
+phpunit.xml
+
+# ── Documentation ──
+*.md
+BAO_CAO.md
+README.md
+README_VI.md

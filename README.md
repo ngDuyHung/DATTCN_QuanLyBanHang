@@ -70,9 +70,11 @@ An online sales system specializing in **tech products** (Laptops, PCs, RAM, com
 - 🔧 Dynamic **menu** management & system settings
 
 ### Integration & Technical
-- 🔐 Authentication & authorization (Laravel Auth + Admin Middleware)
+- 🔐 **JWT Authentication** (access + refresh token rotation) for API endpoints
+- 🔐 Session-based Authentication & Admin Middleware for web routes
 - 🪝 Automatic payment webhook (**SePay**): receive transaction → extract order code → confirm payment
 - 📡 Real-time broadcasting (**Pusher**): order status update notifications
+- 🐳 **Docker** containerized development environment (Nginx + PHP-FPM + MySQL + Redis + Node)
 - ⚡ Sidebar category caching to reduce DB queries
 - 🖼️ Product image upload & management (Storage)
 
@@ -86,6 +88,7 @@ An online sales system specializing in **tech products** (Laptops, PCs, RAM, com
 | **PHP** | 8.2+ | Programming language |
 | **Laravel** | 12.x | Main MVC framework |
 | **Eloquent ORM** | - | Database interaction |
+| **JWT Auth** (`tymon/jwt-auth`) | 2.2 | API authentication with token rotation |
 | **Laravel UI** | 4.6 | Authentication scaffolding |
 | **SePay Laravel** | 1.2 | Payment integration |
 | **Pusher** | 7.2 | Real-time WebSocket |
@@ -105,6 +108,9 @@ An online sales system specializing in **tech products** (Laptops, PCs, RAM, com
 | Technology | Role |
 |-----------|------|
 | **MySQL / MariaDB** | Relational DBMS |
+| **Redis** | JWT blacklist, session & cache store (ready to enable) |
+| **Docker + Docker Compose** | Containerized dev environment |
+| **Nginx** | Reverse proxy (Docker) |
 | **Laravel Migrations** | Schema management |
 | **Laravel Seeder / Factory** | Sample data |
 
@@ -142,6 +148,29 @@ An online sales system specializing in **tech products** (Laptops, PCs, RAM, com
         │  MySQL   │ │ Pusher │ │  SePay │
         │ Database │ │  (WS)  │ │Webhook │
         └──────────┘ └────────┘ └────────┘
+              ▲
+              │ (optional)
+        ┌──────────┐
+        │  Redis   │
+        │(Cache/BL)│
+        └──────────┘
+```
+
+### JWT Authentication Flow
+
+```
+Client                            Server
+  │── POST /api/auth/login ─────▸ │ Verify credentials → Issue JWT
+  │◂── { access_token (60min) } ──│
+  │                                │
+  │── GET /api/... ──────────────▸ │ Validate JWT → Process request
+  │   Authorization: Bearer {jwt}  │
+  │                                │
+  │── POST /api/auth/refresh ───▸  │ Blacklist old → Issue new JWT
+  │◂── { new access_token } ──────│
+  │                                │
+  │── POST /api/auth/logout ────▸  │ Blacklist token
+  │◂── { success } ───────────────│
 ```
 
 ---
@@ -191,8 +220,34 @@ users ──────< carts ──< cart_items >── products
 - Node.js >= 18 & npm
 - MySQL / MariaDB
 - Git
+- **Docker Desktop** (optional — recommended for consistent environment)
 
-### Installation Steps
+### Option A: Quick Start with Docker 🐳
+
+```bash
+# 1. Clone & configure
+git clone <repository-url>
+cd DATTCN_QuanLyBangHang
+cp .env.docker .env              # Use Docker-ready env template
+
+# 2. Start all containers
+docker compose up -d --build
+
+# 3. Setup Laravel inside container
+docker compose exec app bash
+composer install
+php artisan key:generate
+php artisan jwt:secret           # Generate JWT signing key
+php artisan migrate --seed
+php artisan storage:link
+exit
+
+# 4. Access
+# Web:  http://localhost:8080
+# API:  http://localhost:8080/api/auth/login
+```
+
+### Option B: Manual Installation
 
 ```bash
 # 1. Clone repository
@@ -206,6 +261,7 @@ npm install
 # 3. Configure environment
 cp .env.example .env
 php artisan key:generate
+php artisan jwt:secret           # Generate JWT signing key
 
 # 4. Configure database in .env
 # DB_DATABASE=your_database
@@ -325,6 +381,9 @@ database/seeders/           # Sample data
 
 ## 🔮 Future Development
 
+- [x] JWT Authentication with access + refresh token rotation
+- [x] Docker containerized development environment
+- [ ] Enable Redis for session/cache/JWT blacklist (infrastructure ready — see `docs/JWT_REDIS_DOCKER_GUIDE.md`)
 - [ ] Stock reservation mechanism during payment pending
 - [ ] Automatic stock restoration on order cancellation
 - [ ] Order status history tracking
@@ -343,3 +402,5 @@ database/seeders/           # Sample data
 - **Topic:** Building a Sales Management System & Tech Products E-Commerce Website
 - **Framework:** Laravel 12 + Blade + AdminLTE 4
 - **Database:** MySQL/MariaDB
+- **Auth:** Laravel Auth (web) + JWT (`tymon/jwt-auth`) (API)
+- **DevOps:** Docker Compose (Nginx + PHP-FPM + MySQL + Redis + Node)

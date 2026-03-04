@@ -70,9 +70,11 @@ Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về *
 - 🔧 Quản lý **menu** động & cài đặt hệ thống
 
 ### Tích Hợp & Kỹ Thuật
-- 🔐 Xác thực & phân quyền (Laravel Auth + Admin Middleware)
+- 🔐 **Xác thực JWT** (xạy vòng access + refresh token) cho các API endpoint
+- 🔐 Xác thực & phân quyền Session-based cho web routes (Laravel Auth + Admin Middleware)
 - 🪝 Webhook thanh toán tự động (**SePay**): nhận giao dịch → tách mã đơn → xác nhận thanh toán
 - 📡 Real-time broadcasting (**Pusher**): thông báo cập nhật trạng thái đơn hàng
+- 🐳 **Docker** container hoá môi trường phát triển (Nginx + PHP-FPM + MySQL + Redis + Node)
 - ⚡ Caching danh mục sidebar giảm truy vấn DB
 - 🖼️ Upload & quản lý ảnh sản phẩm (Storage)
 
@@ -85,8 +87,7 @@ Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về *
 |-----------|-----------|---------|
 | **PHP** | 8.2+ | Ngôn ngữ lập trình |
 | **Laravel** | 12.x | Framework MVC chính |
-| **Eloquent ORM** | - | Tương tác database |
-| **Laravel UI** | 4.6 | Scaffold Authentication |
+| **Eloquent ORM** | - | Tương tác database || **JWT Auth** (`tymon/jwt-auth`) | 2.2 | Xác thực API với xoay vòng token || **Laravel UI** | 4.6 | Scaffold Authentication |
 | **SePay Laravel** | 1.2 | Tích hợp thanh toán |
 | **Pusher** | 7.2 | WebSocket real-time |
 
@@ -104,8 +105,9 @@ Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về *
 ### Database & Infra
 | Công nghệ | Vai trò |
 |-----------|---------|
-| **MySQL / MariaDB** | Hệ quản trị CSDL |
-| **Laravel Migrations** | Quản lý schema |
+| **MySQL / MariaDB** | Hệ quản trị CSDL || **Redis** | JWT blacklist, session & cache (sẵn sàng kích hoạt) |
+| **Docker + Docker Compose** | Container hoá môi trường dev |
+| **Nginx** | Reverse proxy (Docker) || **Laravel Migrations** | Quản lý schema |
 | **Laravel Seeder / Factory** | Dữ liệu mẫu |
 
 ---
@@ -142,6 +144,29 @@ Dự án xây dựng một hệ thống bán hàng trực tuyến chuyên về *
         │  MySQL   │ │ Pusher │ │  SePay │
         │ Database │ │  (WS)  │ │Webhook │
         └──────────┘ └────────┘ └────────┘
+              ▲
+              │ (tuỳ chọn)
+        ┌──────────┐
+        │  Redis   │
+        │(Cache/BL)│
+        └──────────┘
+```
+
+### Luồng Xác Thực JWT
+
+```
+Client                            Server
+  │── POST /api/auth/login ─────▸ │ Xác thực credentials → Phát hành JWT
+  │◂── { access_token (60min) } ──│
+  │                                │
+  │── GET /api/... ──────────────▸ │ Validate JWT → Xử lý request
+  │   Authorization: Bearer {jwt}  │
+  │                                │
+  │── POST /api/auth/refresh ───▸  │ Blacklist token cũ → Phát hành JWT mới
+  │◂── { new access_token } ──────│
+  │                                │
+  │── POST /api/auth/logout ────▸  │ Blacklist token
+  │◂── { thành công } ─────────────│
 ```
 
 ---
@@ -191,8 +216,34 @@ users ──────< carts ──< cart_items >── products
 - Node.js >= 18 & npm
 - MySQL / MariaDB
 - Git
+- **Docker Desktop** (tuỳ chọn — khuyến nghị để đồng nhất môi trường)
 
-### Các bước cài đặt
+### Cách A: Cài đặt nhanh với Docker 🐳
+
+```bash
+# 1. Clone & cấu hình
+git clone <repository-url>
+cd DATTCN_QuanLyBangHang
+cp .env.docker .env              # Dùng env mẫu cho Docker
+
+# 2. Khởi chạy containers
+docker compose up -d --build
+
+# 3. Setup Laravel trong container
+docker compose exec app bash
+composer install
+php artisan key:generate
+php artisan jwt:secret           # Sinh JWT signing key
+php artisan migrate --seed
+php artisan storage:link
+exit
+
+# 4. Truy cập
+# Web:  http://localhost:8080
+# API:  http://localhost:8080/api/auth/login
+```
+
+### Cách B: Cài đặt thủ công
 
 ```bash
 # 1. Clone repository
@@ -206,6 +257,7 @@ npm install
 # 3. Cấu hình môi trường
 cp .env.example .env
 php artisan key:generate
+php artisan jwt:secret           # Sinh JWT signing key
 
 # 4. Cấu hình database trong file .env
 # DB_DATABASE=your_database
@@ -325,6 +377,9 @@ database/seeders/           # Dữ liệu mẫu
 
 ## 🔮 Hướng Phát Triển
 
+- [x] Xác thực JWT với xoay vòng access + refresh token
+- [x] Docker container hoá môi trường phát triển
+- [ ] Kích hoạt Redis cho session/cache/JWT blacklist (hạ tầng đã sẵn sàng — xem `docs/JWT_REDIS_DOCKER_GUIDE.md`)
 - [ ] Cơ chế giữ hàng (reservation) khi chờ thanh toán
 - [ ] Hoàn kho tự động khi hủy đơn
 - [ ] Lịch sử trạng thái đơn hàng (order status history)
@@ -343,3 +398,5 @@ database/seeders/           # Dữ liệu mẫu
 - **Đề tài:** Xây dựng hệ thống quản lý bán hàng & website bán sản phẩm công nghệ
 - **Framework:** Laravel 12 + Blade + AdminLTE 4
 - **Database:** MySQL/MariaDB
+- **Auth:** Laravel Auth (web) + JWT (`tymon/jwt-auth`) (API)
+- **DevOps:** Docker Compose (Nginx + PHP-FPM + MySQL + Redis + Node)
