@@ -32,14 +32,14 @@ class HomeController extends Controller
     public function index()
     {
         $brands = Brand::orderBy('brand_id', 'desc')->take(5)->get();
-        $products = Product::orderBy('created_at', 'desc')->take(8)->get();
+        $products = Product::orderBy('created_at', 'asc')->take(8)->get();
         $LaptopBrands = Brand::where('category_id', Category::where('slug', 'laptop')->first()->category_id)
             ->orderBy('brand_id', 'desc')
             ->Where('is_staff', 1)
             ->take(5)
             ->get();
         $productLaptops = Product::where('category_id', Category::where('slug', 'laptop')->first()->category_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->where('is_active', 1)
             ->take(8)
             ->get();
@@ -50,7 +50,7 @@ class HomeController extends Controller
             ->take(5)
             ->get();
         $productPCs = Product::where('category_id', Category::where('slug', 'pcmaybo')->first()->category_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->where('is_active', 1)
             ->take(8)
             ->get();
@@ -61,7 +61,7 @@ class HomeController extends Controller
             ->take(5)
             ->get();
         $productRams = Product::where('category_id', Category::where('slug', 'ram')->first()->category_id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->where('is_active', 1)
             ->take(8)
             ->get();
